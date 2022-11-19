@@ -1,0 +1,140 @@
+
+/* .form-chat{
+} */
+
+.anticon-info-circle{
+    display: none;
+}
+
+.ant-modal-content{
+    width: 349px;
+    height: 483px;
+}
+
+.ant-btn span {
+    font-size: 16px;
+}
+
+
+.ant-modal{
+    width: 352px !important;
+    padding: 0 !important;
+    margin: 0;
+    margin-left: auto;
+    right: 30px;
+    margin-top: 130px;
+    border: 2px solid #e97f02;
+}
+
+
+.ant-modal-confirm .ant-modal-confirm-btns {
+ position: absolute;
+ top: -24px;
+ right: 0px;
+ color: white;
+ background-color: #e97f02;
+ width: 100%;
+} 
+
+.ant-modal-confirm .ant-modal-confirm-btns span{
+    color: white;
+    margin-right: auto;
+}
+
+
+.ant-btn-primary{
+    border: none !important;
+    margin-left: auto;
+
+}
+
+.ant-modal-confirm .ant-modal-body {
+    padding: 0;
+}
+
+.chat-icon{
+    border:  1px dashed #e97f02;
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.chat-icon img{
+    width: 48px;
+    aspect-ratio: auto 48 / 48;
+    height: 48px;
+    border-right:  1px dashed #e97f02;
+}
+
+.chat-icon span {
+    padding: 5px;
+}
+.vocative{
+    margin-top: 5px;
+}
+
+.chat-select{
+    width: 100%;
+    border-top: 1px solid #ccc;
+    margin-bottom: 5px;
+}
+
+
+
+.chat-info{
+    padding: 10px;
+}
+
+.chat-select{
+    padding: 10px 20px 20px 20px;
+ 
+}
+
+.chat-select p{
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+ .ant-select-selector{
+    width: 100%;
+}
+.chat-select input {
+    width: 100%;
+    border-radius: 3px;
+    padding: 5px;
+    border: 2px solid rgb(202, 174, 202);
+    outline: none;
+}
+
+.chat-select input[type=text] :focus {
+    border: 2px solid rgb(237, 111, 237);
+    color: white
+  }
+
+.chat-select input:focus{
+border: 1px solid #e97f02;
+}
+
+.chat-select-nodemy{
+    display: flex;
+}
+
+.chat-select-nodemy input {
+    margin-top: 5px;
+    width: 40px;
+    color: blue;
+}
+
+.chat-select button{
+    border-radius: 7px;
+    padding: 7px;
+    border: none;
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.chat-select button:hover{
+    background-color: #1085ec;
+    color: #fff;
+}
