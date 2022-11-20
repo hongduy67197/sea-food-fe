@@ -15,18 +15,41 @@ import Footer from "../compunentes/footer/Footer";
 let cartsQuantity;
 function Cart(props) {
   const [productData, setProductData] = useState([]);
+  //api get cart
+
+  const [productDatas, setProductDatas] = useState([]);
+
   useEffect(() => {
     async function getData() {
       try {
         const data = await getApi("/user/carts");
-        // setProduct(data.data.listProductList);
+
         console.log("dataCard", data);
+        setProductDatas(data.data.cart.listProduct);
       } catch (error) {
         console.log(39, error);
       }
     }
     getData();
   }, []);
+
+  console.log(productDatas, "productDatas");
+  const idProduct = 1;
+  //function change select product to payment
+  function updateCard(idProduct, quantity) {
+    async function pathCard() {
+      try {
+        // console.log("path", data);
+        // setDataFilter(data.data.listProductList);
+        // const categoryRes = await getApi("/user/get-all-category");
+        // setCategories(categoryRes.data.categories);
+      } catch (error) {
+        console.log(39, error);
+      }
+    }
+    pathCard();
+  }
+
   const Navigate = useNavigate();
   const [product, setProduct] = useState(productData);
   console.log(28, productData);
@@ -213,8 +236,31 @@ function Cart(props) {
   function Home() {
     Navigate("/");
   }
+  const [quantitys, setQuantitys] = useState(1);
+
   return (
     <>
+      {productDatas.map((product) => (
+        <div>
+          <div>{product && product.idProduct?.productName}</div>
+          <input
+            value={product?.quantity}
+            type="number"
+            onChange={(e) => {
+              console.log("numberProduct", e.target.value);
+              setQuantitys(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              updateCard(idProduct, quantitys);
+            }}
+          >
+            theem vao gio hang
+          </button>
+        </div>
+      ))}
+
       {/* <Header></Header> */}
       <div className="main-giohang">
         <div className="Gio_hang">
