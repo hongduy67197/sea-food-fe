@@ -8,14 +8,14 @@ import Rate from "./Rate";
 const Cards = ({ item, keyId, sort }) => {
   let navigate = useNavigate();
   // console.log(10,item,searchTitle, keyId)
-  if (!item.data.length > 0) {
-    item.data = [{ minPrice: "chua set gia" }];
-    item.minPrice = "chưa set giá ";
-  }
-  if (item.data[0].icon == null) {
-    item.data[0].icon = [{ iconName: "not icon" }];
-    item.data[0].icon.iconName = "not icon";
-  }
+//   if (!item.data.length > 0) {
+//     item.data = [{ minPrice: "chua set gia" }];
+//     item.minPrice = "chưa set giá ";
+//   }
+//   if (item.data[0].icon == null) {
+//     item.data[0].icon = [{ iconName: "not icon" }];
+//     item.data[0].icon.iconName = "not icon";
+//   }
 
 
   // chuyển tiếng việt có dấu thành không dấu
@@ -43,12 +43,14 @@ const Cards = ({ item, keyId, sort }) => {
     }
     return str;
   }
-  const NewSale = item.Sale.replace("%", "") * 1;
-  const NewPrice = item.minPrice - (NewSale * item.minPrice) / 100;
+//   const NewSale = item.Sale.replace("%", "") * 1;
+//   const NewPrice = item.minPrice - (NewSale * item.minPrice) / 100;
 
   function moveToProduct(Name) {
     navigate(`/product/filter/${Name}`);
   }
+
+  console.log(53, process.env.REACT_APP_SEA_FOOD_URL);
   return (
     <div
       key={keyId}
@@ -64,50 +66,14 @@ const Cards = ({ item, keyId, sort }) => {
             <div className="image_box">
               <img
                 className="image_box-image"
-                src={"http://localhost:3150" + item.thumNail}
+                src={process.env.REACT_APP_SEA_FOOD_URL + item.productPic[0]}
                 alt=""
               />
             </div>
           </div>
 
           <div>
-            <div className="details">
-              {item.data[0].icon.iconName !== "not icon" ? (
-                <p className="VNPayIcon">
-                  <img
-                    className="VNPayIcon-icon"
-                    src={"http://localhost:3150" + item.data[0].icon.iconPic}
-                  />
-                  {item.data[0].icon.iconName}
-                </p>
-              ) : null}
-            </div>
             <p className="ProductName">{item.productName}</p>
-          </div>
-
-          <div>
-
-            {typeof item.minPrice === "number" ? (
-              <span className="price">
-                {item.minPrice.toLocaleString()} <span className="đ">₫</span>
-              </span>
-            ) : null}
-         
-            {NewPrice ? <span className="NewSale"> -{NewSale}%</span> : null}
-
-            {isNaN(NewPrice)? null : (
-              <p className="NewPrice">
-                {NewPrice.toLocaleString()} <span className="đ">₫</span>
-              </p>
-            )}
-          </div>
-          <div className="cards-info">
-            <p className="design">{item.design}</p>
-            <p className="panel">{item.panel}</p>
-            <p className="cameraProduct">{item.cameraProduct}</p>
-            <p>
-              <Rate />
-            </p>
           </div>
         </div>
       </div>

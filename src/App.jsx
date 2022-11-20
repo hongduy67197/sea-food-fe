@@ -295,7 +295,7 @@ const App = (props) => {
 
 
             //route search
-            <Route
+            {/* <Route
               path={`/product/filter/search`}
               element={
                 <SearchProduct
@@ -307,12 +307,7 @@ const App = (props) => {
                   changeFilterData={changeFilterData}
                 />
               }
-            />
-
-
-
-
-
+            /> */}
             {/* route for filter brand */}
             {filterProduct.brand.map((val, i) => {
               return (
@@ -447,42 +442,6 @@ const App = (props) => {
                   element={
                     <FilterProduct
                       referent="special"
-                      chimuc={val}
-                      dataval={ProductList}
-                      filter={filter}
-                      data={dataProduct}
-                      changeFilterData={changeFilterData}
-                    />
-                  }
-                />
-              );
-            })}
-            {/* route for filter design  */}
-            {filterProduct.design.map((val, i) => {
-              return (
-                <Route
-                  path={`/product/filter`}
-                  element={
-                    <FilterProduct
-                      referent="design"
-                      chimuc={val}
-                      dataval={ProductList}
-                      filter={filter}
-                      data={dataProduct}
-                      changeFilterData={changeFilterData}
-                    />
-                  }
-                />
-              );
-            })}
-            {/* route for filter panel */}
-            {filterProduct.panel.map((val, i) => {
-              return (
-                <Route
-                  path={`/product/filter`}
-                  element={
-                    <FilterProduct
-                      referent="panel"
                       chimuc={val}
                       dataval={ProductList}
                       filter={filter}

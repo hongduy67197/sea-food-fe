@@ -6,6 +6,7 @@ const ListProduct = (items) => {
     return (
         <div className="Product-list">
             {items.productCode.slice(0, items.numberShow).map((item, index) => {
+                console.log(11, item);
                 return <Cards keyId={index} item={item} icon={items.NewIcon} sort={items.sort}  />;
             })}
         </div>

@@ -11,9 +11,11 @@ import Footer from "../footer/Footer";
 import Categories from "../categories/Categories";
 import Chat from "./homePage/Chat";
 import HomeFilter from "./homeFillter/HomeFilter";
+import { getApi } from "../../api/config";
 
 const Home = () => {
   const [productCode, setProductCode] = useState([]);
+  const [product, setProduct] = useState([]);
   const [numberShow, setNumberShow] = useState(20);
   const [Slides, setSlides] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -26,23 +28,21 @@ const Home = () => {
 
   // Product Code
   useEffect(() => {
-    axios
-      .get("/user/list")
-      .then(function (res) {
-        let newList = res.data.dataProductCode.map(function (value) {
-          value.newPrice = value.minPrice * (1 - value.Sale.split("%")[0] / 100) // tạo trường mới là newPrice để render ra giao diện
-          return value
-        })
-        setProductCode(newList);
-        setSlides(res.data.listSlide);
-        setCategories(res.data.listCategories);
-        setNewIcon(res.data.dataProductCode[0].data[0].icon);
-      })
-      .catch(function (err) {
-        console.log(36, err);
-      });
-  }, []);
+    async function getData () {
+        try {
+            const data = await getApi("/user/productlist");
+            setProduct(data.data.listProductList);
 
+            const categoryRes = await getApi('/user/get-all-category');
+            setCategories(categoryRes.data.categories);
+        } catch (error) {
+            console.log(39, error)
+        }
+    }
+    getData();
+  }, []);
+console.log(43, product);
+console.log(43, categories);
 
   // dùng useState và useEffect để lắng nghe thay đổi phía đường dẫn rồi từ đó render lại theo trường đc sort
   // useState --- tạo giá trị ban đầu là 0 để làm trung gian của sort 
@@ -73,20 +73,20 @@ const Home = () => {
           <Slider Slides={Slides} />
           <Categories categories={categories} />
           <div className=" box-checkbox">
-            <p className="total-product">{productCode.length} Điện Thoại</p>
+            <p className="total-product">{product.length} Điện Thoại</p>
             <span className="product-item-flash">
               <ThunderboltFilled className="item-flash-icon" />
               GIAO SIÊU NHANH
             </span>
             {/* truyền productCode và setSort vào để lấy giá trị render  */}
-            <span className="HomeFilter"> <HomeFilter productCode={productCode} setSort={setSort} /></span>
+            <span className="HomeFilter"> <HomeFilter productCode={product} setSort={setSort} /></span>
           </div>
           <Chat />
           <div className="home-container-filter">
             <div className="home-page-product">
               <ListProduct
                 sort={sort}
-                productCode={productCode}
+                productCode={product}
                 numberShow={numberShow}
                 NewIcon={NewIcon}
               />

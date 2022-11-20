@@ -30,37 +30,45 @@ function Login(props) {
     }
 
     async function dangnhap() {
-        let email = document.querySelector(".Email").value;
-        let password = document.querySelector(".password").value;
-        if (email === "") {
-            document.querySelector(".notte").innerHTML = "Vui lòng nhập email";
-        } else if (password === "") {
-            document.querySelector(".notte").innerHTML = "Vui lòng nhập PassWord";
-        } else {
-            // let res = await axios.post("/admin/auth", {
-            //   email,
-            //   password,
-            // });
-            let res = await postApi("/admin/auth", { email, password });
-            console.log(45, res.data.status);
-            if (res.data.status === 'undifind password') {
-                document.querySelector(".notte").innerHTML =
-                    "undifind password";
-            } else if (res.data.status === 'email is not available') {
-                document.querySelector(".notte").innerHTML =
-                    "email is not available";
-            } else if (res.data.status === 'your account not enought role') {
-                alert(res.data.status);
-            } else if (res.data.data.role == "admin") {
-                setCookie("user", res.data.data.token, 30);
-                const action = Loginadmin(res.data.data.userData);
-                dispatch(action);
-                props.changedata(res.data.data.userData.username);
-                navigate("/admin/home");
+        try{
+            let email = document.querySelector(".Email").value;
+            let password = document.querySelector(".password").value;
+            console.log(35, email, password);
+            console.log(37, process.env.REACT_SEA_FOOD_URL);
+
+            if (email === "") {
+                document.querySelector(".notte").innerHTML = "Vui lòng nhập email";
+            } else if (password === "") {
+                document.querySelector(".notte").innerHTML = "Vui lòng nhập PassWord";
+            } else {
+                // let res = await axios.post("/admin/auth", {
+                //   email,
+                //   password,
+                // });
+                let res = await postApi("/admin/auth", { email, password });
+                console.log(45, res.data.status);
+                if (res.data.status === 'undifind password') {
+                    document.querySelector(".notte").innerHTML =
+                        "undifind password";
+                } else if (res.data.status === 'email is not available') {
+                    document.querySelector(".notte").innerHTML =
+                        "email is not available";
+                } else if (res.data.status === 'your account not enought role') {
+                    alert(res.data.status);
+                } else if (res.data.data.role == "admin") {
+                    setCookie("user", res.data.data.token, 30);
+                    const action = Loginadmin(res.data.data.userData);
+                    dispatch(action);
+                    props.changedata(res.data.data.userData.username);
+                    navigate("/admin/home");
+                }
+                // const action = Login(res.data.data.userData);
+                // dispatch(action);
+                // }
             }
-            // const action = Login(res.data.data.userData);
-            // dispatch(action);
-            // }
+        }
+        catch(error){
+            console.log(69, error);
         }
     }
 

@@ -9,6 +9,7 @@ import { getApi, patchApi } from '../api/config';
 import { useNavigate } from 'react-router-dom';
 let countproduct = 1;
 function ProductChild(props) {
+    console.log(12);
   let arrayOrigin = props.dataFilter[props.chimuc].products;
   const [dem, setDem] = useState(0);
   const [count, setCount] = useState(countproduct);
@@ -186,7 +187,7 @@ function ProductChild(props) {
     // const userid = useSelector(function(state){return state.user})
     // console.log(165,userid)
     try {
-      await patchApi('http://localhost:3150/user/carts/',{
+      await patchApi('/user/carts/',{
         quantity: countProduct,
         idProduct:productCart
       })

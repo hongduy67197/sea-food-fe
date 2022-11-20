@@ -1,7 +1,7 @@
-const initUser = localStorage.getItem("user")
-  ? JSON.parse(localStorage.getItem("user"))
+const initUser = window.localStorage.getItem("user")
+  ? JSON.parse(window.localStorage.getItem("user"))
   : [];
-// console.log(localStorage.getItem("user"));
+
 function UserReducer(state = initUser, action) {
   switch (action.type) {
     case "user/login":
