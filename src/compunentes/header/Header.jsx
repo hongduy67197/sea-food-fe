@@ -263,19 +263,6 @@ const Header = (props) => {
                       changeFilter(data);
                     }}
                   />
-                  <div className="header_search-button">
-                    <button
-                      onClick={() => {
-                        navigateToProduct();
-                      }}
-                      className="header_search-button-button"
-                    >
-                      <SearchOutlined
-                        style={{ fontSize: "18px" }}
-                        className="header_search-button-icon "
-                      />
-                    </button>
-                  </div>
                 </div>
                 <div className="header-with-search-product">
                   <ul className="header-with-search-product-ul">

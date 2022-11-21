@@ -1,9 +1,9 @@
-import "../header/header.css";
-import { React, useEffect, useState } from "react";
-import axios from "../../axios";
-import Cards from "../home/homePage/Cards";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { SearchOff } from "@mui/icons-material";
+import { IconButton } from "@mui/material";
+import { React, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../header/header.css";
+import SearchIcon from "@mui/icons-material/Search";
 let tempAddToSearchBar;
 
 const Search = (props) => {
@@ -11,6 +11,7 @@ const Search = (props) => {
   const [post, setPost] = useState([]);
   const [search, setSearch] = useState("");
   let setTime;
+  const productName = useRef("");
 
   function searchName(e) {
     changeFilter({ ...filter, filter: { ...filter.filter, productName: e.target.value } });
@@ -82,16 +83,43 @@ const Search = (props) => {
   //   document.querySelector('.header_search-input').innerHTML= tempAddToSearchBar
 
   // }
-
+  console.log("productname", productName.current);
   return (
     <div className="header_search-input-wrap">
-      <input
-        type="text"
-        name=""
-        className="header_search-input"
-        placeholder="Nhập vào từ khóa muốn tìm kiếm ... "
-        onChange={(e) => searchName(e)}
-      />
+      <div style={{ display: "flex" }}>
+        <form
+          className="header_search-input"
+          style={{ padding: 0 }}
+          onSubmit={(e) => {
+            e.preventDefault();
+            searchName(productName.current);
+          }}
+        >
+          <input
+            type="text"
+            name=""
+            className="header_search-input"
+            placeholder="Nhập vào từ khóa muốn tìm kiếm ... "
+            // onChange={(e) => searchName(e)}
+            onChange={(e) => (productName.current = e)}
+          />
+        </form>
+
+        <IconButton
+          color="primary"
+          aria-label="Search"
+          component="label"
+          onClick={() => {
+            searchName(productName.current);
+          }}
+        >
+          <SearchIcon
+            onClick={() => {
+              searchName(productName.current);
+            }}
+          />
+        </IconButton>
+      </div>
       <div
         className="header_search-history"
         style={search ? { display: "inline-block" } : { display: "none" }}
