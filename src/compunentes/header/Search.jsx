@@ -7,38 +7,40 @@ import { useNavigate } from "react-router-dom";
 let tempAddToSearchBar;
 
 const Search = (props) => {
+  const { filter, changeFilter } = props;
   const [post, setPost] = useState([]);
   const [search, setSearch] = useState("");
   let setTime;
 
-  function SearchTitle(e) {
-    let getInputSearch = document.querySelector(".header_search-input").value;
-    setSearch(getInputSearch);
-    tempAddToSearchBar = getInputSearch;
-    props.getValue(getInputSearch);
-    clearTimeout(setTime);
-    setTime = setTimeout(() => {
-      axios
-        .get(`/user/fillter?productName=${e}`)
-        .then(function (res) {
-          let dataSearch = res.data.listProductCode;
-          if (dataSearch.length > 0) {
-            setPost(dataSearch);
-          } else {
-            setPost([
-              {
-                productName:
-                  "không có kết quả nào phù hợp, mời bạn nhập lại !!!",
-              },
-            ]);
-          }
-          clearTimeout(setTime);
-        })
-        .catch((err) => {
-          console.log(err);
-          clearTimeout(setTime);
-        });
-    }, [50]);
+  function searchName(e) {
+    changeFilter({ ...filter, filter: { ...filter.filter, productName: e.target.value } });
+    console.log("search", e);
+    // let getInputSearch = document.querySelector(".header_search-input").value;
+    // setSearch(getInputSearch);
+    // tempAddToSearchBar = getInputSearch;
+    // props.getValue(getInputSearch);
+    // clearTimeout(setTime);
+    // setTime = setTimeout(() => {
+    //   axios
+    //     .get(`/user/fillter?productName=${e}`)
+    //     .then(function (res) {
+    //       let dataSearch = res.data.listProductCode;
+    //       if (dataSearch.length > 0) {
+    //         setPost(dataSearch);
+    //       } else {
+    //         setPost([
+    //           {
+    //             productName: "không có kết quả nào phù hợp, mời bạn nhập lại !!!",
+    //           },
+    //         ]);
+    //       }
+    //       clearTimeout(setTime);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       clearTimeout(setTime);
+    //     });
+    // }, [50]);
   }
 
   const navigate = useNavigate();
@@ -88,9 +90,8 @@ const Search = (props) => {
         name=""
         className="header_search-input"
         placeholder="Nhập vào từ khóa muốn tìm kiếm ... "
-        onChange={(e) => SearchTitle(e.target.value)}
+        onChange={(e) => searchName(e)}
       />
-      {/* Search History */}
       <div
         className="header_search-history"
         style={search ? { display: "inline-block" } : { display: "none" }}
@@ -106,7 +107,6 @@ const Search = (props) => {
                     }}
                     className="header_search-history-heading-text-list-item"
                   >
-                    {" "}
                     {val.productName}
                   </li>
                 );
