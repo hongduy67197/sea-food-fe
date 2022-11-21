@@ -38,11 +38,11 @@ function UserLogin(props) {
         } else if (password === '' || testPassword(password)) {
             document.querySelector('.login_password_text').innerHTML = 'Vui lòng nhập Password';
         } else {
-            console.log(38, email, password)
             let res = await postApi('/user/login', { email, password });
+            console.log(38, res)
 
-            if (res.data.status === 'undifind password') {
-                alert(res.data.status);
+            if (res.status !== 200) {
+                alert(res.response.data.status);
             } else {
                 setCookie('user', res.data.data.token, 30);
                 const action = Login(res.data.data.userData);
