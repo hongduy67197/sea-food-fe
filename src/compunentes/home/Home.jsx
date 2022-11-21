@@ -6,7 +6,6 @@ import ListProduct from "./homePage/ListProduct";
 
 import { WechatOutlined, ThunderboltFilled } from "@ant-design/icons";
 import Header from "../header/Header";
-import Slider from "../slider/Slider";
 import Footer from "../footer/Footer";
 import Categories from "../categories/Categories";
 import Chat from "./homePage/Chat";
@@ -40,8 +39,6 @@ const Home = () => {
     }
     getData();
   }, []);
-  console.log(43, product);
-  console.log(43, categories);
 
   // dùng useState và useEffect để lắng nghe thay đổi phía đường dẫn rồi từ đó render lại theo trường đc sort
   // useState --- tạo giá trị ban đầu là 0 để làm trung gian của sort
@@ -67,7 +64,9 @@ const Home = () => {
       <Header></Header>
       <div className="home">
         <div className="home-container">
-          <Slider Slides={Slides} />
+          <div >
+            <img src="https://photo-cms-baonghean.zadn.vn/w1000/Uploaded/2022/nkdkswkqoc/201704/original/resize_images1869171_tom_hum_binh_ba.jpg" alt="" className="home-banner" />
+          </div>
           <Categories categories={categories} />
           <div className=" box-checkbox">
             <p className="total-product">{product.length} Điện Thoại</p>

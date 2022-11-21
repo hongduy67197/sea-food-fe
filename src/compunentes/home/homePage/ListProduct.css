@@ -98,17 +98,26 @@
   background-color: #fff;
   padding: 10px 15px 20px;
   overflow: hidden;
-  height: 528px;
   cursor: pointer;
   position: relative;
 }
 
-.cards-info p {
-  font-size: 14px;
+.cards .ProductName{
+  font-size: 20px;
+}
+
+.cards .price-product{
+  font-size: 15px;
+  color:rgb(250, 131, 19)
 }
 
 .cards p {
   margin-bottom: 0;
+}
+
+.cards .btn-detail{
+  background-color: brown;
+  color: #fff;
 }
 
 .đ {

@@ -77,96 +77,6 @@ const App = (props) => {
       }
     });
 
-    // const axiosrequest1 = axios.get('http://localhost:3150/user/fillter?idCategories=628c8b29e8654d960a5c8983');
-    // const axiosrequest2 = axios.get('http://localhost:3150/user/fillter?idCategories=628c8b40e8654d960a5c898b');
-    // // you could also use destructuring to have an array of responses
-    // await axios.all([axiosrequest1, axiosrequest2]).then(axios.spread(function(res1, res2) {
-    //   console.log(110,res1.data.listData);
-    //   console.log(111,res2res.data.listData);
-    //    // setDataDuy(res.data.product)
-    //     // setShow(res.data.product.slice(0, 2))
-    //     console.log(45, res.data.listData);
-    //     const ListData = res.data.listProductCode.map((val) => {
-    //       val.storage = Math.floor(Math.random() * 100);
-    //       val.ram = val.ramRange[0];
-    //       val.rom = val.romRange[0];
-    //       return val;
-    //     });
-    //     // console.log(4556, ListData);
-    //     setProductList(ListData);
-    //     setDataFilter(ListData);
-    // }));
-
-    // let endpoints = [
-    //   'http://localhost:3150/user/fillter?idCategories=628c8b29e8654d960a5c8983',
-    //   'http://localhost:3150/user/fillter?idCategories=628c8b40e8654d960a5c898b',
-
-    // ];
-
-    // axios.all(endpoints.map((endpoint) => axios.get(endpoint)))
-    //   .then((res) => {
-    //     // setDataDuy(res.data.product)
-    //     // setShow(res.data.product.slice(0, 2))
-    //     console.log(45, res.data.listData);
-    //     const ListData = res.data.listProductCode.map((val) => {
-    //       val.storage = Math.floor(Math.random() * 100);
-    //       val.ram = val.ramRange[0];
-    //       val.rom = val.romRange[0];
-    //       return val;
-    //     });
-    //     // console.log(4556, ListData);
-    //     setProductList(ListData);
-    //     setDataFilter(ListData);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-    // let URL1 = "http://localhost:3150/user/fillter?idCategories=628c8b29e8654d960a5c8983";
-    // let URL2 = "http://localhost:3150/user/fillter?idCategories=628c8b40e8654d960a5c898b";
-
-    // const promise1 = axios.get(URL1);
-    // const promise2 = axios.get(URL2);
-
-    // Promise.all([promise1, promise2]).then(function (values) {
-    //   let a, b;
-    //   [a, b] = values;
-    //   let dataProductCode = [...a.data.listProductCode, ...b.data.listProductCode];
-    //   const ListData = dataProductCode.map((val) => {
-    //     val.storage = Math.floor(Math.random() * 100);
-    //     val.ram = val.ramRange[0];
-    //     val.rom = val.romRange[0];
-
-    //     return val;
-    //   });
-    //   setProductList(ListData);
-    //   setDataFilter(ListData);
-    // });
-
-    // axios
-    //   .get(
-    //     "http://localhost:3150/user/fillter?idCategories=628c8b29e8654d960a5c8983"
-    //     // "http://localhost:3150//admin/productcode/list"
-    //   )
-    //   .then(function (res) {
-    //     console.log(178,res.data.listProductCode)
-    //     // setDataDuy(res.data.product)
-    //     // setShow(res.data.product.slice(0, 2))
-    //     // console.log(45, res.data.listData);
-    //     const ListData = res.data.listProductCode.map((val) => {
-    //       val.storage = Math.floor(Math.random() * 100);
-    //       val.ram = val.ramRange[0];
-    //       val.rom = val.romRange[0];
-
-    //       return val;
-    //     });
-    //     console.log(4556, ListData);
-    //     setProductList(ListData);
-    //     setDataFilter(ListData);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
   }, []);
   useEffect(() => {
     async function getData() {
@@ -174,8 +84,6 @@ const App = (props) => {
         const data = await getApi("/user/productlist");
         setDataFilter(data.data.listProductList);
 
-        // const categoryRes = await getApi("/user/get-all-category");
-        // setCategories(categoryRes.data.categories);
       } catch (error) {
         console.log(39, error);
       }
@@ -260,27 +168,13 @@ const App = (props) => {
                   element={
                     <ProductChild
                       idProduct={val._id}
-                      // dataval={ProductList}
                       changeStateProduct={changeStateProduct}
                     />
                   }
                 />
               );
             })}
-            //route search
-            {/* <Route
-              path={`/product/filter/search`}
-              element={
-                <SearchProduct
-                  referent="brand"
-                  dataval={ProductList}
-                  chimuc={'Iphone'}
-                  filter={filter}
-                  data={dataProduct}
-                  changeFilterData={changeFilterData}
-                />
-              }
-            /> */}
+
             {/* route for filter brand */}
             {filterProduct.brand.map((val, i) => {
               return (

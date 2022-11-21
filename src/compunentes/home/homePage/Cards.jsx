@@ -4,20 +4,10 @@ import { ExceptionMap } from "antd/lib/result";
 import axios from "../../../axios";
 import { useNavigate } from "react-router-dom";
 import Rate from "./Rate";
+import { Button } from "antd";
 
 const Cards = ({ item, keyId, sort }) => {
   let navigate = useNavigate();
-  // console.log(10,item,searchTitle, keyId)
-//   if (!item.data.length > 0) {
-//     item.data = [{ minPrice: "chua set gia" }];
-//     item.minPrice = "chưa set giá ";
-//   }
-//   if (item.data[0].icon == null) {
-//     item.data[0].icon = [{ iconName: "not icon" }];
-//     item.data[0].icon.iconName = "not icon";
-//   }
-
-
   // chuyển tiếng việt có dấu thành không dấu
   function RemoveAccents(str) {
     var AccentsMap = [
@@ -43,8 +33,6 @@ const Cards = ({ item, keyId, sort }) => {
     }
     return str;
   }
-//   const NewSale = item.Sale.replace("%", "") * 1;
-//   const NewPrice = item.minPrice - (NewSale * item.minPrice) / 100;
 
   function moveToProduct(Name) {
     navigate(`/product/filter/${Name}`);
@@ -59,9 +47,9 @@ const Cards = ({ item, keyId, sort }) => {
       <div className="cards-container">
         <div className="cards">
           <div className="item_image-box"
-           onClick={() => {
-            moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
-          }}
+            onClick={() => {
+              moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
+            }}
           >
             <div className="image_box">
               <img
@@ -71,9 +59,12 @@ const Cards = ({ item, keyId, sort }) => {
               />
             </div>
           </div>
-
           <div>
-            <p className="ProductName">{item.productName}</p>
+            <h2 className="ProductName">{item.productName}</h2>
+            <p>Loại: {item.idCategory.categoriesName}</p>
+            <h1 className="price-product">Giá: {item.price}</h1>
+            <p>Số lượng: {item.storage}</p>
+            <Button className="btn-detail">Xem chi tiết</Button>
           </div>
         </div>
       </div>

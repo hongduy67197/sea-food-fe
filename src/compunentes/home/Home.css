@@ -57,6 +57,9 @@
   margin-right: auto;
 }
 
+.home-container .home-banner{
+  width: auto;
+}
 /*product - list*/
 
 .home-page-product {
