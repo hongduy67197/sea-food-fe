@@ -12,11 +12,10 @@ function MyPage(props) {
   });
 
   const [image, setImage] = useState("");
-
+  console.log(15, userInfo)
   // ảnh đại diện
-  const avatr = userInfo.avatar
-    ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar
-    : userlogo;
+  const avatr = userInfo.avatar.startsWith('http')
+    ? userInfo.avatar: process.env.REACT_APP_SEA_FOOD_URL + userInfo.avatar;
 
   // thay đổi ảnh đại diện
   function choosefile(fileinput) {
