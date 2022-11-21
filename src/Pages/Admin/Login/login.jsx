@@ -46,25 +46,22 @@ function Login(props) {
                 //   password,
                 // });
                 let res = await postApi("/admin/auth", { email, password });
-                console.log(45, res.data.status);
-                if (res.data.status === 'undifind password') {
-                    document.querySelector(".notte").innerHTML =
-                        "undifind password";
-                } else if (res.data.status === 'email is not available') {
-                    document.querySelector(".notte").innerHTML =
-                        "email is not available";
-                } else if (res.data.status === 'your account not enought role') {
-                    alert(res.data.status);
-                } else if (res.data.data.role == "admin") {
+                if(res.status === 200){
                     setCookie("user", res.data.data.token, 30);
                     const action = Loginadmin(res.data.data.userData);
                     dispatch(action);
                     props.changedata(res.data.data.userData.username);
                     navigate("/admin/home");
+                    return;
                 }
-                // const action = Login(res.data.data.userData);
-                // dispatch(action);
-                // }
+
+                if (res.response.data.status === 'undifind password') {
+                    document.querySelector(".notte").innerHTML = "undefind password";
+                } else if (res.response.data.status === 'email is not available') {
+                    document.querySelector(".notte").innerHTML ="email is not available";
+                } else if (res.response.data.status === 'your account is not have permission') {
+                    alert(res.response.data.status);
+                }
             }
         }
         catch(error){
