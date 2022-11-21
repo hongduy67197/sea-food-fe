@@ -72,7 +72,7 @@ const App = (props) => {
         }
       }
       if (!check) {
-        document.querySelector(".header_search-input").value = "";
+        // document.querySelector(".header_search-input").value = "";
       } else {
       }
     });
@@ -247,7 +247,6 @@ const App = (props) => {
   function changesign() {
     setsign(sign + 1);
   }
-  console.log(dataFilter, "dataFilter");
   return (
     <div className="App">
       <BrowserRouter>
