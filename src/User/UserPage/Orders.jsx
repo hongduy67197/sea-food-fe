@@ -16,7 +16,8 @@ function Orders(props) {
 useEffect(() => {
   getApi('/user/carts')
   .then(function(data){
-    const newCart =data.data.listCartsUser[0].listProduct 
+    console.log(19, data);
+    const newCart =data.data.cart.listProduct 
     setUserCart(newCart)
   })
  .catch(function(orr){
@@ -87,7 +88,7 @@ useEffect(() => {
       <div className="order_header">
         <button onClick={onofAll}>Tất cả</button>
         <button onClick={onofCheck}>Chờ xác nhận</button>
-        <button onClick={onofWaiting}>Chờ lấy hàng</button>
+        {/* <button onClick={onofWaiting}>Chờ lấy hàng</button> */}
         <button onClick={onofDangGiao}>Đang giao</button>
         <button onClick={onofDaGiao}>Đã giao</button>
         <button onClick={onofDaHuy}>Đã hủy </button>
@@ -96,19 +97,19 @@ useEffect(() => {
         <OrderAll userCart={userCart} userOder={userOder}></OrderAll>
       </div>
       <div className="orderCheck">
-        <OrderCheck userCart={setUserCart} userOder={setUserOder}></OrderCheck>
+        <OrderCheck setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='done'></OrderCheck>
       </div>
       <div className="orderDaGiao">
-        <OrderDaGiao userCart={setUserCart}></OrderDaGiao>
+        <OrderDaGiao setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='done'></OrderDaGiao>
       </div>
       <div className="orderWaiting">
-        <OrderWaiting userCart={setUserCart}></OrderWaiting>
+        <OrderWaiting setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='pending'></OrderWaiting>
       </div>
       <div className="orderDangGiao">
-        <OrderDangGiao userCart={setUserCart}></OrderDangGiao>
+        <OrderDangGiao setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='doing'></OrderDangGiao>
       </div>
       <div className="orderDaHuy">
-        <OrderDaHuy userCart={setUserCart}></OrderDaHuy>
+        <OrderDaHuy setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='cancel'></OrderDaHuy>
       </div>
     </div>
   );

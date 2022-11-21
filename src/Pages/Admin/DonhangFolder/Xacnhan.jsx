@@ -282,7 +282,7 @@ import { Button, Input, Space, Table } from 'antd';
 import { valHooks } from 'jquery';
 import { useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
-import { getApi } from '../../../api/config';
+import { getApi, putApi } from '../../../api/config';
 import { getUserCookie } from '../../../refreshToken';
 import Header from "../../../Components/Header/header";
 import "./styleXacnhan.css";
@@ -294,7 +294,8 @@ let data =  [
     address: '---------------', 
   }];
 
-function Xacnhan() {console.log(288, data)
+function Xacnhan() {
+  const [count, setCount] = useState(0);
   const data1 = [
     {
       key: '1',
@@ -326,7 +327,7 @@ function Xacnhan() {console.log(288, data)
     async function getAllorder() {
       let token = getUserCookie('user')
       try {
-        const res = await getApi('/admin/order/listOrder?status=pending')
+        const res = await getApi('/admin/order/filter-order?status=pending');
         let arrayCall = res.data
         console.log(35, arrayCall)
         const newarray = [];
@@ -334,7 +335,7 @@ function Xacnhan() {console.log(288, data)
           let a =val.listProduct
           let b;
           if(a.length>0){
-             b =a.map((value)=>{return value.idProduct.idProductCode.productName})
+             b =a.map((value)=>{return value.idProduct.productName})
              b=new Set(b)
             b= Array.from(b).join(',')
           }else{
@@ -350,7 +351,9 @@ function Xacnhan() {console.log(288, data)
             name: val.idUser ? (val.idUser.username==''||val.idUser.username==undefined?'---------':val.idUser.username ): '----------',
             age: val.phone ? val.phone : '----------',
             address: val.address ? val.address : '-----------',
-            products: b//
+            products: b,
+            status: val.status,
+            _id: val._id 
           })
           return val
         })
@@ -362,7 +365,7 @@ function Xacnhan() {console.log(288, data)
       }
     }
     getAllorder()
-  }, []);
+  }, [count]);
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
@@ -460,6 +463,16 @@ function Xacnhan() {console.log(288, data)
       ),
   });
 
+  async function updateOrderStatus (record) {
+    try {
+      const status = document.querySelector('#select-pending-status').value;
+      await putApi(`/admin/order/${record._id}`, {status});
+      setCount(count +1);
+    } catch (error) {
+      console.log(error);
+    }
+  } 
+
   const columns = [
     {
       title: 'STT',
@@ -525,13 +538,31 @@ function Xacnhan() {console.log(288, data)
       sorter: (a, b) => a.address.length - b.address.length,
       sortDirections: ['descend', 'ascend'],
     },
+    {
+      title: 'Status',
+      dataIndex: 'status',
+      key: 'status',
+      width: '20%',
+      ...getColumnSearchProps('status'),
+      sorter: (a, b) => { if(a > b) return -1},
+      sortDirections: ['descend', 'ascend'],
+      render: (text, record)=> (
+        <select name="" id="select-pending-status" onChange={() => {updateOrderStatus(record)}}>
+          <option value="pending">pending</option>
+          <option value="doing">doing</option>
+          <option value="done">done</option>
+        </select>
+      )
+    },
   ];
+
+  console.log(539, data);
   return   (
 
     <>
     <Header></Header>
     <div className="table_xacnhan" >
-    <Table columns={columns} dataSource={data} pagination= {{defaultPageSize:300}}/>;
+    <Table columns={columns} dataSource={data2} pagination= {{defaultPageSize:300}}/>;
     </div>
     </>
   )
