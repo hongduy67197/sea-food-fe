@@ -10,6 +10,8 @@ for(let a = 0; a < allOrder.length; a++){
   sumStatus = allOrder[a].status
   sumOrder=[...sumOrder,...list]
 }
+
+console.log(14, sumOrder);
   return (
     <div>
       <div className="order_seach">
@@ -33,12 +35,13 @@ for(let a = 0; a < allOrder.length; a++){
        </thead>
        <tbody>
         {sumOrder.map(function(value, index){
+          console.log(38, value)
             if(value.idProduct !== null){
           return (
             <tr key={index}>
               <td>{index+1}</td>
-              <td>{value.idProduct.productType}</td>
-              <td><img src={process.env.REACT_APP_CLIENT_URL+value.idProduct.idProductCode.thumNail} alt="img" className="order_conter_img"/></td>
+              <td>{value.idProduct.productName}</td>
+              <td><img src={process.env.REACT_APP_SEA_FOOD_URL+value.idProduct.productPic[0]} alt="img" className="order_conter_img"/></td>
               <td>{(value.idProduct.price)}</td>
               <td>{(value.quantity)}</td>
               <td>{sumStatus}</td>

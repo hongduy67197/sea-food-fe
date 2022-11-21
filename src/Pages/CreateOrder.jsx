@@ -17,45 +17,35 @@ import DialogTitle from '@mui/material/DialogTitle';
 
 import Header from '../compunentes/header/Header';
 import Footer from '../compunentes/footer/Footer';
-import { getApi } from '../api/config';
+import { getApi, postApi } from '../api/config';
 import { useSelector } from "react-redux";
 
 
 function CreateOrder(props) {
 
      // Mảng dữ liệu userInfo
-     const [userInfo, setUserInfo] = useState({
-        name: 'Nguyen Van A',
-        phone: '0982656262',
-        address: 'so 7 ngõ 260 Cau Giay, HN.',
-    });
+     const [userInfo, setUserInfo] = useState({});
     // dữ liệu user trả về theo phiên đăng nhập
     const userPage =useSelector(function(state){
         return state.user
     })
-console.log(36,userPage)
-
+    
     const [temp, setTemp] = useState([])
+    console.log(36,temp)
 
     useEffect(()=>{
-       async function  temps (){
-        try {
-            const orderList = await getApi('http://localhost:3150/user/orders')
-            setTemp(orderList.data[orderList.data.length -1])
-            console.log(43,temp)
-
-            
-        } catch (error) {
-            console.log(error)
-        }
-            // console.log(24,orderList)
+        async function  temps (){
+            try {
+                const orderList = await getApi('/user/carts')
+                setTemp(orderList.data.cart.listProduct);
+            } catch (error) {
+                console.log(error)
+            }
+                // console.log(24,orderList)
         }
           temps();  
         }
-        
-        
     ,[])
-    console.log(43,temp)
     
     const navigate = useNavigate();
     const [open, setOpen] = useState(false);
@@ -105,14 +95,9 @@ console.log(36,userPage)
     // Method get User have address, phone, name.
     const getUserAddress = async () => {
         try {
-            const url = 'https://k24-server-1.herokuapp.com/' + 'user';
-
-            const { data } = await axios({
-                url: url,
-                method: 'get',
-            });
-
-            setUserInfo(data.userAddress);
+            const { data } = await getApi('/user/me');
+            console.log(105, data);
+            setUserInfo(data.user);
         } catch (error) {
             console.log(error);
         }
@@ -121,14 +106,9 @@ console.log(36,userPage)
     // Method get listProduct from Cart.
     const getProductCart = async () => {
         try {
-            const url = 'https://k24-server-1.herokuapp.com/' + 'cart';
-
-            const { data } = await axios({
-                url: url,
-                method: 'get',
-            });
-
-            setProductCart(data.productCart);
+            const { data } = await getApi('/user/carts');
+            console.log(116, data);
+            setProductCart(data.cart.productCart);
         } catch (error) {
             console.log(error);
         }
@@ -139,24 +119,16 @@ console.log(36,userPage)
     //     postPayment(productCart, userInfo);
     // }
 
-    const postOrder = async (productCart, userInfo) => {
+    const postOrder = async () => {
         try {
-            const url = 'https://k24-server-1.herokuapp.com/' + 'admin/Xacnhan';
-
-            const { data } = await axios({
-                url: url,
-                method: 'post',
-                data: {
-                    listProduct: productCart,
+            console.log(130, userInfo)
+            const data = await postApi('/user/order',{ 
                     phone: userInfo.phone,
                     address: userInfo.address,
-                    total: cartTotalPrice,
-                },
-                headers: {},
-            });
-            console.log(data);
+                });
+            console.log(134, data);
         } catch (error) {
-            console.log(error);
+            console.log(136, error);
         }
     };
 
@@ -317,24 +289,27 @@ console.log(36,userPage)
                         {/* {console.log(311,temp.listProduct)} */}
 
 
-                        {temp.length == 0 ? null: temp.listProduct.map((dataItem, index) => (
-                            <div className="product-item" key={index}>
-                                <div className="product-image">
-                                    <img src={'http://localhost:3150'+dataItem.idProduct.productPic[0]} alt={dataItem.productPic} />
-                                    <h3>{dataItem.idProduct.idProductCode.productName}</h3>
+                        {temp.length == 0 ? null: temp.map((dataItem, index) => {
+                            console.log(307, dataItem);
+                            return (
+                                <div className="product-item" key={index}>
+                                    <div className="product-image">
+                                        <img src={process.env.REACT_APP_SEA_FOOD_URL+dataItem.idProduct.productPic[0]} alt={'product pic'} />
+                                        <h3>{dataItem.idProduct.productName}</h3>
+                                    </div>
+    
+                                    <div>
+                                        {dataItem.idProduct.price.toLocaleString()}
+                                        <sup>đ</sup>
+                                    </div>
+                                    <div className="product-quantity">{dataItem.quantity}</div>
+                                    <div>
+                                        {(dataItem.quantity * dataItem.idProduct.price).toLocaleString()}
+                                        <sup>đ</sup>
+                                    </div>
                                 </div>
-
-                                <div>
-                                    {dataItem.idProduct.price.toLocaleString()}
-                                    <sup>đ</sup>
-                                </div>
-                                <div className="product-quantity">{dataItem.quantity}</div>
-                                <div>
-                                    {(dataItem.quantity * dataItem.idProduct.price).toLocaleString()}
-                                    <sup>đ</sup>
-                                </div>
-                            </div>
-                        ))}
+                            )
+                        })}
                         
                     </div>
                 </div>
@@ -348,7 +323,7 @@ console.log(36,userPage)
                             <div className="subtotal">
                                 <span>Tổng tiền hàng:</span>
                                 <span className="total-price">
-                                {temp.length != 0 ? temp.listProduct.reduce((s,c)=>{
+                                {temp.length != 0 ? temp.reduce((s,c)=>{
                                         return s+ (c.quantity*c.idProduct.price)
                                     },0).toLocaleString():null}
                                     <sup>đ</sup>
@@ -365,8 +340,7 @@ console.log(36,userPage)
                             <div className="total-subtotal">
                                 <span>Tổng thanh toán:</span>
                                 <span className="total-payment">
-                                    {/* {temp.length != 0 ? temp.total.toLocaleString():null} */}
-                                    {temp.length != 0 ? temp.listProduct.reduce((s,c)=>{
+                                    {temp.length != 0 ? temp.reduce((s,c)=>{
                                         return s+ (c.quantity*c.idProduct.price)
                                     },0).toLocaleString():null}
                                     <sup>đ</sup>
@@ -386,9 +360,9 @@ console.log(36,userPage)
                                     autoClose: 3000,
                                 });
 
-                                setTimeout(() => {
-                                    navigate('/');
-                                }, 4000);
+                                // setTimeout(() => {
+                                //     navigate('/');
+                                // }, 4000);
                             }}
                         >
                             PAYMENT
