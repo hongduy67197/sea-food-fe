@@ -89,11 +89,9 @@ const Header = (props) => {
   //duongthetao
   const [cartNumber, setCartNumber] = useState(0)
   useEffect(() => {
-    getApi("http://localhost:3150/user/carts")
+    getApi("/user/carts")
       .then((data) => {
-        // console.log(84, data.data.listCartsUser[0])
-        // console.log('heardercart 78', data.data.listCartsUser[0].listProduct.length);
-        setCartNumber(data.data.listCartsUser[0].listProduct.length)
+        setCartNumber(data.data.cart.listProduct.length)
       })
       .catch((err) => {
         console.log(err);

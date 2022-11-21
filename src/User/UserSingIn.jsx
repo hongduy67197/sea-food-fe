@@ -19,6 +19,7 @@ function UserSingIn(props) {
     const email = document.querySelector(".singin_conter_modal_email").value;
     const password = document.querySelector(".singin_conter_modal_password").value;
     const againpassword = document.querySelector(".singin_conter_modal_againpassword").value;
+
     var mailformat = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     if (email === '') {
       document.querySelector(".singin_mail_text").innerHTML = "Vui lòng nhập email";
@@ -31,15 +32,16 @@ function UserSingIn(props) {
     } else if (againpassword === "" || password !== againpassword) {
       document.querySelector(".singin_again_text").innerHTML = "Mật khẩu không khớp"
     } else {
-      await postApi("/user/register", { password, email })
-      setTimeout(function () {
-        navigate('/user/UserLogin')
-      }, 1000)
-      // if(res.data){
-      //   alert(res.data.message + '.  '+' check gmail to comple register !')
-      // } else{
-      //   alert(res.response.data.status)
-      // }
+      try{
+        const data = await postApi("/user/register", { password, email });
+        if(data.status === 200 ){
+          navigate('/user/UserLogin')
+        }else{
+          alert(data.response.data.message)
+        }
+      } catch (error) {
+        console.log(48, error);
+      }
     }
   }
 
