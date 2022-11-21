@@ -6,11 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Admin/Home/home";
 import Xacnhan from "./Pages/Admin/DonhangFolder/Xacnhan";
 import Hoanthanh from "./Pages/Admin/DonhangFolder/Hoanthanh";
-import Danggiao from "./Pages/Admin/DonhangFolder/Danggiao"
+import Danggiao from "./Pages/Admin/DonhangFolder/Danggiao";
 import Khohang from "./Pages/Admin/Sanpham/Khohang";
 import Spmoi from "./Pages/Admin/Sanpham/Spmoi";
 import Trenke from "./Pages/Admin/Sanpham/Trenke";
-import Nhanvien from './Pages/Admin/NhanVien/Nhanvien';
+import Nhanvien from "./Pages/Admin/NhanVien/Nhanvien";
 import React, { useState, useEffect } from "react";
 import axios from "./axios";
 import Login from "./Pages/Admin/Login/login";
@@ -32,44 +32,19 @@ import productList from "./data-tinh/dataold";
 import listProductCode from "./data-tinh/dataNewMix";
 import CreateOrder from "./Pages/CreateOrder";
 import SearchProduct from "./Pages/SearchProduct";
+import { getApi } from "./api/config";
 const App = (props) => {
   const [count1, setCount1] = useState(0);
   const [dataFilter, setDataFilter] = useState([]);
 
   const filterProduct = {
-    brand: [
-      "Iphone",
-      "Samsung",
-      "Oppo",
-      "Vivo",
-      "Xiaomi",
-      "Realmi",
-      "Nokia",
-      "Itel",
-      "Masstel",
-    ],
-    price: [
-      "dưới 2tr",
-      "từ 2- 4tr",
-      "từ 4-7tr",
-      "từ 7-13tr",
-      "từ 13-20tr",
-      "trên 20tr",
-    ],
+    brand: ["Iphone", "Samsung", "Oppo", "Vivo", "Xiaomi", "Realmi", "Nokia", "Itel", "Masstel"],
+    price: ["dưới 2tr", "từ 2- 4tr", "từ 4-7tr", "từ 7-13tr", "từ 13-20tr", "trên 20tr"],
     productType: ["android", "Iphone(iOS)", "Điện thoại phổ thông"],
-    performanceProduct: [
-      "chơi game/cấu hình cao",
-      "Pin khủng trên 5000 mAh",
-      "Sạc pin nhanh",
-    ],
+    performanceProduct: ["chơi game/cấu hình cao", "Pin khủng trên 5000 mAh", "Sạc pin nhanh"],
     ram: ["2GB", "3GB", "4GB", "6GB", "8GB", "12GB"],
     rom: ["8GB", "16GB", "32GB", "64GB", "128GB", "256GB"],
-    cameraProduct: [
-      "chụp cận cảnh(macro)",
-      "chụp góc rộng",
-      "chụp xóa phông",
-      "chụp zoom xa",
-    ],
+    cameraProduct: ["chụp cận cảnh(macro)", "chụp góc rộng", "chụp xóa phông", "chụp zoom xa"],
     specialFeatures: [
       "Hỗ trợ 5g",
       "Bảo mật khuôn mặt",
@@ -89,9 +64,7 @@ const App = (props) => {
   useEffect(() => {
     // cái này của cường nhé ae - header_search-input
     window.addEventListener("click", function (e) {
-      let listLi = this.document.querySelectorAll(
-        ".header_search-history-heading-text-list-item"
-      );
+      let listLi = this.document.querySelectorAll(".header_search-history-heading-text-list-item");
       let check = false;
       for (let i = 0; i < listLi.length; i++) {
         if (listLi[i] == e.target) {
@@ -124,14 +97,9 @@ const App = (props) => {
     //     setDataFilter(ListData);
     // }));
 
-
-
-
-
-
     // let endpoints = [
     //   'http://localhost:3150/user/fillter?idCategories=628c8b29e8654d960a5c8983',
-    //   'http://localhost:3150/user/fillter?idCategories=628c8b40e8654d960a5c898b',    
+    //   'http://localhost:3150/user/fillter?idCategories=628c8b40e8654d960a5c898b',
 
     // ];
 
@@ -154,31 +122,26 @@ const App = (props) => {
     //     console.log(err);
     //   });
 
+    // let URL1 = "http://localhost:3150/user/fillter?idCategories=628c8b29e8654d960a5c8983";
+    // let URL2 = "http://localhost:3150/user/fillter?idCategories=628c8b40e8654d960a5c898b";
 
-    let URL1 = "http://localhost:3150/user/fillter?idCategories=628c8b29e8654d960a5c8983"
-    let URL2 = "http://localhost:3150/user/fillter?idCategories=628c8b40e8654d960a5c898b"
+    // const promise1 = axios.get(URL1);
+    // const promise2 = axios.get(URL2);
 
-    const promise1 = axios.get(URL1);
-    const promise2 = axios.get(URL2);
+    // Promise.all([promise1, promise2]).then(function (values) {
+    //   let a, b;
+    //   [a, b] = values;
+    //   let dataProductCode = [...a.data.listProductCode, ...b.data.listProductCode];
+    //   const ListData = dataProductCode.map((val) => {
+    //     val.storage = Math.floor(Math.random() * 100);
+    //     val.ram = val.ramRange[0];
+    //     val.rom = val.romRange[0];
 
-    Promise.all([promise1, promise2]).then(function (values) {
-      let a, b;
-      [a, b] = values
-      let dataProductCode = [...a.data.listProductCode, ...b.data.listProductCode]
-      const ListData = dataProductCode.map((val) => {
-        val.storage = Math.floor(Math.random() * 100);
-        val.ram = val.ramRange[0];
-        val.rom = val.romRange[0];
-
-        return val;
-      });
-      setProductList(ListData);
-      setDataFilter(ListData);
-
-    });
-
-
-
+    //     return val;
+    //   });
+    //   setProductList(ListData);
+    //   setDataFilter(ListData);
+    // });
 
     // axios
     //   .get(
@@ -204,6 +167,20 @@ const App = (props) => {
     //   .catch((err) => {
     //     console.log(err);
     //   });
+  }, []);
+  useEffect(() => {
+    async function getData() {
+      try {
+        const data = await getApi("/user/productlist");
+        setDataFilter(data.data.listProductList);
+
+        // const categoryRes = await getApi("/user/get-all-category");
+        // setCategories(categoryRes.data.categories);
+      } catch (error) {
+        console.log(39, error);
+      }
+    }
+    getData();
   }, []);
   const [dataProduct, setDataProduce] = useState(productCode);
   const [count, setCount] = useState(0);
@@ -270,6 +247,7 @@ const App = (props) => {
   function changesign() {
     setsign(sign + 1);
   }
+  console.log(dataFilter, "dataFilter");
   return (
     <div className="App">
       <BrowserRouter>
@@ -278,22 +256,17 @@ const App = (props) => {
             {dataFilter.map((val, i) => {
               return (
                 <Route
-                  path={`/product/filter/${RemoveAccents(val.productName)
-                    .split(" ")
-                    .join("")}`}
+                  path={`/product/filter/${RemoveAccents(val.productName).split(" ").join("")}`}
                   element={
                     <ProductChild
-                      dataFilter={dataFilter}
-                      chimuc={i}
-                      dataval={ProductList}
+                      idProduct={val._id}
+                      // dataval={ProductList}
                       changeStateProduct={changeStateProduct}
                     />
                   }
                 />
               );
             })}
-
-
             //route search
             {/* <Route
               path={`/product/filter/search`}
@@ -455,38 +428,20 @@ const App = (props) => {
             <Route path="*" element={<>Error</>} />
             <Route path="/" element={<Home1 />} />
             <Route path="/compunentes/home/Home" element={<Home1></Home1>} />
-            <Route
-              path="/admin/login"
-              element={<Login changedata={changedata} />}
-            />
+            <Route path="/admin/login" element={<Login changedata={changedata} />} />
             <Route path="/admin/home" element={<Home name={name} />} />
             <Route path="/admin/nhanvien" element={<Nhanvien name={name} />} />
             <Route path="/admin/Xacnhan" element={<Xacnhan name={name} />} />
-            <Route
-              path="/admin/Hoanthanh"
-              element={<Hoanthanh name={name} />}
-            />
+            <Route path="/admin/Hoanthanh" element={<Hoanthanh name={name} />} />
             <Route path="/admin/Danggiao" element={<Danggiao></Danggiao>} />
             <Route
               path="/Cart"
-              element={
-                <Cart
-                  ChangedataCart={ChangedataCart}
-                  Store={Store}
-                  Change={Change}
-                />
-              }
+              element={<Cart ChangedataCart={ChangedataCart} Store={Store} Change={Change} />}
             />
             <Route path="/Comment" element={<Comment1 />} />
             <Route
               path="/admin/Chinhsua"
-              element={
-                <Cart
-                  ChangedataCart={ChangedataCart}
-                  Store={Store}
-                  Change={Change}
-                />
-              }
+              element={<Cart ChangedataCart={ChangedataCart} Store={Store} Change={Change} />}
             />
             <Route path="/Comment" element={<Comment1 />} />
             <Route path="/admin/Khohang" element={<Khohang name={name} />} />
@@ -507,13 +462,13 @@ const App = (props) => {
               }
             />
             <Route path="/User/UserLogin" element={<UserLogin></UserLogin>} />
-            <Route
-              path="/User/UserSingIn"
-              element={<UserSingIn></UserSingIn>}
-            />
+            <Route path="/User/UserSingIn" element={<UserSingIn></UserSingIn>} />
             <Route path="/User/UserPase" element={<UserPase></UserPase>} />
             <Route path="/User/order" element={<CreateOrder />} />
-            <Route path="User/UserPage/ForgotPassword/ForgotPassword" element={<ForgotPassword></ForgotPassword>} />
+            <Route
+              path="User/UserPage/ForgotPassword/ForgotPassword"
+              element={<ForgotPassword></ForgotPassword>}
+            />
           </Routes>
           <ToastContainer />
         </ContextProvider>

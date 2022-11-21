@@ -15,16 +15,41 @@ import Footer from "../compunentes/footer/Footer";
 let cartsQuantity;
 function Cart(props) {
   const [productData, setProductData] = useState([]);
+  //api get cart
+
+  const [productDatas, setProductDatas] = useState([]);
+
   useEffect(() => {
-    getApi("http://localhost:3150/user/carts")
-      .then((data) => {
-        setProductData(data.data.listCartsUser[0].listProduct);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    // console.log(32,productData[0].idProductCode)
+    async function getData() {
+      try {
+        const data = await getApi("/user/carts");
+
+        console.log("dataCard", data);
+        setProductDatas(data.data.cart.listProduct);
+      } catch (error) {
+        console.log(39, error);
+      }
+    }
+    getData();
   }, []);
+
+  console.log(productDatas, "productDatas");
+  const idProduct = 1;
+  //function change select product to payment
+  function updateCard(idProduct, quantity) {
+    async function pathCard() {
+      try {
+        // console.log("path", data);
+        // setDataFilter(data.data.listProductList);
+        // const categoryRes = await getApi("/user/get-all-category");
+        // setCategories(categoryRes.data.categories);
+      } catch (error) {
+        console.log(39, error);
+      }
+    }
+    pathCard();
+  }
+
   const Navigate = useNavigate();
   const [product, setProduct] = useState(productData);
   console.log(28, productData);
@@ -40,7 +65,6 @@ function Cart(props) {
 
   const [Quantity, setQuantity] = useState(0);
   //================================================
-
   var newArr = [];
   const [dataNew, setDataNew] = useState([]);
 
@@ -205,17 +229,38 @@ function Cart(props) {
   var total = 0;
   for (let i = 0; i < productData.length; i++) {
     if (productData[i].isChecked === true) {
-      total +=
-        Number(productData[i].idProduct.price) *
-        Number(productData[i].quantity);
+      total += Number(productData[i].idProduct.price) * Number(productData[i].quantity);
       count1++;
     }
   }
   function Home() {
     Navigate("/");
   }
+  const [quantitys, setQuantitys] = useState(1);
+
   return (
     <>
+      {productDatas.map((product) => (
+        <div>
+          <div>{product && product.idProduct?.productName}</div>
+          <input
+            value={product?.quantity}
+            type="number"
+            onChange={(e) => {
+              console.log("numberProduct", e.target.value);
+              setQuantitys(e.target.value);
+            }}
+          />
+          <button
+            onClick={() => {
+              updateCard(idProduct, quantitys);
+            }}
+          >
+            theem vao gio hang
+          </button>
+        </div>
+      ))}
+
       {/* <Header></Header> */}
       <div className="main-giohang">
         <div className="Gio_hang">
@@ -248,9 +293,7 @@ function Cart(props) {
                     id="check"
                     type="checkbox"
                     name="allSelect"
-                    checked={
-                      !productData.some((val) => val?.isChecked !== true)
-                    }
+                    checked={!productData.some((val) => val?.isChecked !== true)}
                     onChange={handleChange}
                   />
                 </div>
@@ -278,17 +321,12 @@ function Cart(props) {
                         src={`http://localhost:3150${value.idProduct.productPic[0]}`}
                       />
                     </div>
-                    <div className="nameProduct">
-                      {value.idProduct.idProductCode.productName}
-                    </div>
+                    <div className="nameProduct">{value.idProduct.idProductCode.productName}</div>
                     <div className="phanloai-product">
                       <div className="ramrom-phanloai">
                         {value.idProduct.ram}/{value.idProduct.rom}
                       </div>
-                      <div className="color-phanloai">
-                        {" "}
-                        {value.idProduct.color}
-                      </div>
+                      <div className="color-phanloai"> {value.idProduct.color}</div>
                     </div>
                     <div className="info-dongia">
                       {value.idProduct.price.toLocaleString()}
@@ -313,11 +351,8 @@ function Cart(props) {
                           onCancel={handleCancel}
                         >
                           <p>
-                            {
-                              productData[getIndex].idProduct.idProductCode
-                                .productName
-                            }
-                            ({productData[getIndex].idProduct.color})
+                            {productData[getIndex].idProduct.idProductCode.productName}(
+                            {productData[getIndex].idProduct.color})
                           </p>
                           <div className="img-list">
                             <img
@@ -337,17 +372,13 @@ function Cart(props) {
                       </button>
                     </div>
                     <div className="info-list-thanhtien">
-                      {(
-                        Number(value.idProduct.price) * Number(value.quantity)
-                      ).toLocaleString()}
+                      {(Number(value.idProduct.price) * Number(value.quantity)).toLocaleString()}
                       <sup>đ</sup>
                     </div>
                     <div className="info-list-thaotac">
                       <p
                         className="text-xoa"
-                        onClick={() =>
-                          deleteProduct(index, value.idProduct._id)
-                        }
+                        onClick={() => deleteProduct(index, value.idProduct._id)}
                       >
                         Xóa
                       </p>
@@ -363,17 +394,14 @@ function Cart(props) {
                     id="check"
                     type="checkbox"
                     name="allSelect"
-                    checked={
-                      !productData.some((val) => val?.isChecked !== true)
-                    }
+                    checked={!productData.some((val) => val?.isChecked !== true)}
                     onChange={handleChange}
                   />
                   <div className="text-all">Chọn tất cả</div>
                 </div>
                 <div className="return-payment">
                   <div className="title-payment price-total">
-                    Tổng thanh toán ({count1} sản phẩm) :{" "}
-                    {total.toLocaleString()} <sup>đ</sup>
+                    Tổng thanh toán ({count1} sản phẩm) : {total.toLocaleString()} <sup>đ</sup>
                   </div>
                   <>
                     <Space>
@@ -396,9 +424,7 @@ function Cart(props) {
               <div className="icon-giohang">
                 <i class="fa-solid fa-cart-plus"></i>
               </div>
-              <div className="text-conpoment">
-                Không có sản phầm nào trong giỏ hàng.
-              </div>
+              <div className="text-conpoment">Không có sản phầm nào trong giỏ hàng.</div>
               <button onClick={Home} className="btn-gohome">
                 Về Trang Chủ
               </button>

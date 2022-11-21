@@ -21,49 +21,46 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [NewIcon, setNewIcon] = useState([]);
 
-
   function seeMore() {
     setNumberShow(numberShow + 20);
   }
 
   // Product Code
   useEffect(() => {
-    async function getData () {
-        try {
-            const data = await getApi("/user/productlist");
-            setProduct(data.data.listProductList);
+    async function getData() {
+      try {
+        const data = await getApi("/user/productlist");
+        setProduct(data.data.listProductList);
 
-            const categoryRes = await getApi('/user/get-all-category');
-            setCategories(categoryRes.data.categories);
-        } catch (error) {
-            console.log(39, error)
-        }
+        const categoryRes = await getApi("/user/get-all-category");
+        setCategories(categoryRes.data.categories);
+      } catch (error) {
+        console.log(39, error);
+      }
     }
     getData();
   }, []);
-console.log(43, product);
-console.log(43, categories);
+  console.log(43, product);
+  console.log(43, categories);
 
   // dùng useState và useEffect để lắng nghe thay đổi phía đường dẫn rồi từ đó render lại theo trường đc sort
-  // useState --- tạo giá trị ban đầu là 0 để làm trung gian của sort 
+  // useState --- tạo giá trị ban đầu là 0 để làm trung gian của sort
   const [sort, setSort] = useState(0);
 
   useEffect(() => {
-    let cloneProductCode = [...productCode] // tạo productCode clone để không sửa vào data gốc rồi set lại productCode clone
+    let cloneProductCode = [...productCode]; // tạo productCode clone để không sửa vào data gốc rồi set lại productCode clone
     if (sort === 1) {
       cloneProductCode.sort((after, before) => {
-        return after.newPrice - before.newPrice
-      })
+        return after.newPrice - before.newPrice;
+      });
     }
     if (sort === -1) {
       cloneProductCode.sort((after, before) => {
-        return before.newPrice - after.newPrice
-      })
+        return before.newPrice - after.newPrice;
+      });
     }
-    setProductCode(cloneProductCode) //set lại productCode khi có đáp ứng đủ điều kiện ( đk được truyền bên select HomeFilter)
-  }, [sort]) // truyền sort để lắng nghe thay đổi
-
-
+    setProductCode(cloneProductCode); //set lại productCode khi có đáp ứng đủ điều kiện ( đk được truyền bên select HomeFilter)
+  }, [sort]); // truyền sort để lắng nghe thay đổi
 
   return (
     <>
@@ -79,7 +76,10 @@ console.log(43, categories);
               GIAO SIÊU NHANH
             </span>
             {/* truyền productCode và setSort vào để lấy giá trị render  */}
-            <span className="HomeFilter"> <HomeFilter productCode={product} setSort={setSort} /></span>
+            <span className="HomeFilter">
+              {" "}
+              <HomeFilter productCode={product} setSort={setSort} />
+            </span>
           </div>
           <Chat />
           <div className="home-container-filter">
@@ -87,6 +87,7 @@ console.log(43, categories);
               <ListProduct
                 sort={sort}
                 productCode={product}
+                categories={categories}
                 numberShow={numberShow}
                 NewIcon={NewIcon}
               />
