@@ -1,38 +1,35 @@
+import React, { useEffect, useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Cart from "./Cart/Cart";
 import Comment1 from "./Comment/Comment";
-import "react-toastify/dist/ReactToastify.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Admin/Home/home";
-import Xacnhan from "./Pages/Admin/DonhangFolder/Xacnhan";
-import Hoanthanh from "./Pages/Admin/DonhangFolder/Hoanthanh";
+import Home1 from "./compunentes/home/Home";
+import ContextProvider from "./Conter/ContextProvider";
 import Danggiao from "./Pages/Admin/DonhangFolder/Danggiao";
+import Hoanthanh from "./Pages/Admin/DonhangFolder/Hoanthanh";
+import Xacnhan from "./Pages/Admin/DonhangFolder/Xacnhan";
+import Home from "./Pages/Admin/Home/home";
+import Login from "./Pages/Admin/Login/login";
+import Nhanvien from "./Pages/Admin/NhanVien/Nhanvien";
 import Khohang from "./Pages/Admin/Sanpham/Khohang";
 import Spmoi from "./Pages/Admin/Sanpham/Spmoi";
 import Trenke from "./Pages/Admin/Sanpham/Trenke";
-import Nhanvien from "./Pages/Admin/NhanVien/Nhanvien";
-import React, { useState, useEffect } from "react";
-import axios from "./axios";
-import Login from "./Pages/Admin/Login/login";
 import UserLogin from "./User/UserLogin";
-import UserSingIn from "./User/UserSingIn";
-import UserPase from "./User/UserPase";
 import ForgotPassword from "./User/UserPage/ForgotPassword/ForgotPassword";
-import ContextProvider from "./Conter/ContextProvider";
-import Home1 from "./compunentes/home/Home";
+import UserPase from "./User/UserPase";
+import UserSingIn from "./User/UserSingIn";
 // import CreateOrder from "./Pages/CreateOrder";
-import "./App.css";
-import ProductChild from "./Pages/ProductChild";
-import FilterProduct from "./Pages/FilterProduct";
 import "antd/dist/antd.css"; //ở trong nodemodum
+import "./App.css";
+import FilterProduct from "./Pages/FilterProduct";
+import ProductChild from "./Pages/ProductChild";
 // ==============================================
 // ===============================================
 //data
-import productList from "./data-tinh/dataold";
-import listProductCode from "./data-tinh/dataNewMix";
-import CreateOrder from "./Pages/CreateOrder";
-import SearchProduct from "./Pages/SearchProduct";
 import { getApi } from "./api/config";
+import productList from "./data-tinh/dataold";
+import CreateOrder from "./Pages/CreateOrder";
 const App = (props) => {
   const [count1, setCount1] = useState(0);
   const [dataFilter, setDataFilter] = useState([]);

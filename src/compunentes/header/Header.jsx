@@ -20,14 +20,17 @@ import axios from "../../axios";
 import { getApi } from "../../api/config";
 const Header = (props) => {
   // console.log(22222222222, props.quatityCart)
+
+  const { filter, changeFilter } = props;
+
+  console.log("filter_header", props);
+  console.log("filter_header", filter, changeFilter);
   const navigate = useNavigate();
   const userInfo = useSelector(function (state) {
     return state.user;
   });
 
-  const imager = userInfo.avatar
-    ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar
-    : userlogo;
+  const imager = userInfo.avatar ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar : userlogo;
 
   function on_mypage() {
     navigate("/User/UserPase");
@@ -54,17 +57,16 @@ const Header = (props) => {
     } else {
       // navigate(`/user/fillter?productName=${variableTemp}`);
 
-      axios.get('http://localhost:3150/user/fillter?productName=i')
+      axios
+        .get("http://localhost:3150/user/fillter?productName=i")
         .then(function (res) {
-          console.log(58, res)
-
+          console.log(58, res);
         })
         .catch((error) => {
-          console.log(error)
-        })
+          console.log(error);
+        });
       navigate(`/product/filter/search?${variableTemp}`);
       // navigate(`/product/filter`);
-
     }
 
     // navigate('/product/filter')
@@ -87,11 +89,11 @@ const Header = (props) => {
   }
 
   //duongthetao
-  const [cartNumber, setCartNumber] = useState(0)
+  const [cartNumber, setCartNumber] = useState(0);
   useEffect(() => {
     getApi("/user/carts")
       .then((data) => {
-        setCartNumber(data.data.cart.listProduct.length)
+        setCartNumber(data.data.cart.listProduct.length);
       })
       .catch((err) => {
         console.log(err);
@@ -110,9 +112,7 @@ const Header = (props) => {
                   <a className="header_navbar-item-link  ">Kênh Người Bán</a>
                 </li>
                 <li className="header_navbar-item header_navbar-item--pillar2 ">
-                  <a className="header_navbar-item-link  ">
-                    Trở thành Người bán
-                  </a>
+                  <a className="header_navbar-item-link  ">Trở thành Người bán</a>
                 </li>
                 <li className="header_navbar-item header_navbar-item--pillar1  header_navbar-item-link--has-qr">
                   <a className="header_navbar-item-link ">Tải ứng dụng</a>
@@ -184,19 +184,13 @@ const Header = (props) => {
                         src="https://thumbs.dreamstime.com/b/cute-boy-cartoon-illustration-87282832.jpg"
                         alt=""
                       />
-                      <p className="header_noti-notification-noti">
-                        Đăng nhập để xem Thông báo
-                      </p>
+                      <p className="header_noti-notification-noti">Đăng nhập để xem Thông báo</p>
                       <div className="header_navbar-item-noti-from">
                         <Link to="/User/UserSingIn">
-                          <p className="header_navbar-item-noti-from-sigIn">
-                            Đăng Ký
-                          </p>
+                          <p className="header_navbar-item-noti-from-sigIn">Đăng Ký</p>
                         </Link>
                         <Link to="/User/UserLogin">
-                          <p className="header_navbar-item-noti-from-sigUp">
-                            Đăng Nhập
-                          </p>
+                          <p className="header_navbar-item-noti-from-sigUp">Đăng Nhập</p>
                         </Link>
                       </div>
                     </header>
@@ -213,16 +207,11 @@ const Header = (props) => {
                 </li>
                 <li className="header_navbar-item ">
                   <GlobalOutlined className="header_navbar-icon header_navbar-icon-support" />
-                  <span className="header_navbar-item-vietnamese">
-                    Tiếng Việt
-                  </span>
+                  <span className="header_navbar-item-vietnamese">Tiếng Việt</span>
                   <DownOutlined />
                   <div className="header_navbar-item-language">
                     <p className="header_navbar-item-language-V">Tiếng Việt</p>
-                    <p
-                      className="header_navbar-item-language-E"
-                      onClick={English}
-                    >
+                    <p className="header_navbar-item-language-E" onClick={English}>
                       English
                     </p>
                   </div>
@@ -230,24 +219,14 @@ const Header = (props) => {
                 {userInfo.role ? (
                   <li className="header_navbar_item_mypage">
                     <div className="header_mypage">
-                      <img
-                        src={imager}
-                        alt=""
-                        className="header_navbar_item_userimager"
-                      />
-                      <span>{userInfo.username ? userInfo.username : 'hello'}</span>
+                      <img src={imager} alt="" className="header_navbar_item_userimager" />
+                      <span>{userInfo.username ? userInfo.username : "hello"}</span>
                     </div>
                     <div className="header_navbar_iteam_mypage_selec">
-                      <div
-                        className="header_navbar_iteam_mypage_selec-item"
-                        onClick={on_mypage}
-                      >
+                      <div className="header_navbar_iteam_mypage_selec-item" onClick={on_mypage}>
                         Tài khoản của tôi
                       </div>
-                      <div
-                        className="header_navbar_iteam_mypage_selec-item"
-                        onClick={logout}
-                      >
+                      <div className="header_navbar_iteam_mypage_selec-item" onClick={logout}>
                         Đăng xuất
                       </div>
                     </div>
@@ -278,7 +257,12 @@ const Header = (props) => {
               </Link>
               <div className="header_search-section">
                 <div className="header_search">
-                  <Search getValue={getValue} />
+                  <Search
+                    filter={filter}
+                    changeFilter={(data) => {
+                      changeFilter(data);
+                    }}
+                  />
                   <div className="header_search-button">
                     <button
                       onClick={() => {
@@ -384,9 +368,7 @@ const Header = (props) => {
                   <a className="header_navbar-item-link  ">Seller Centre</a>
                 </li>
                 <li className="header_navbar-item header_navbar-item--pillar2 ">
-                  <a className="header_navbar-item-link  ">
-                    Join as Seller Bootcamp-1
-                  </a>
+                  <a className="header_navbar-item-link  ">Join as Seller Bootcamp-1</a>
                 </li>
                 <li className="header_navbar-item header_navbar-item--pillar1  header_navbar-item-link--has-qr">
                   <a className="header_navbar-item-link ">Dowload</a>
@@ -458,19 +440,13 @@ const Header = (props) => {
                         src="https://thumbs.dreamstime.com/b/cute-boy-cartoon-illustration-87282832.jpg"
                         alt=""
                       />
-                      <p className="header_noti-notification-noti">
-                        Login to view notifications
-                      </p>
+                      <p className="header_noti-notification-noti">Login to view notifications</p>
                       <div className="header_navbar-item-noti-from">
                         <Link to="/User/UserSingIn">
-                          <p className="header_navbar-item-noti-from-sigIn">
-                            Sing Up
-                          </p>
+                          <p className="header_navbar-item-noti-from-sigIn">Sing Up</p>
                         </Link>
                         <Link to="/User/UserLogin">
-                          <p className="header_navbar-item-noti-from-sigUp">
-                            Login
-                          </p>
+                          <p className="header_navbar-item-noti-from-sigUp">Login</p>
                         </Link>
                       </div>
                     </header>
@@ -490,16 +466,10 @@ const Header = (props) => {
                   <span className="header_navbar-item-vietnamese">English</span>
                   <DownOutlined />
                   <div className="header_navbar-item-language">
-                    <p
-                      className="header_navbar-item-language-V"
-                      onClick={Vietnamese}
-                    >
+                    <p className="header_navbar-item-language-V" onClick={Vietnamese}>
                       Tiếng Việt
                     </p>
-                    <p
-                      className="header_navbar-item-language-E"
-                      onClick={English}
-                    >
+                    <p className="header_navbar-item-language-E" onClick={English}>
                       English
                     </p>
                   </div>
@@ -507,24 +477,14 @@ const Header = (props) => {
                 {userInfo.role ? (
                   <li className="header_navbar_item_mypage">
                     <div className="header_mypage">
-                      <img
-                        src={imager}
-                        alt=""
-                        className="header_navbar_item_userimager"
-                      />
+                      <img src={imager} alt="" className="header_navbar_item_userimager" />
                       <span>{userInfo.username}</span>
                     </div>
                     <div className="header_navbar_iteam_mypage_selec">
-                      <div
-                        className="header_navbar_iteam_mypage_selec-item"
-                        onClick={on_mypage}
-                      >
+                      <div className="header_navbar_iteam_mypage_selec-item" onClick={on_mypage}>
                         My Account
                       </div>
-                      <div
-                        className="header_navbar_iteam_mypage_selec-item"
-                        onClick={logout}
-                      >
+                      <div className="header_navbar_iteam_mypage_selec-item" onClick={logout}>
                         Logout
                       </div>
                     </div>
@@ -643,14 +603,12 @@ const Header = (props) => {
                 </div>
               </div>
               <div className="header_cart">
-
                 <div
                   onClick={() => {
                     moveToCart();
                   }}
                   className="header_cart-wrap"
                 >
-
                   <ShoppingCartOutlined className="header_cart-icon" />
 
                   {/* <div className="header_cart-list header_cart-list--no-cart">
