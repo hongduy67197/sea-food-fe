@@ -315,3 +315,10 @@ table tbody::-webkit-scrollbar-thumb {
 .tableclear {
     font-size: 20px;
 }
+.form-product-list-category{
+    width: 65%;
+    border: none;
+    height: 34px;
+    border-radius: 10px;
+    padding: 5px 12px;
+}

@@ -80,21 +80,23 @@ function Home(props) {
     ];
     const database = [];
     console.log(state.length);
-    if (state.length > 0) {
-        var so = state.length - 10;
-        for (let i = so; i < state.length; i++) {
-            database.push({
-                productName: state[i].idProductCode.productName,
-                productPic: state[i].productPic,
-                productType: state[i].idProductCode.productType,
-                performanceProduct: state[i].idProductCode.performanceProduct,
-                panel: state[i].idProductCode.panel,
-                storage: state[i].storage,
-                price: state[i].price,
-            });
-            console.log(93, database)
-        }
-    }
+    console.log(86, state)
+
+    // if (state.length > 0) {
+    //     var so = state.length - 10;
+    //     console.log(so, state.length)
+    //     for (let i = so; i < state.length; i++) {
+    //         console.log(88, state[i]);
+
+    //         database.push({
+    //             productName: state[i].productName,
+    //             productPic: state[i].productPic[0],
+    //             storage: state[i].storage,
+    //             price: state[i].price,
+    //         });
+    //         console.log(93, database)
+    //     }
+    // }
 
     useEffect(() => {
         async function getAllUser() {

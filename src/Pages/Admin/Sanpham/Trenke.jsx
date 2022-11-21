@@ -18,9 +18,8 @@ function Trenke(props) {
   // Bat dau
   const [data, setdata] = useState([]);
   const [brand, setbrand] = useState([]);
+  const [category, setCategory] = useState([]);
   const [sign, setsign] = useState(1);
-
-  // const [triger, setTriger] = useState(1);
 
   function changesign() {
     setsign(sign + 1);
@@ -30,21 +29,16 @@ function Trenke(props) {
       let token = getUserCookie("user");
       console.log(147, token);
       try {
-        const res = await getApi("/admin/productcode/list");
+        const res = await getApi("/admin/product/list");
         setdata(res.data);
+
+        const categories = await getApi("admin/categories");
+        setCategory(categories.data)
       } catch (error) {
         console.log(168, error);
       }
     }
     getAllUser();
-    // axios
-    //   .get("http://localhost:3150/admin/productcode/list")
-    //   .then(function (response) {
-    //     setdata(response.data);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   }, [sign]);
 
   useEffect(() => {
@@ -59,15 +53,6 @@ function Trenke(props) {
       }
     }
     getAllUser();
-
-    // axios
-    //   .get("http://localhost:3150/admin/categories")
-    //   .then(function (response) {
-    //     setbrand(response.data);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   }, [sign]);
 
   // ket thuc
@@ -78,75 +63,19 @@ function Trenke(props) {
   const [productlist, setproductlist] = useState([]);
   const [clearao, setclearao] = useState([]);
   const [clearaocode, setclearaocode] = useState([]);
-  useEffect(() => {
-    async function getAllProductList() {
-      let token = getUserCookie("user");
-      try {
-        let data = await getApi('http://localhost:3150/admin/productcode/list')
-        sethien(data.data)
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    getAllProductList();
-    // axios
-    //   .get("http://localhost:3150/admin/productcode/list")
-    //   .then(function (response) {
-    //     sethien(response.data);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
-  }, []);
-  function choosebrand(id) {
-    let listBrand = document.querySelectorAll(".brand");
-    for (let i = 0; i < listBrand.length; i++) {
-      listBrand[i].setAttribute("style", "");
-    }
-    document.querySelector(`[value="${id}"]`).style.background = "black";
-    document.querySelector(`[value="${id}"]`).style.color = "white";
-    abcarr = [];
-    data.map(async function (value, index) {
-      if (value.idCategories[0] === id) {
-        abcarr.push(value);
-        sethien(abcarr);
-        try {
-          const abx = await getApi(
-            `http://localhost:3150/admin/categories/${value.idCategories[0]}`
-          )
-          document.querySelector(".sptk").innerHTML =
-            abx.data.categoriesName;
-        } catch (error) {
-          console.log(error);
-        }
-      }
-    });
-    document.querySelector(".boxtable").style.display = "block";
-    document.querySelector(".boxlist").style.display = "none";
-  }
-  function showall() {
-    let listBrand = document.querySelectorAll(".brand");
-    for (let i = 0; i < listBrand.length; i++) {
-      listBrand[i].setAttribute("style", "");
-    }
-    document.querySelector("#tatca").style.background = "black";
-    document.querySelector("#tatca").style.color = "white";
-    document.querySelector(".boxtable").style.display = "block";
-    document.querySelector(".boxlist").style.display = "none";
-    sethien(data);
-  }
-  async function onclear(id, index) {
-    vitri = index;
-    maso = id;
-    try {
-      let data = await getApi(`http://localhost:3150/admin/productcode/${id}`)
-      clearcode.push(data.data);
-      setclearaocode(clearcode);
-    } catch (error) {
-      console.log(error);
-    }
-    document.querySelector(".boxclear").style.display = "block";
-  }
+
+  // async function onclear(id, index) {
+  //   vitri = index;
+  //   maso = id;
+  //   try {
+  //     let data = await getApi(`/admin/productcode/${id}`)
+  //     clearcode.push(data.data);
+  //     setclearaocode(clearcode);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   document.querySelector(".boxclear").style.display = "block";
+  // }
   function accept() {
     console.log(vitri, maso);
     axios
@@ -199,42 +128,10 @@ function Trenke(props) {
     document.querySelector(".boxfixlist").style.display = "none";
   }
   async function update() {
-    var productName = document.querySelector(".productName").value;
-    var productType = document.querySelector(".productType").value;
-    var performanceProduct = document.querySelector(
-      ".performanceProduct"
-    ).value;
-    var cameraProduct = document.querySelector(".cameraProduct").value;
-    var specialFeatures = document.querySelector(".specialFeatures").value;
-    var design = document.querySelector(".design").value;
-    var panel = document.querySelector(".panel").value;
-    var countSold = document.querySelector(".countSold").value;
-    var Sale = document.querySelector(".Sale").value;
-    hien[vitriup].productName = document.querySelector(".productName").value;
-    hien[vitriup].productType = document.querySelector(".productType").value;
-    hien[vitriup].performanceProduct = document.querySelector(
-      ".performanceProduct"
-    ).value;
-    hien[vitriup].cameraProduct =
-      document.querySelector(".cameraProduct").value;
-    hien[vitriup].specialFeatures =
-      document.querySelector(".specialFeatures").value;
-    hien[vitriup].design = document.querySelector(".design").value;
-    hien[vitriup].panel = document.querySelector(".panel").value;
-    hien[vitriup].countSold = document.querySelector(".countSold").value;
-    hien[vitriup].Sale = document.querySelector(".Sale").value;
+    const form = document.querySelector('#form-product-update');
+    const formData = new FormData(form);
     try {
-      let response = await putApi(`http://localhost:3150/admin/productcode/${masoup}`, {
-        productName,
-        productType,
-        performanceProduct,
-        cameraProduct,
-        specialFeatures,
-        design,
-        panel,
-        countSold,
-        Sale,
-      })
+      let response = await putApi(`/admin/product/${masoup}`, formData)
       console.log(response);
       closeupdate();
       changesign();
@@ -243,17 +140,14 @@ function Trenke(props) {
     }
   }
   async function onboxlist(id, index) {
-    let listBrand = document.querySelectorAll(".brand");
-    for (let i = 0; i < listBrand.length; i++) {
-      listBrand[i].setAttribute("style", "");
-    }
     document.querySelector(".boxlist").style.display = "block";
     document.querySelector(".boxtable").style.display = "none";
     try {
-      let response = await getApi(`http://localhost:3150/admin/product/product/${id}`)
+      let response = await getApi(`/admin/product/${id}`)
+      console.log(177, response);
       setproductlist(response.data);
       document.querySelector(".sptk").innerHTML =
-        response.data[0].idProductCode.productName;
+        response.data[0].productName;
     } catch (error) {
       console.log(error);
     }
@@ -262,7 +156,7 @@ function Trenke(props) {
     vitrilist = index;
     masolist = id;
     try {
-      let response = await getApi(`http://localhost:3150/admin/product/${id}`)
+      let response = await getApi(`/admin/product/${id}`)
       cleararr.push(response.data);
       setclearao(cleararr);
       document.querySelector(".boxclearlist").style.display = "block";
@@ -311,7 +205,7 @@ function Trenke(props) {
     productlist[vitrifixlist].rom = rom;
     productlist[vitrifixlist].color = color;
     try {
-      let response = await putApi(`http://localhost:3150/admin/product/${masofixlist}`, {
+      let response = await putApi(`/admin/product/${masofixlist}`, {
         price,
         priceRange,
         storage,
@@ -325,30 +219,13 @@ function Trenke(props) {
       console.log(error);
     }
   }
+  console.log(313, productlist)
   return (
     <div>
       <Header></Header>
       <div className="newproduct">
         <h1 className="sptk">Sản phẩm trên kệ</h1>
-        <div className="allbrand">
-          <div className="brand tatca123" id="tatca">
-            <p id="tatca" className="tatca" onClick={showall}>
-              Tất cả
-            </p>
-          </div>
-          {brand.map(function (value, index) {
-            return (
-              <div
-                className="brand"
-                value={value._id}
-                key={index}
-                onClick={() => choosebrand(value._id)}
-              >
-                <p id="brand">{value.categoriesName}</p>
-              </div>
-            );
-          })}
-        </div>
+
         <div className="boxtable">
           <table>
             <thead>
@@ -356,54 +233,30 @@ function Trenke(props) {
                 <th>STT</th>
                 <th>Tên sản phẩm</th>
                 <th>Hình ảnh</th>
-                <th>Loại sản phẩm</th>
-                <th>Thông tin sản phẩm</th>
-                <th>Số lượng bán</th>
-                <th>Sale</th>
+                <th>Số lượng</th>
                 <th>Chỉnh sửa</th>
               </tr>
             </thead>
             <tbody>
-              {hien.map(function (value, index) {
+              {data.map(function (value, index) {
                 return (
                   <tr className="codehover" key={index}>
                     <td>{index + 1}</td>
                     <td>{value.productName}</td>
                     <td>
                       <img
-                        src={"http://localhost:3150" + value.thumNail}
+                        src={process.env.REACT_APP_SEA_FOOD_URL + value.productPic}
                         alt=""
                       />
                     </td>
-                    <td>{value.productType}</td>
+                    <td>{value.storage}</td>
                     <td>
-                      {value.performanceProduct} <br />
-                      {value.cameraProduct} <br />
-                      {value.specialFeatures} <br />
-                      {value.design} <br />
-                      {value.panel}
-                    </td>
-                    <td>{value.countSold}</td>
-                    <td>{value.Sale}</td>
-                    <td>
-                      <button
-                        onClick={() => onboxlist(value._id, index)}
-                        className="stockbut"
-                      >
-                        <i className="fa-solid fa-bars"></i>
-                      </button>
                       <button
                         style={{ margin: "0px 5px" }}
                         onClick={() => onupdate(value._id, index)}
                         className="stockbut"
                       >
                         <i className="fa-solid fa-repeat"></i>
-                      </button>
-                      <button
-                        onClick={() => onclear(value._id, index)}
-                        className="stockbut"
-                      >
-                        <i className="fa-solid fa-xmark"></i>
                       </button>
                     </td>
                   </tr>
@@ -420,10 +273,7 @@ function Trenke(props) {
                 <th>Tên sản phẩm</th>
                 <th>Hình ảnh</th>
                 <th>Giá</th>
-                <th>Khoảng giá</th>
                 <th>Kho</th>
-                <th>Màu sắc</th>
-                <th>Cấu hình</th>
                 <th>Chỉnh sửa</th>
               </tr>
             </thead>
@@ -432,21 +282,15 @@ function Trenke(props) {
                 return (
                   <tr key={index}>
                     <td>{index + 1}</td>
-                    <td>{value.idProductCode.productName}</td>
+                    <td>{value.productName}</td>
                     <td>
                       <img
-                        src={"http://localhost:3150" + value.productPic[0]}
+                        src={process.env.REACT_APP_SEA_FOOD_URL + value.productPic[0]}
                         alt=""
                       />
                     </td>
                     <td>{value.price.toLocaleString()}</td>
-                    <td>{value.priceRange}</td>
                     <td>{value.storage}</td>
-                    <td>{value.color}</td>
-                    <td>
-                      <p>Ram: {value.ram}</p>
-                      <p>Rom: {value.rom}</p>
-                    </td>
                     <td>
                       <button
                         onClick={() => onupdatelist(value._id, index)}
@@ -468,117 +312,35 @@ function Trenke(props) {
             </tbody>
           </table>
         </div>
-        <div className="boxclear">
-          <h1>Chắc chắn muốn xóa</h1>
-          <div>
-            <table className="tableclear">
-              {clearaocode.map(function (value, index) {
-                return (
-                  <tr key={index}>
-                    <td>{value.productName}</td>
-                    <td>
-                      <img src={"http://localhost:3150" + value.thumNail} />
-                    </td>
-                    <td>{value.productType}</td>
-                  </tr>
-                );
-              })}
-            </table>
-          </div>
-          <div className="boxaccept">
-            <button onClick={accept}>Accept</button>
-            <button onClick={closeclear}>Close</button>
-          </div>
-        </div>
-        <div className="boxclearlist">
-          <h1>Chắc chắn muốn xóa</h1>
-          <div>
-            <table className="tableclear">
-              {clearao.map(function (value, index) {
-                return (
-                  <tr key={index}>
-                    <td>{value.idProductCode.productName}</td>
-                    <td>
-                      <img
-                        src={"http://localhost:3150" + value.productPic[0]}
-                        alt=""
-                      />
-                    </td>
-                    <td>{value.color}</td>
-                    <td>Ram: {value.ram}</td>
-                    <td>Rom: {value.rom}</td>
-                  </tr>
-                );
-              })}
-            </table>
-          </div>
-          <div className="boxaccept">
-            <button onClick={acceptlist}>Accept</button>
-            <button onClick={closeclearlist}>Close</button>
-          </div>
-        </div>
         <div className="boxfix">
           <h3>Bảng thông tin chỉnh sửa</h3>
-          <div className="inboxfix">
-            <span>productName:</span>{" "}
-            <input className="productName" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>productType:</span>{" "}
-            <input className="productType" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>performanceProduct:</span>{" "}
-            <input className="performanceProduct" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>cameraProduct:</span>{" "}
-            <input className="cameraProduct" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>specialFeatures:</span>{" "}
-            <input className="specialFeatures" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>design:</span> <input className="design" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>panel:</span> <input className="panel" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>countSold:</span> <input className="countSold" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>Sale:</span> <input className="Sale" type="text" />
-          </div>
+          <form id='form-product-update' action="">
+            <div className="inboxfix">
+              <span>productName:</span>{" "}
+              <input className="productName" type="text" name='productName'/>
+            </div>
+            <div className="inboxfix">
+              <span>price:</span> <input className="pricevinh" type="text" name='price' />
+            </div>
+            <div className="inboxfix">
+              <span>storage:</span> <input className="storage" type="text" name='storage'/>
+            </div>
+            <div className="inboxfix">
+              <span>category:</span> 
+              <select className='form-product-list-category' name="idCategory" id="">
+                {category.map((ele, index) => {
+                  return (
+                    <option value={ele._id} key={index}>{ele.categoriesName}</option>
+                  )
+                })}
+              </select>
+            </div>
+            <div className="inboxfix">
+              <span>thumbNail:</span> <input className="storage" type="file" name='productPic'/>
+            </div>
+          </form>
           <div className="boxfixbut">
             <button onClick={update}>Update</button>
-            <button onClick={closeupdate}>Close</button>
-          </div>
-        </div>
-        <div className="boxfixlist">
-          <h3>Bảng thông tin chỉnh sửa</h3>
-          <div className="inboxfix">
-            <span>price:</span> <input className="pricevinh" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>priceRange:</span>{" "}
-            <input className="priceRange" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>storage:</span> <input className="storage" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>ram:</span> <input className="ram" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>rom:</span> <input className="rom" type="text" />
-          </div>
-          <div className="inboxfix">
-            <span>color:</span> <input className="color" type="text" />
-          </div>
-          <div className="boxfixbut">
-            <button onClick={updatelist}>Update</button>
             <button onClick={closeupdate}>Close</button>
           </div>
         </div>

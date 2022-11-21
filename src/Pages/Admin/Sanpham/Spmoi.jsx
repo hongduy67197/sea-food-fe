@@ -7,22 +7,9 @@ import './product.css';
 import { getApi, postApi } from '../../../api/config';
 
 function Spmoi(props) {
-    var arrproduct = [];
     const [count, setcount] = useState(1);
-    const [data, setdata] = useState([]);
     const [product, setproduct] = useState([]);
-    const [icon, seticon] = useState([]);
 
-    useEffect(() => {
-        axios
-            .get('http://localhost:3150/admin/icon/list')
-            .then(function (response) {
-                seticon(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
     useEffect(() => {
         getApi('/admin/categories')
             .then(function (response) {
@@ -32,17 +19,8 @@ function Spmoi(props) {
             .catch(function (error) {
                 console.log(error);
             });
-    }, []);
-    useEffect(() => {
-        axios
-            .get('http://localhost:3150/admin/categories')
-            .then(function (response) {
-                setdata(response.data);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
+    }, [count]);
+
     function clearallcode() {
         document.querySelector('.productName').value = '';
         document.querySelector('.productType').value = '';
@@ -70,6 +48,7 @@ function Spmoi(props) {
         postApi('/admin/categories', formData)
             .then(function (response) {
                 console.log(response);
+                setcount(count + 1);
             })
             .catch(function (error) {
                 console.log(error);
@@ -126,45 +105,6 @@ function Spmoi(props) {
         clearlist();
     }
 
-    function choosebrand(id) {
-        setcount(1);
-        document.querySelector('.boxbrand').style.background = 'black';
-        document.querySelector('.boxbrand').style.color = 'white';
-        document.querySelector('.boxbrand').style.border = '2px solid black';
-        document.querySelector('.newboxbrand').style.display = 'none';
-        axios
-            .get('http://localhost:3150/admin/productcode/list')
-            .then(function (response) {
-                response.data.map(function (value, index) {
-                    if (value.idCategories[0] == id) {
-                        arrproduct.push(value);
-                        setproduct(arrproduct);
-                    }
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-        axios
-            .get(`http://localhost:3150/admin/categories/${id}`)
-            .then(function (response) {
-                console.log(response);
-                document.querySelector('.boxbrand').innerHTML = `${response.data.categoriesName}`;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-    function newboxbrandon() {
-        setcount(1);
-        setcount(count + 1);
-        if (count % 2 !== 0) {
-            document.querySelector('.newboxbrand').style.display = 'block';
-        }
-        if (count % 2 == 0) {
-            document.querySelector('.newboxbrand').style.display = 'none';
-        }
-    }
     return (
         <div>
             <Header></Header>

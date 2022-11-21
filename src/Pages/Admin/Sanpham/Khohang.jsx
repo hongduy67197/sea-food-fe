@@ -16,37 +16,17 @@ function Khohang(props) {
   const [money, setmoney] = useState([]);
   const [statis, setstatis] = useState([]);
 
-
-
-  // useEffect(() => {
-  //   async function getAllUser() {
-  //     let token = getUserCookie("user");
-  //     console.log(147, token);
-  //     try {
-  //       const res = await getApi("/admin/user");
-  //       setstate(res.data);
-  //     } catch (error) {
-  //       console.log(168, error);
-  //     }
-  //   }
-  //   getAllUser();
-  // }, [isin]);
-
-
-
-
-
   useEffect(() => {
 
-    getApi(`/admin/productcode/list`)
-      .then(function (response) {
-        allcode = response.data.length;
-        console.log(43, allcode)
+    // getApi(`/admin/productcode/list`)
+    //   .then(function (response) {
+    //     allcode = response.data.length;
+    //     console.log(43, allcode)
 
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
     getApi(`/admin/product/list`)
       .then(function (response) {
         alllist = response.data.length;
@@ -70,7 +50,7 @@ function Khohang(props) {
       <Header></Header>
       <div className="khohang">
         <div className="statisbox">
-          <div className="statis">
+          {/* <div className="statis">
             <div
               className="statisicon"
               style={{ background: "rgb(255, 217, 223)" }}
@@ -83,7 +63,7 @@ function Khohang(props) {
               <h3>All Code</h3>
               <p>{allcode}</p>
             </div>
-          </div>
+          </div> */}
           <div className="statis">
             <div
               className="statisicon"
@@ -131,7 +111,7 @@ function Khohang(props) {
                   <tr key={index}>
                     <td id="stt-td">{index + 1}</td>
                     {console.log(133, value, index + 1)}
-                    <td >{value.idProductCode.productName}</td>
+                    <td >{value.productName}</td>
                     <td>
                       <img
                         src={"http://localhost:3150" + value.productPic[0]}
