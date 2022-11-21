@@ -22,14 +22,11 @@ function Nhanvien(props) {
   }
 
   const showModal = (id) => {
+    console.log(25, id)
     setIsIndex(id);
     setIsModalVisible(true);
     data.map(function (val) {
       if (val._id == id) {
-        console.log(22, val.username);
-        document.querySelector(".name").value = val.username;
-        document.querySelector(".address").value = val.address;
-        document.querySelector(".sdt").value = val.phone;
         document.querySelector(".role").value = val.role;
       }
     });
@@ -37,30 +34,22 @@ function Nhanvien(props) {
   };
 
   const handleOk = () => {
-    let name = document.querySelector(".name").value;
-    let diachi = document.querySelector(".address").value;
-    let phone = document.querySelector(".sdt").value;
     let role = document.querySelector(".role").value;
-
-    if ((name !== "" && diachi !== "" && phone !== "", role !== "")) {
+    if (role !== "") {
       async function getAllorder() {
         let token = getUserCookie("user");
         console.log(147, token);
         try {
           const res = await putApi(`/admin/user/${isindex}`, {
-            username: name,
-            address: diachi,
-            phone: phone,
             role: role,
           });
-          console.log(226, res);
+          count();
+          setIsModalVisible(false);
         } catch (error) {
           console.log(168, error);
         }
       }
       getAllorder();
-      count();
-      setIsModalVisible(false);
     } else {
       document.querySelector(".Not").innerHTML = "Vui lòng không được để trống";
     }
@@ -81,7 +70,7 @@ function Nhanvien(props) {
       align: "center",
       dataIndex: "avatar",
       render: (avatar) => (
-        <img src={"http://localhost:3150" + avatar} alt="anh" />
+        <img src={avatar.startsWith('http') ? avatar : process.env.REACT_APP_SEA_FOOD_URL + avatar} alt="anh" />
       ),
     },
     {
@@ -112,6 +101,7 @@ function Nhanvien(props) {
         <>
           <EditOutlined
             onClick={() => {
+              console.log(115, record)
               showModal(record._id);
             }}
             style={{ fontSize: 20 }}
@@ -179,7 +169,7 @@ function Nhanvien(props) {
       },
     });
   }
-
+  console.log(182, data);
   return (
     <div>
       <Header tenname={props.name}></Header>
@@ -198,20 +188,10 @@ function Nhanvien(props) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <input
-          type="text"
-          placeholder="Name"
-          className="name"
-          name="username"
-        />
-        <input
-          type="text"
-          placeholder="Địa chỉ"
-          className="address"
-          name="address"
-        />
-        <input type="text" placeholder="sdt" className="sdt" name="phone" />
-        <input type="text" placeholder="quyền" className="role" name="role" />
+        <select placeholder="quyền" className="role" name="role" > 
+          <option value="user">user</option>
+          <option value="staff">staff</option>
+        </select>
         <p className="Not"></p>
       </Modal>
     </div>
