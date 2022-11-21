@@ -6,10 +6,11 @@ import Footer from "../compunentes/footer/Footer";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { getApi, patchApi } from "../api/config";
-import { useNavigate } from "react-router-dom";
-let countproduct = 1;
+import { useNavigate, useParams } from "react-router-dom";
+import { data } from "jquery";
 function ProductChild(props) {
   const { idProduct } = props;
+  const [getDataShow, setGetDataShow] = useState("");
   // let arrayOrigin = props.dataFilter[props.chimuc].products;
   // const [dem, setDem] = useState(0);
   // const [count, setCount] = useState(countproduct);
@@ -232,31 +233,27 @@ function ProductChild(props) {
   //   }
   // }
 
-  console.log("idProduct", idProduct);
-
   useEffect(() => {
     async function getData() {
       try {
-        const data = await getApi(`/user/product/get-one-product/:${idProduct}`);
-        console.log("data_get_id", data);
-        // setDataFilter(data.data.listProductList);
-        // const categoryRes = await getApi("/user/get-all-category");
-        // setCategories(categoryRes.data.categories);
+        const data = await getApi(`/user/product/get-one-product/${idProduct}`);
+        console.log("data", data);
+        setGetDataShow(data.data.product);
+        console.log(getDataShow);
       } catch (error) {
         console.log(39, error);
       }
     }
     getData();
-  }, []);
+  }, [props]);
 
   function addCard(idProduct, quantity) {
     async function pathCard() {
       try {
-        const data = await patchApi(`/user/carts/add-to-cart`, { idProduct, quantity });
-        console.log("path", data);
-        // setDataFilter(data.data.listProductList);
-        // const categoryRes = await getApi("/user/get-all-category");
-        // setCategories(categoryRes.data.categories);
+        const data = await patchApi(`/user/carts/add-to-cart`, {
+          idProduct,
+          quantity,
+        });
       } catch (error) {
         console.log(39, error);
       }
@@ -264,24 +261,59 @@ function ProductChild(props) {
     pathCard();
   }
   const [quantity, setQuantity] = useState(1);
+  const domain = process.env.REACT_APP_SEA_FOOD_URL;
 
   return (
-    <>
-      <input
-        type="number"
-        onChange={(e) => {
-          console.log("numberProduct", e.target.value);
-          setQuantity(e.target.value);
-        }}
-      />
-      <button
-        onClick={() => {
-          addCard(idProduct, quantity);
-        }}
-      >
-        theem vao gio hang
-      </button>
-    </>
+    <div className="detail__container">
+      {getDataShow && (
+        <div className="detail__container1">
+          <img
+            src={domain + getDataShow.idCategory.thumpNail}
+            alt="detail__img"
+            className="detail__img"
+          />
+          <div>
+            <p className="detail__name">
+              <span>Tên sản phẩm : </span>
+              {getDataShow.productName}
+            </p>
+            <p className="detail__price">
+              <span>Giá : </span>
+              {getDataShow.price.toLocaleString()} <span>VND</span>
+            </p>
+            <p className="detail__storage">
+              <span>Hàng còn trong kho : </span>
+              {getDataShow.storage}
+            </p>
+            <p className="detail__createDate">
+              <span>Ngày đóng gói : </span>
+              {new Date(getDataShow.createDate).toLocaleDateString('en-GB')}
+            </p>
+            <input
+              type="number"
+              className="detail__input"
+              defaultValue={1}
+              max = {getDataShow.storage}
+              min = {0}
+              onChange={(e) => {
+                if (e.target.value > getDataShow.storage || e.target.value <= 0) {
+                  alert("Số lượng phải nằm trong khoảng 0 đến " + getDataShow.storage)
+                }
+                setQuantity(e.target.value );
+              }}
+            />
+            <button
+              className="detail__addButton"
+              onClick={() => {
+                addCard(idProduct, quantity);
+              }}
+            >
+              Thêm vào giỏ hàng
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 }
 
