@@ -32,11 +32,11 @@ function UserSingIn(props) {
     } else if (againpassword === "" || password !== againpassword) {
       document.querySelector(".singin_again_text").innerHTML = "Mật khẩu không khớp"
     } else {
-      try{
+      try {
         const data = await postApi("/user/register", { password, email });
-        if(data.status === 200 ){
+        if (data.status === 200) {
           navigate('/user/UserLogin')
-        }else{
+        } else {
           alert(data.response.data.message)
         }
       } catch (error) {
@@ -187,7 +187,7 @@ function UserSingIn(props) {
         <div className="login_header">
           <Link to="/">
             <img
-              src={logo}
+              src='http://chohaisanonline.vn/wp-content/uploads/2018/07/logo1.png'
               alt=""
               className="login_header_img"
               style={{ width: "auto" }}
@@ -262,7 +262,6 @@ function UserSingIn(props) {
                 <img src={google} alt="" /> Google
               </button>
             </div>
-            <p>Bằng việc đăng kí, bạn đã đồng ý với Shopee về</p>
             <div className="singin_conter_modal_text">
               <a href="">Điều khoản dịch vụ</a>&
               <a href="">Chính sách bảo mật </a>

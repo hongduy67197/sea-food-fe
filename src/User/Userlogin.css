@@ -1,5 +1,5 @@
 .login_ {
-    background-color: rgb(238, 77, 45);
+    background-image: url(https://nhaxinhplaza.vn/wp-content/uploads/hai-san-bao-gom-nhung-gi.jpg);
     min-height: 800px;
     font-size: 17px;
 }
@@ -9,6 +9,9 @@
     background: #ffffff;
     position: relative;
     box-shadow: 0 6px 6px rgb(0 0 0 / 6%);
+}
+.login_header .left-block{
+    display: flex;
 }
 .login_header_img {
     height: 60px;
@@ -37,8 +40,8 @@
 .login_conter {
     width: 80%;
     margin: 0 auto;
+    left: -15%;
     height: 600px;
-    background-image: url(https://cf.shopee.vn/file/5569eb9dc7e09e2dbed5315b8f2ea8ba);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;

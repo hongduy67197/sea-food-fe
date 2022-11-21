@@ -2,15 +2,14 @@
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  grid-template-rows: auto;
+  display: flex;
+  justify-content: space-around;
 }
 
 .categories-div {
   margin-top: 20px;
   margin-bottom: 10px;
-  width: 100%;
+  width: auto
 }
 
 .categories-img {

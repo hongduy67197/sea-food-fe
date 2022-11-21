@@ -143,10 +143,12 @@ function UserLogin(props) {
         <>
             <div className="login_">
                 <div className="login_header">
-                    <Link to="/compunentes/home/Home" onClick={on_home}>
-                        <img src={logo} alt="" className="login_header_img" style={{ width: 'auto' }} />
-                    </Link>
-                    <span className="login_header_text">Đăng nhập </span>
+                    <div className="left-block">
+                        <Link to="/compunentes/home/Home" onClick={on_home}>
+                            <img src='http://chohaisanonline.vn/wp-content/uploads/2018/07/logo1.png' alt="" className="login_header_img" style={{ width: 'auto' }} />
+                        </Link>
+                        <span className="login_header_text">Đăng nhập </span>
+                    </div>
                     <a href="" className="login_header_help">
                         Bạn cần giúp đỡ ?
                     </a>
