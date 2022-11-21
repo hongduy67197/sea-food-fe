@@ -322,3 +322,6 @@ table tbody::-webkit-scrollbar-thumb {
     border-radius: 10px;
     padding: 5px 12px;
 }
+input.form-product-update-check{
+    width: 20%;
+}
