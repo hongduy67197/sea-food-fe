@@ -12,8 +12,9 @@ import Chat from "./homePage/Chat";
 import HomeFilter from "./homeFillter/HomeFilter";
 import { getApi } from "../../api/config";
 import { Alert, Spin } from "antd";
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Pagination } from "@mui/material";
 import Loading from "../../component/Loading/Loading";
+import { Stack } from "@mui/system";
 
 const Home = () => {
   const [productCode, setProductCode] = useState([]);
@@ -48,12 +49,12 @@ const Home = () => {
   useEffect(() => {
     async function getData() {
       setLoading(true);
-      const productName = filter && filter?.filter?.productName;
-      const idCategory = filter && filter?.filter?.idCategory;
-      const high = filter && filter?.filter?.high;
-      const low = filter && filter?.filter?.low;
-      const page = filter && filter?.pagination?.page;
-      const pageSize = filter && filter?.pagination?.pageSize;
+      const productName = (filter && filter?.filter?.productName) || "";
+      const idCategory = (filter && filter?.filter?.idCategory) || "";
+      const high = (filter && filter?.filter?.high) || "";
+      const low = (filter && filter?.filter?.low) || "";
+      const page = (filter && filter?.pagination?.page) || "";
+      const pageSize = (filter && filter?.pagination?.pageSize) || "";
       try {
         const data = await getApi(
           `/user/product/filter?productName=${productName}&idCategory=${idCategory}&page=${page}&pageSize=${pageSize}&high=${high}&low=${low}`
@@ -104,11 +105,11 @@ const Home = () => {
       <div className="home">
         <div className="home-container">
           <div>
-            <img
+            {/* <img
               src="https://photo-cms-baonghean.zadn.vn/w1000/Uploaded/2022/nkdkswkqoc/201704/original/resize_images1869171_tom_hum_binh_ba.jpg"
               alt=""
               className="home-banner"
-            />
+            /> */}
           </div>
           <Categories categories={categories} />
           <div className=" box-checkbox">
@@ -134,7 +135,16 @@ const Home = () => {
               />
             </div>
           </div>
-          <SeeMore seeMore={seeMore} />
+          {/* <SeeMore seeMore={seeMore} /> */}
+          <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
+            <Pagination
+              count={20}
+              color="primary"
+              onChange={(e, page) => {
+                changeFilter({ ...filter, pagination: { ...filter.pagination, page: page } });
+              }}
+            />
+          </Stack>
         </div>
       </div>
       <Footer />
