@@ -35,13 +35,39 @@ const App = (props) => {
   const [dataFilter, setDataFilter] = useState([]);
 
   const filterProduct = {
-    brand: ["Iphone", "Samsung", "Oppo", "Vivo", "Xiaomi", "Realmi", "Nokia", "Itel", "Masstel"],
-    price: ["dưới 2tr", "từ 2- 4tr", "từ 4-7tr", "từ 7-13tr", "từ 13-20tr", "trên 20tr"],
+    brand: [
+      "Iphone",
+      "Samsung",
+      "Oppo",
+      "Vivo",
+      "Xiaomi",
+      "Realmi",
+      "Nokia",
+      "Itel",
+      "Masstel",
+    ],
+    price: [
+      "dưới 2tr",
+      "từ 2- 4tr",
+      "từ 4-7tr",
+      "từ 7-13tr",
+      "từ 13-20tr",
+      "trên 20tr",
+    ],
     productType: ["android", "Iphone(iOS)", "Điện thoại phổ thông"],
-    performanceProduct: ["chơi game/cấu hình cao", "Pin khủng trên 5000 mAh", "Sạc pin nhanh"],
+    performanceProduct: [
+      "chơi game/cấu hình cao",
+      "Pin khủng trên 5000 mAh",
+      "Sạc pin nhanh",
+    ],
     ram: ["2GB", "3GB", "4GB", "6GB", "8GB", "12GB"],
     rom: ["8GB", "16GB", "32GB", "64GB", "128GB", "256GB"],
-    cameraProduct: ["chụp cận cảnh(macro)", "chụp góc rộng", "chụp xóa phông", "chụp zoom xa"],
+    cameraProduct: [
+      "chụp cận cảnh(macro)",
+      "chụp góc rộng",
+      "chụp xóa phông",
+      "chụp zoom xa",
+    ],
     specialFeatures: [
       "Hỗ trợ 5g",
       "Bảo mật khuôn mặt",
@@ -61,7 +87,9 @@ const App = (props) => {
   useEffect(() => {
     // cái này của cường nhé ae - header_search-input
     window.addEventListener("click", function (e) {
-      let listLi = this.document.querySelectorAll(".header_search-history-heading-text-list-item");
+      let listLi = this.document.querySelectorAll(
+        ".header_search-history-heading-text-list-item"
+      );
       let check = false;
       for (let i = 0; i < listLi.length; i++) {
         if (listLi[i] == e.target) {
@@ -73,14 +101,12 @@ const App = (props) => {
       } else {
       }
     });
-
   }, []);
   useEffect(() => {
     async function getData() {
       try {
         const data = await getApi("/user/productlist");
         setDataFilter(data.data.listProductList);
-
       } catch (error) {
         console.log(39, error);
       }
@@ -160,7 +186,9 @@ const App = (props) => {
             {dataFilter.map((val, i) => {
               return (
                 <Route
-                  path={`/product/filter/${RemoveAccents(val.productName).split(" ").join("")}`}
+                  path={`/product/filter/${RemoveAccents(val.productName)
+                    .split(" ")
+                    .join("")}`}
                   element={
                     <ProductChild
                       idProduct={val._id}
@@ -318,20 +346,38 @@ const App = (props) => {
             <Route path="*" element={<>Error</>} />
             <Route path="/" element={<Home1 />} />
             <Route path="/compunentes/home/Home" element={<Home1></Home1>} />
-            <Route path="/admin/login" element={<Login changedata={changedata} />} />
+            <Route
+              path="/admin/login"
+              element={<Login changedata={changedata} />}
+            />
             <Route path="/admin/home" element={<Home name={name} />} />
             <Route path="/admin/nhanvien" element={<Nhanvien name={name} />} />
             <Route path="/admin/Xacnhan" element={<Xacnhan name={name} />} />
-            <Route path="/admin/Hoanthanh" element={<Hoanthanh name={name} />} />
+            <Route
+              path="/admin/Hoanthanh"
+              element={<Hoanthanh name={name} />}
+            />
             <Route path="/admin/Danggiao" element={<Danggiao></Danggiao>} />
             <Route
               path="/Cart"
-              element={<Cart ChangedataCart={ChangedataCart} Store={Store} Change={Change} />}
+              element={
+                <Cart
+                  ChangedataCart={ChangedataCart}
+                  Store={Store}
+                  Change={Change}
+                />
+              }
             />
             <Route path="/Comment" element={<Comment1 />} />
             <Route
               path="/admin/Chinhsua"
-              element={<Cart ChangedataCart={ChangedataCart} Store={Store} Change={Change} />}
+              element={
+                <Cart
+                  ChangedataCart={ChangedataCart}
+                  Store={Store}
+                  Change={Change}
+                />
+              }
             />
             <Route path="/Comment" element={<Comment1 />} />
             <Route path="/admin/Khohang" element={<Khohang name={name} />} />
@@ -352,7 +398,10 @@ const App = (props) => {
               }
             />
             <Route path="/User/UserLogin" element={<UserLogin></UserLogin>} />
-            <Route path="/User/UserSingIn" element={<UserSingIn></UserSingIn>} />
+            <Route
+              path="/User/UserSingIn"
+              element={<UserSingIn></UserSingIn>}
+            />
             <Route path="/User/UserPase" element={<UserPase></UserPase>} />
             <Route path="/User/order" element={<CreateOrder />} />
             <Route

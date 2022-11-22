@@ -3,19 +3,17 @@ import userlogo from "../../../assets/images/userlogo.jpg";
 import "../../UserPage/MypageCss.css";
 import { useSelector } from "react-redux";
 import axios from "../../../axios";
-import { CloseSquareFilled } from "@ant-design/icons";
-import { render } from "@testing-library/react";
-import { getUserCookie, refreshToken } from "../../../refreshToken"
+import { getUserCookie, refreshToken } from "../../../refreshToken";
 function MyPage(props) {
   const userInfo = useSelector(function (state) {
     return state.user;
   });
 
   const [image, setImage] = useState("");
-  console.log(15, userInfo)
   // ảnh đại diện
-  const avatr = userInfo.avatar.startsWith('http')
-    ? userInfo.avatar: process.env.REACT_APP_SEA_FOOD_URL + userInfo.avatar;
+  const avatr = userInfo.avatar.startsWith("http")
+    ? userInfo.avatar
+    : process.env.REACT_APP_SEA_FOOD_URL + userInfo.avatar;
 
   // thay đổi ảnh đại diện
   function choosefile(fileinput) {
@@ -26,41 +24,34 @@ function MyPage(props) {
       setImage(this.result);
       document.querySelector(".chooseImage").setAttribute("src", this.result);
     });
-
-    console.log(58,imager);
   }
   // đẩy dữ liệu đã thay đổi về sever
   async function saveUp() {
     try {
-      console.log(123,)
       document.querySelector(".newPhone_text").style.display = "none";
       document.querySelector(".newAddress_text").style.display = "none";
       const form = document.querySelector(".myPageForm");
       const formData = new FormData(form);
-      for(const pair of formData.entries()) {
-        console.log(40,pair)
-        console.log(43, pair[0], pair[1]);
+      for (const pair of formData.entries()) {
       }
-      let cookie = getUserCookie('user')
+      let cookie = getUserCookie("user");
 
       let res = await axios.put(`/user`, formData, {
         headers: {
-          'Authorization': cookie
-        }
+          Authorization: cookie,
+        },
       });
-      console.log(54, res);
 
-      if(res.data.message === 'jwt expired'){
-        await refreshToken()
-        cookie = getUserCookie('user')
+      if (res.data.message === "jwt expired") {
+        await refreshToken();
+        cookie = getUserCookie("user");
         res = await axios.put(`/user`, formData, {
           headers: {
-            'Authorization': cookie
-          }
+            Authorization: cookie,
+          },
         });
-        console.log(61, res);
       }
-      props.newColor()
+      props.newColor();
     } catch (error) {
       console.log(error);
     }
@@ -81,7 +72,7 @@ function MyPage(props) {
   // thay đổi Địa chỉ
   function update_address_form() {
     let newAddress = document.querySelector(".NewAddress").value;
-    let address= userInfo.address;
+    let address = userInfo.address;
     if (newAddress !== address) {
       document.querySelector(".newAddress_text").style.display = "block";
       document.querySelector(".newAddress_render").value = newAddress;
@@ -112,7 +103,6 @@ function MyPage(props) {
         <div className="mypage_conter_user">
           {/* leght */}
           <div className="mypage_conter_user_leght">
-      
             <span className="mypage_leght_name">Tên</span>
             <span className="mypage_leght_email">Email</span>
             <span className="mypage_leght_phone">Số Điện Thoại</span>
@@ -122,67 +112,79 @@ function MyPage(props) {
           {/* right */}
           <form className="myPageForm" action="" encType="multipart/form-data">
             <div className="mypage_conter_user_right">
-        
               <input
                 type="text"
                 className="mypage_right_name"
                 defaultValue={userInfo.username}
                 name="username"
-               />
+              />
               <div className="mypage_right_email1">
                 <span className="mypage_right_email">{userInfo.email}</span>
-            </div>
-            <div className="mypage_right_phone1">
-              <span>{userInfo.phone}</span>
-              <span className="thaydoi" onClick={onof_newPhone}>
-                Thay Đổi
-              </span>
-              <div className="newPhone_text">
-                <span>Số điện thoại mới : </span>
-                <input type="text" name ='phone' className="newPhone_render1" style={{border:'none'}} />
               </div>
-            </div>
-            <div className="mypage_right_check">
-              <input type="checkbox" name="" id="" />
-              Nam
-              <input type="checkbox" name="" id="" />
-              Nữ
-              <input type="checkbox" name="" id="" />
-              Khác
-            </div>
-            <div className="mypage_right_address">
-               <input type="text" defaultValue={userInfo.address} />
+              <div className="mypage_right_phone1">
+                <span>{userInfo.phone}</span>
+                <span className="thaydoi" onClick={onof_newPhone}>
+                  Thay Đổi
+                </span>
+                <div className="newPhone_text">
+                  <span>Số điện thoại mới : </span>
+                  <input
+                    type="text"
+                    name="phone"
+                    className="newPhone_render1"
+                    style={{ border: "none" }}
+                  />
+                </div>
+              </div>
+              <div className="mypage_right_check">
+                <input type="checkbox" name="" id="" />
+                Nam
+                <input type="checkbox" name="" id="" />
+                Nữ
+                <input type="checkbox" name="" id="" />
+                Khác
+              </div>
+              <div className="mypage_right_address">
+                <input type="text" defaultValue={userInfo.address} />
                 <span onClick={onof_newAddress}> Thay Đổi</span>
-            </div>
-            <div className="newAddress_text">
+              </div>
+              <div className="newAddress_text">
                 <span>Địa chỉ mới : </span>
-                <input className="newAddress_render" name='address'></input>
+                <input className="newAddress_render" name="address"></input>
               </div>
-             {/* chọn  đại diện */}
-            <div className="mypage_conter_imager">
-              <div className="mypage_conter_imager_wrap">
-                <img src={image ? image : avatr} alt="" className="chooseImage" />
+              {/* chọn  đại diện */}
+              <div className="mypage_conter_imager">
+                <div className="mypage_conter_imager_wrap">
+                  <img
+                    src={image ? image : avatr}
+                    alt=""
+                    className="chooseImage"
+                  />
+                </div>
+                <input
+                  type="file"
+                  name="avatar"
+                  className="input_file"
+                  id="imagerFile"
+                  accept="image/gif, image/jpg, image/pdg"
+                  onChange={choosefile}
+                />
+                <p>Dung lượng file tối đa 1 MB </p>
+                <span>Định dạng: .JPEG, .PNG</span>
               </div>
-              <input
-                type="file"
-                name="avatar"
-                className="input_file"
-                id="imagerFile"
-                accept="image/gif, image/jpg, image/pdg"
-                onChange={choosefile}
-              />              
-              <p>Dung lượng file tối đa 1 MB </p>
-              <span>Định dạng: .JPEG, .PNG</span>
-            </div>
-            <button className="mypage_right_update" type="button" onClick={saveUp}>
-              Lưu
-            </button>
+              <button
+                className="mypage_right_update"
+                type="button"
+                onClick={saveUp}
+              >
+                Lưu
+              </button>
             </div>
           </form>
         </div>
       </div>
       {/* modal Address*/}
-      <div className="newAddress_modal" style={{display:'none'}}>
+      <div className="newAddress_modal" style={{ display: "none" }}>
         <span>Nhập địa chỉ</span>
         <input type="text" name="" className="NewAddress" />
         <button className="update" onClick={update_address_form}>
@@ -192,17 +194,17 @@ function MyPage(props) {
           Close
         </button>
       </div>
-             {/* modal Phone*/}
-             <div className="NewPhone_modal">
-                <span>Nhập Số điện thoại mới</span>
-                <input type="number"  className="NewPhone" />
-                <button className="update" onClick={update_phone_form}>
-                 Lưu
-               </button>
-               <button className="close" onClick={of_modal}>
-                Close
-               </button>
-             </div>
+      {/* modal Phone*/}
+      <div className="NewPhone_modal">
+        <span>Nhập Số điện thoại mới</span>
+        <input type="number" className="NewPhone" />
+        <button className="update" onClick={update_phone_form}>
+          Lưu
+        </button>
+        <button className="close" onClick={of_modal}>
+          Close
+        </button>
+      </div>
     </div>
   );
 }

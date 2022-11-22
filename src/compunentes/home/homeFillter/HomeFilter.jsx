@@ -1,18 +1,12 @@
-import { React, useEffect, useState } from 'react';
-import { Select } from 'antd';
+import { React, useEffect, useState } from "react";
+import { Select } from "antd";
 
 const { Option } = Select;
 
-
-// truyền props để render giao diện
-
 const HomeFilter = (props) => {
-
   const handleChange = (value) => {
-    props.setSort(value)
-    // console.log(value);
+    props.setSort(value);
   };
-
 
   return (
     <>
@@ -23,12 +17,11 @@ const HomeFilter = (props) => {
         }}
         onChange={handleChange}
       >
-        <Option  value={-1}> Giá cao đến thấp </Option>
+        <Option value={-1}> Giá cao đến thấp </Option>
         <Option value={1}> Giá thấp đến cao </Option>
       </Select>
-
     </>
-  )
-}
+  );
+};
 
-export default HomeFilter
+export default HomeFilter;

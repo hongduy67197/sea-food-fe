@@ -18,7 +18,6 @@ return state.user
   const userName = userInfor.username?userInfor.username:'hello'
   const avatr = process.env.REACT_APP_CLIENT_URL + userInfor.avatar
  
-  console.log(userInfor)
   const navigate = useNavigate();
   var countproduct = 0;
   var countselect = 0;
@@ -68,18 +67,8 @@ return state.user
       document.querySelector(".product").style.display = "none";
     }
   }
-  // function onstaff() {
-  //   countstaff++;
-  //   if (countstaff % 2 !== 0) {
-  //     document.querySelector(".staff").style.display = "block";
-  //   }
-  //   if (countstaff % 2 == 0) {
-  //     document.querySelector(".staff").style.display = "none";
-  //   }
-  // }
   function oninfor() {
     countinfor++;
-    console.log(countinfor);
     if (countinfor % 2 !== 0) {
       document.querySelector(".infor").style.display = "block";
     }
@@ -117,19 +106,15 @@ return state.user
     var b = document.querySelectorAll(".product p");
     for (var i = 0; i < y.length; i++) {
       y[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < a.length; i++) {
       a[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < b.length; i++) {
       b[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < z.length; i++) {
       z[i].style.color = "black";
-      console.log(y[i]);
     }
     document.querySelector(".header ").style.background = "rgb(255, 204, 212)";
   }
@@ -157,19 +142,15 @@ return state.user
     var b = document.querySelectorAll(".product p");
     for (var i = 0; i < y.length; i++) {
       y[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < a.length; i++) {
       a[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < b.length; i++) {
       b[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < z.length; i++) {
       z[i].style.color = "black";
-      console.log(y[i]);
     }
     document.querySelector(".header ").style.background = "rgb(171, 209, 255)";
   }
@@ -197,19 +178,15 @@ return state.user
     var b = document.querySelectorAll(".product p");
     for (var i = 0; i < y.length; i++) {
       y[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < a.length; i++) {
       a[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < b.length; i++) {
       b[i].style.color = "black";
-      console.log(y[i]);
     }
     for (var i = 0; i < z.length; i++) {
       z[i].style.color = "black";
-      console.log(y[i]);
     }
     document.querySelector(".header ").style.background = "rgb(195, 195, 195)";
   }
@@ -237,19 +214,15 @@ return state.user
     var b = document.querySelectorAll(".product p");
     for (var i = 0; i < y.length; i++) {
       y[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < a.length; i++) {
       a[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < b.length; i++) {
       b[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < z.length; i++) {
       z[i].style.color = "white";
-      console.log(y[i]);
     }
     document.querySelector(".header ").style.background = "rgb(46, 46, 46)";
   }
@@ -277,19 +250,15 @@ return state.user
     var b = document.querySelectorAll(".product p");
     for (var i = 0; i < y.length; i++) {
       y[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < a.length; i++) {
       a[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < b.length; i++) {
       b[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < z.length; i++) {
       z[i].style.color = "white";
-      console.log(y[i]);
     }
     document.querySelector(".header ").style.background = "rgb(104, 0, 104)";
   }
@@ -317,19 +286,15 @@ return state.user
     var b = document.querySelectorAll(".product p");
     for (var i = 0; i < y.length; i++) {
       y[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < a.length; i++) {
       a[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < b.length; i++) {
       b[i].style.color = "white";
-      console.log(y[i]);
     }
     for (var i = 0; i < z.length; i++) {
       z[i].style.color = "white";
-      console.log(y[i]);
     }
     document.querySelector(".header ").style.background = "rgb(0, 101, 0)";
   }
@@ -353,7 +318,6 @@ return state.user
               Dashboard
             </p>
           </div>
-          {/* <div onClick={onstaff} className="menu1"> */}
           <div  className="menu1">
             <div>
               <i className="fa-solid fa-users vicon"></i>
@@ -361,12 +325,6 @@ return state.user
             </div>
             <i className="fa-solid fa-angle-right arrow"></i>
           </div>
-          {/* <div className="staff">
-            <p>- Cap quyen</p>
-            <p onClick={QLnhanvien} className="qlnv">
-              - Quan ly nhan vien
-            </p>
-          </div> */}
           <div onClick={onselect} className="menu1">
             <div>
               <i className="fa-solid fa-truck-ramp-box vicon"></i>

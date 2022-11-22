@@ -69,16 +69,9 @@ const Home = () => {
     }
     getData();
   }, [filter]);
-
-  console.log(43, product);
-  console.log(43, categories);
-
-  // dùng useState và useEffect để lắng nghe thay đổi phía đường dẫn rồi từ đó render lại theo trường đc sort
-  // useState --- tạo giá trị ban đầu là 0 để làm trung gian của sort
   const [sort, setSort] = useState(0);
-
   useEffect(() => {
-    let cloneProductCode = [...productCode]; // tạo productCode clone để không sửa vào data gốc rồi set lại productCode clone
+    let cloneProductCode = [...productCode]; 
     if (sort === 1) {
       cloneProductCode.sort((after, before) => {
         return after.newPrice - before.newPrice;
@@ -89,9 +82,8 @@ const Home = () => {
         return before.newPrice - after.newPrice;
       });
     }
-    setProductCode(cloneProductCode); //set lại productCode khi có đáp ứng đủ điều kiện ( đk được truyền bên select HomeFilter)
-  }, [sort]); // truyền sort để lắng nghe thay đổi
-
+    setProductCode(cloneProductCode); 
+  }, [sort]); 
   return (
     <>
       <Header
@@ -105,11 +97,6 @@ const Home = () => {
       <div className="home">
         <div className="home-container">
           <div>
-            {/* <img
-              src="https://photo-cms-baonghean.zadn.vn/w1000/Uploaded/2022/nkdkswkqoc/201704/original/resize_images1869171_tom_hum_binh_ba.jpg"
-              alt=""
-              className="home-banner"
-            /> */}
           </div>
           <Categories categories={categories} />
           <div className=" box-checkbox">
@@ -118,7 +105,6 @@ const Home = () => {
               <ThunderboltFilled className="item-flash-icon" />
               GIAO SIÊU NHANH
             </span>
-            {/* truyền productCode và setSort vào để lấy giá trị render  */}
             <span className="HomeFilter">
               <HomeFilter productCode={product} setSort={setSort} />
             </span>
@@ -135,7 +121,6 @@ const Home = () => {
               />
             </div>
           </div>
-          {/* <SeeMore seeMore={seeMore} /> */}
           <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
             <Pagination
               count={20}

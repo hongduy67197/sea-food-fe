@@ -37,7 +37,6 @@ function ProductChild(props) {
     }
     pathCard();
   }
-
   return (
     <>
       <Header></Header>

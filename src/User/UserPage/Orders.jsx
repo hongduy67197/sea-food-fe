@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import OrderAll from "./Order/OrderAll";
 import OrderCheck from "./Order/OrderCheck";
 import OrderDaGiao from "./Order/OrderDaGiao";
@@ -6,35 +6,33 @@ import OrderDaHuy from "./Order/OrderDaHuy";
 import OrderDangGiao from "./Order/OrderDangGiao";
 import OrderWaiting from "./Order/OrderWaiting";
 import "./OrderCss.css";
-import {getApi} from '../../api/config'
-
+import { getApi } from "../../api/config";
 
 function Orders(props) {
-  const [userCart,setUserCart]=useState([])
+  const [userCart, setUserCart] = useState([]);
 
- const [userOder, setUserOder]=useState([])
-useEffect(() => {
-  getApi('/user/carts')
-  .then(function(data){
-    console.log(19, data);
-    const newCart =data.data.cart.listProduct 
-    setUserCart(newCart)
-  })
- .catch(function(orr){
-  console.log(34,orr)
-  })
-}, [])
+  const [userOder, setUserOder] = useState([]);
+  useEffect(() => {
+    getApi("/user/carts")
+      .then(function (data) {
+        const newCart = data.data.cart.listProduct;
+        setUserCart(newCart);
+      })
+      .catch(function (orr) {
+        console.log(34, orr);
+      });
+  }, []);
 
-useEffect(() => {
-  getApi("/user/orders")
-    .then((data) => {
-      const dataOder =data.data
-      setUserOder(dataOder)
-    })
-    .catch((err) => {
-      console.log(43,err);
-    });
-}, []);
+  useEffect(() => {
+    getApi("/user/orders")
+      .then((data) => {
+        const dataOder = data.data;
+        setUserOder(dataOder);
+      })
+      .catch((err) => {
+        console.log(43, err);
+      });
+  }, []);
   function onofAll() {
     document.querySelector(".orderAll").style.display = "block";
     document.querySelector(".orderCheck").style.display = "none";
@@ -97,19 +95,44 @@ useEffect(() => {
         <OrderAll userCart={userCart} userOder={userOder}></OrderAll>
       </div>
       <div className="orderCheck">
-        <OrderCheck setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='done'></OrderCheck>
+        <OrderCheck
+          setUserCart={setUserCart}
+          userOder={userOder}
+          userCart={userCart}
+          status="done"
+        ></OrderCheck>
       </div>
       <div className="orderDaGiao">
-        <OrderDaGiao setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='done'></OrderDaGiao>
+        <OrderDaGiao
+          setUserCart={setUserCart}
+          userOder={userOder}
+          userCart={userCart}
+          status="done"
+        ></OrderDaGiao>
       </div>
       <div className="orderWaiting">
-        <OrderWaiting setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='pending'></OrderWaiting>
+        <OrderWaiting
+          setUserCart={setUserCart}
+          userOder={userOder}
+          userCart={userCart}
+          status="pending"
+        ></OrderWaiting>
       </div>
       <div className="orderDangGiao">
-        <OrderDangGiao setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='doing'></OrderDangGiao>
+        <OrderDangGiao
+          setUserCart={setUserCart}
+          userOder={userOder}
+          userCart={userCart}
+          status="doing"
+        ></OrderDangGiao>
       </div>
       <div className="orderDaHuy">
-        <OrderDaHuy setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='cancel'></OrderDaHuy>
+        <OrderDaHuy
+          setUserCart={setUserCart}
+          userOder={userOder}
+          userCart={userCart}
+          status="cancel"
+        ></OrderDaHuy>
       </div>
     </div>
   );

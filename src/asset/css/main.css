@@ -1,16 +1,6 @@
 .header {
   height: var(--header-height);
   background-image: linear-gradient(0, #fe6433, #f53e2d);
-  /* //đổ chuyển màu từ 1 phía , 0 hướng mặc định từ trên xuống,màu dưới cùng, màu trên */
-
-  /* background-image: linear-gradient(270deg, #18C729, #7FEF50) */
-  /* background: repeating-linear-gradient(
-        to right,
-        #f6ba52c1,
-        #f6ba52c1 10px,
-        #ffd080b9 10px,
-        #ffd080b9 20px
-      ); */
 }
 
 .header__navbar {
@@ -85,7 +75,6 @@
   position: absolute;
   width: 100%;
   height: 100px;
-  /* background-color: black; */
   top: -8px;
   right: 0;
 }
@@ -151,7 +140,6 @@
   font-size: 1.4rem;
   color: var(--while-color);
   text-decoration: none;
-  /* loại bỏ gạch chân ở thẻ a , mặc định thẻ a là underline*/
   font-weight: 300;
 }
 
@@ -165,11 +153,8 @@
 .header__navbar-item:hover,
 .header__navbar-icon-link:hover,
 .header__navbar-item-link:hover {
-  /* :hover duoc goi la 1 sudorclass : 1 lop gia */
   cursor: pointer;
-  /* giup cho con tro chuot co hinh ban tay */
   color: rgba(255, 255, 255, 0.7);
-  /* van la mau do nhung mo di khi hover */
 }
 
 .header__navbar-item--strong {
@@ -185,10 +170,8 @@
   right: -8px;
   top: 50%;
   transform: translateY(-50%);
-  /* dung cach nay co loi the sau nay minh co dieu chinh chieu cao cua the li thi chung ta khong can sua lai cho nay */
 }
 
-/* Header QR code */
 .header__qr {
   width: 186px;
   background: var(--while-color);
@@ -228,7 +211,6 @@
 }
 
 .header__qr-link:first-child {
-  /* hoac co the sd :nth-child(1) ; de chi con so 1 */
   margin-left: 11px;
 }
 
@@ -236,7 +218,6 @@
   margin-right: 9px;
 }
 
-/* Header Notifications */
 .header__notify {
   position: absolute;
   z-index: 99999999;
@@ -271,7 +252,6 @@
   height: 20px;
   right: 0;
   top: -16px;
-  /* background-color: teal; */
 }
 
 @keyframes headerNotifyGrowth {
@@ -364,7 +344,6 @@
   font-weight: bold;
 }
 
-/* Authen modal */
 .auth-form {
   width: 500px;
   font-size: 1.3rem;
@@ -372,7 +351,6 @@
   background-color: var(--while-color);
   border-radius: 5px;
   overflow: hidden;
-  /* nếu thằng con trọc ra thì sẽ bị ẩn đi */
 }
 
 .auth-form__container {
@@ -534,7 +512,6 @@
 
 .header__logo-img {
   width: 150px;
-  /* color: var(--while-color); */
 }
 
 .header__search {
@@ -544,7 +521,6 @@
   height: 40px;
   display: flex;
   align-items: center;
-  /* position: relative; */
 }
 
 .header__cart {
@@ -638,7 +614,6 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* note */
 }
 
 .header__cart-item-name {
@@ -717,7 +692,6 @@
   border-style: solid;
   border-color: transparent transparent var(--while-color) transparent;
   top: -18px;
-  /* display: none; */
 }
 
 .header__cart-no-cart-img {
@@ -784,7 +758,6 @@
   border: none;
   background-color: var(--primary-color);
   color: var(--while-color);
-  /* font-size: 2.6rem; */
   height: 34px;
   width: 60px;
   margin-top: -0.5px;
@@ -817,7 +790,6 @@
   list-style: none;
   box-shadow: 0 0 3px #ccc;
   border-radius: 2px;
-  /* overflow: hidden; */
   margin-top: 14px;
   background-color: var(--while-color);
   display: none;
@@ -834,12 +806,10 @@
   height: 30px;
   top: -20px;
   left: 0;
-  /* background-color: #f53e2d; */
 }
 
 .header__search-option-items {
   padding: 8px 8px;
-  /* text-align: right; */
 }
 
 .header__search-option-items:hover {
@@ -878,7 +848,6 @@
   display: block;
 }
 
-/* history search */
 .header__search-history {
   position: absolute;
   top: calc(100% + 2.7px);
@@ -925,11 +894,6 @@
 .header__short-bar {
   display: none;
 }
-
-/* app container */
-/* .app {
-  overflow: hidden;
-} */
 
 .app__container {
   background-color: #f5f5f5;
@@ -982,7 +946,6 @@
 .category-item::before {
   content: "";
   border-top: 1px solid var(--border-color);
-  /* width: 100%; */
   position: absolute;
   top: 0;
   left: 16px;
@@ -1025,7 +988,6 @@
   background-color: white;
   font-size: 14px;
   font-weight: 500;
-  /* box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px; */
 }
 
 .category-item_link {
@@ -1036,15 +998,8 @@
   display: block;
   right: 0;
   font-weight: 500;
-  /* transition: right linear 0.1s; */
 }
 
-.category-item_link:hover {
-  /* right: -4px;
-    color:  var(--primary-color); */
-}
-
-/* mobile category */
 .mobile-category {
   display: none;
 }
@@ -1057,7 +1012,6 @@
   overflow: auto;
   margin-bottom: 0;
 }
-
 .mobile-category__list::-webkit-scrollbar {
   display: none;
 }
@@ -1091,11 +1045,8 @@
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  /* ----- */
-  /* display: block; */
   width: 110px;
   border-radius: 5px;
-  /* không để use select */
   user-select: none;
   -webkit-user-select: none;
 
@@ -1103,7 +1054,6 @@
   padding: 0 6px;
 }
 
-/* Home sort + filter  */
 .home-filter {
   display: flex;
   background-color: rgba(0, 0, 0, 0.02);
@@ -1194,11 +1144,6 @@
   font-size: 1.4rem;
   color: #ccc;
 }
-
-/* Product item -------------------------------------------------------------------------------------*/
-.home-product {
-}
-
 .home-product-item {
   display: block;
   text-decoration: none;
@@ -1232,15 +1177,11 @@
 .home-product-item__name {
   font-size: 1.3rem;
   color: var(--text-color);
-  /* height: 3.6rem; */
   margin-top: 10px;
   overflow: hidden;
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;
-  /* them vao cho ho tro nhieu trinh suyet hon nhungw chi ap dung dc 1 line */
-  /* text-overflow: ellipsis;
-    white-space: nowrap; */
 }
 
 .home-product-item__price {
@@ -1267,20 +1208,12 @@
 
 .home-product-item__action {
   text-align: left;
-  /* display: flex;
-    flex-direction: column; */
-  /* justify-content: space-between; */
   margin: 2px 12px;
 }
-
-.free-shipping {
-}
-
 .free-shipping img {
   width: 15px;
   margin-left: 10px;
 }
-
 .home-product-item__like {
   font-size: 1.3rem;
 }
@@ -1300,11 +1233,7 @@ i.home-product-item__like-icon-fill {
 
 .home-product-item__rating {
   font-size: 0.8rem;
-  /* zoom: 0.7; */
-  /* transform: scale(0.7); */
-  /* transform-origin: right; */
   color: var(--text-color);
-  /* margin: -0.2px 0px 0px auto; */
 }
 
 .home-product-item__star--rate {
@@ -1314,7 +1243,6 @@ i.home-product-item__like-icon-fill {
 .home-product-item_sold {
   font-size: 1.1rem;
   color: var(--text-color);
-  /* margin-left: 12px; */
 }
 
 .home-product-item__origin {
@@ -1342,7 +1270,6 @@ i.home-product-item__like-icon-fill {
 .home-product-item__favourite::before {
   content: "";
   position: absolute;
-  /* thuoocj tinhs duocj cho vaof khi nos la con cua  1 position khacs */
   left: 0;
   bottom: -3px;
   border-top: 3px solid currentColor;
@@ -1363,28 +1290,7 @@ i.home-product-item__like-icon-fill {
 
 .home-product-item__sale-off {
   position: relative;
-  /* display: flex;
-    flex-direction: column;
-    right: 0;
-    top: 0;
-    right: 75px;
-    top: 263px;
-    text-align: center; */
-  /* background-color: rgb(246, 208, 19); */
-  /* padding: 4px 2px 0;
-    border-top-right-radius: 2px; */
 }
-
-/* .home-product-item__sale-off::after {
-    position: absolute;
-    content: "";
-    bottom: -4px;
-    right: 0;
-    border-width: 0 20px 4px;
-    border-style: solid;
-    border-color: transparent rgb(246, 208, 19) transparent rgb(246, 208, 19);
-} */
-
 .home-product-item__sale-off-percent {
   position: absolute;
   top: -3px;
@@ -1413,12 +1319,10 @@ i.home-product-item__like-icon-fill {
   left: -9px;
 }
 
-/* pagination */
 .home-product-pagination {
   margin: 50px 0 31px;
 }
 
-/* footer */
 .footer {
   border-top: 4px solid var(--primary-color);
   padding-top: 12px;
@@ -1427,7 +1331,6 @@ i.home-product-item__like-icon-fill {
 .footer__heading {
   font-size: 1.4rem;
   text-transform: uppercase;
-  /* color: var(--text-color); */
 }
 
 .footer-list {
@@ -1460,7 +1363,6 @@ i.home-product-item__like-icon-fill {
 .footer__download-qr {
   height: 80px;
   width: 80px;
-  /* object-fit: contain ; giúp cho ảnh về co về đúng tỉ lệ */
   border: 2px solid var(--border-color);
 }
 
@@ -1481,7 +1383,6 @@ i.home-product-item__like-icon-fill {
   margin-left: 4px;
 }
 
-/* licient */
 .footer__text {
   text-align: center;
   width: 100%;

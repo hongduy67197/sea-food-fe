@@ -37,20 +37,15 @@ const HeaderEnglish = () => {
   let variableTemp = 0;
   function getValue(value) {
     variableTemp = value;
-    console.log(45, value);
   }
   function navigateToProduct() {
-    console.log(43, variableTemp);
     let link = window.location.href;
     link += variableTemp;
-    console.log(46, link);
     if (variableTemp == "0") {
       navigate(`/product/filter`);
     } else {
       navigate(`/user/fillter?productName=${variableTemp}`);
     }
-
-    // navigate('/product/filter')
   }
   function navigateToProduct2(e) {
     navigate(`/product/filter?brand=${e.target.innerHTML}`);
@@ -322,17 +317,6 @@ const HeaderEnglish = () => {
               }}
               className="header_cart-wrap"
             >
-              {/* <ShoppingCartOutlined className="header_cart-icon" /> */}
-              {/* <div className="header_cart-list header_cart-list--no-cart">
-                <img
-                  src="https://komo.com.vn/uploads/img/cart.png"
-                  alt=""
-                  className="header_cart-list--no-cart-img"
-                />
-                <p className="header_cart-list--no-cart-messenger">
-                  Chưa Có Sản Phẩm
-                </p>
-              </div> */}
             </div>
           </div>
         </div>

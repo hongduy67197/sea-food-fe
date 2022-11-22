@@ -22,7 +22,6 @@ function Nhanvien(props) {
   }
 
   const showModal = (id) => {
-    console.log(25, id)
     setIsIndex(id);
     setIsModalVisible(true);
     data.map(function (val) {
@@ -38,16 +37,13 @@ function Nhanvien(props) {
     if (role !== "") {
       async function getAllorder() {
         let token = getUserCookie("user");
-        console.log(147, token);
         try {
           const res = await putApi(`/admin/user/${isindex}`, {
             role: role,
           });
           count();
           setIsModalVisible(false);
-        } catch (error) {
-          console.log(168, error);
-        }
+        } catch (error) {}
       }
       getAllorder();
     } else {
@@ -70,7 +66,14 @@ function Nhanvien(props) {
       align: "center",
       dataIndex: "avatar",
       render: (avatar) => (
-        <img src={avatar.startsWith('http') ? avatar : process.env.REACT_APP_SEA_FOOD_URL + avatar} alt="anh" />
+        <img
+          src={
+            avatar.startsWith("http")
+              ? avatar
+              : process.env.REACT_APP_SEA_FOOD_URL + avatar
+          }
+          alt="anh"
+        />
       ),
     },
     {
@@ -101,7 +104,6 @@ function Nhanvien(props) {
         <>
           <EditOutlined
             onClick={() => {
-              console.log(115, record)
               showModal(record._id);
             }}
             style={{ fontSize: 20 }}
@@ -133,10 +135,8 @@ function Nhanvien(props) {
   useEffect(() => {
     async function getAllUser() {
       let token = getUserCookie("user");
-      console.log(147, token);
       try {
         const res = await getApi("/admin/user");
-        console.log(149, 'user',res)
         setstate(res.data);
       } catch (error) {
         console.log(168, error);
@@ -145,9 +145,7 @@ function Nhanvien(props) {
     getAllUser();
   }, [isin]);
 
-  function onChange(pagination, filters, sorter, extra) {
-    console.log("params", pagination, filters, sorter, extra);
-  }
+  function onChange(pagination, filters, sorter, extra) {}
 
   function ondelete(id) {
     Modal.confirm({
@@ -157,7 +155,6 @@ function Nhanvien(props) {
       onOk: () => {
         async function getAllorder() {
           let token = getUserCookie("user");
-          console.log(147, token);
           try {
             const res = await deleteApi(`/admin/user/${id}`);
           } catch (error) {
@@ -169,7 +166,6 @@ function Nhanvien(props) {
       },
     });
   }
-  console.log(182, data);
   return (
     <div>
       <Header tenname={props.name}></Header>
@@ -188,7 +184,7 @@ function Nhanvien(props) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <select placeholder="quyền" className="role" name="role" > 
+        <select placeholder="quyền" className="role" name="role">
           <option value="user">user</option>
           <option value="staff">staff</option>
         </select>

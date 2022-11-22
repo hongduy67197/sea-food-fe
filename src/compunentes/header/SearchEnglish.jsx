@@ -2,7 +2,6 @@ import "../header/header.css";
 import { React, useEffect, useState } from "react";
 import axios from "../../axios";
 import Cards from "../home/homePage/Cards";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 let tempAddToSearchBar;
 
@@ -68,7 +67,6 @@ const SearchEnglish = (props) => {
   function movePageToProduct(e) {
     let linktoProduct = e.target.innerHTML;
     let linktoProductModify = RemoveAccents(linktoProduct).split(" ").join("");
-    console.log(51, e.target.innerHTML);
     navigate(`/product/filter/${linktoProductModify}`);
   }
 

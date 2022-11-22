@@ -4,9 +4,7 @@ import "../asset/css/base.css";
 import "../asset/css/main.css";
 import "../asset/css/grid.css";
 import "../asset/css/responsive.css";
-
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 import Header from "../compunentes/header/Header";
 import Footer from "../compunentes/footer/Footer";
 import axios from "../axios";
@@ -21,28 +19,22 @@ let commonButton;
 let newstButton;
 let salestButton;
 function SearchProduct(props) {
-  console.log(20, props.dataval.length);
-  let getLocattion = window.location.href.replace('http://localhost:3000/product/filter/search?','')
-  console.log(26,getLocattion)
-  const [trig, setTrig] = useState('')
+  let getLocattion = window.location.href.replace(
+    "http://localhost:3000/product/filter/search?",
+    ""
+  );
+  const [trig, setTrig] = useState("");
   const [resetPage, setResetPage] = useState(props.dataval);
   useEffect(() => {
-    // axios.get(`http://localhost:3150/user/fillter?productName=${getLocattion}`)
-    axios.get(`http://localhost:3150/user/fillter?productName=${getLocattion}`)
-      .then(function(res){
-        console.log(58,res)
+    axios
+      .get(`http://localhost:3150/user/fillter?productName=${getLocattion}`)
+      .then(function (res) {
         setResetPage([...res.data.listProductCode]);
       })
-      .catch((error)=>{
-        console.log(error)
-      })
-
-
-
-
-    // setResetPage([...props.dataval]);
+      .catch((error) => {
+        console.log(error);
+      });
   }, [getLocattion]);
-  //giữ lại các chõ đã choose khi load lại trang.
   const [searchParams, setSearchParams] = useSearchParams();
   useEffect(() => {
     let searchBrand = searchParams.get("brand");
@@ -78,7 +70,6 @@ function SearchProduct(props) {
       }
     }
   }, []);
-  // -------------------function biến đổi tiếng việt có dấu thành không dấu.
   function removeAccents(str) {
     var AccentsMap = [
       "aàảãáạăằẳẵắặâầẩẫấậ",
@@ -105,9 +96,7 @@ function SearchProduct(props) {
   }
   let navigate = useNavigate();
   function movePage(i, val) {
-    console.log(79, val);
     navigate(`/product/filter/${i}`);
-    // navigate(`/product/filter?id=${val._id}`)
   }
   function filterPages(i, key, e) {
     e.target.classList.toggle("myStyle");
@@ -184,26 +173,21 @@ function SearchProduct(props) {
       },
     ];
   } else {
-    // let a2 = a1.split("&");
-    // var a3 = a2.map((val, i) => {
-    //   let a4 = val.split("=");
-    //   let a6 = a4[0];
-    //   a4.shift();
-    //   let a7 = a4[0].split(",");
-    //   let a5 = { [a6]: a7 };
-    //   return a5;
-    // });
-    var a3 =[{ brand: [
-      "Iphone",
-      "Samsung",
-      "Oppo",
-      "Vivo",
-      "Xiaomi",
-      "Realmi",
-      "Nokia",
-      "Itel",
-      "masstel",
-    ]}]
+    var a3 = [
+      {
+        brand: [
+          "Iphone",
+          "Samsung",
+          "Oppo",
+          "Vivo",
+          "Xiaomi",
+          "Realmi",
+          "Nokia",
+          "Itel",
+          "masstel",
+        ],
+      },
+    ];
   }
   //----------------------------------------------------function xử lí lọc qua chỉ mục truyền vào các chỉ mục lọc và lọc trong data những dữ liệu thỏa mãn dk
   function handleDataFollowFiler(data, ref) {
@@ -234,15 +218,10 @@ function SearchProduct(props) {
     commonButton = document.querySelector(".commonButton");
     commonButton.classList.add("btn--primary");
   }, []);
-  // ---------------------------------------------------xử lí sau khi lọc xong thì  sort lại. trình tự là lọc xong các chỉ mục và đối chiếu sang sort
-  // var myJSON = JSON.parse(JSON.stringify(handleDataFollowFiler(props.dataval, a3))); //sao chép
-  var myJSON = JSON.parse(JSON.stringify(handleDataFollowFiler(resetPage, a3))); //sao chép
-  console.log(229,resetPage,a3)
-  console.log(168, myJSON);
+  var myJSON = JSON.parse(JSON.stringify(handleDataFollowFiler(resetPage, a3)));
   myJSON.sort((a, b) => {
-    return a.storage - b.storage; // tạm thời sort theo storage vì chưa có trường PHỔ BIẾN
+    return a.storage - b.storage;
   });
-  //-----------------------------------------------------check xem nút ở bên sort có đc on hay không để thay đổi dữ liệu render theo đúng tính chất
   useEffect(() => {
     if (newstButton.classList.contains("btn--primary")) {
       myJSON.sort((a, b) => {
@@ -257,14 +236,10 @@ function SearchProduct(props) {
       });
     }
   }, [window.location.href]);
-  //--------------------------------------- sử dụng useState và useEffect để lắng nghe thay đổi phía đường dẫn rồi từ đó render lại theo trường đc sort
   const [stateSort, setStateSort] = useState(myJSON);
   useEffect(() => {
     setStateSort([...myJSON]);
   }, [window.location.href, myJSON.length]);
-  // if(props.dataval.length>4 ){
-  //     console.log(1234)
-  // }
   function removeClass(arr) {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].classList.contains("btn--primary")) {
@@ -341,7 +316,7 @@ function SearchProduct(props) {
         {/* <!-- phần container items --> */}
         <div className="grid wide">
           <div className="row sm-gutter app__content">
-            <div style = {{display:'none'}} className="col1 l-2 m-0 c-12">
+            <div style={{ display: "none" }} className="col1 l-2 m-0 c-12">
               <nav className="category">
                 <h4 className="category__heading">
                   <i className="category__heading-icon fa-solid fa-filter"></i>
@@ -658,15 +633,10 @@ function SearchProduct(props) {
               <div className="home-product">
                 <div className="row sm-gutter">
                   {/* <!-- product item --> */}
-
                   {stateSort.map((val, i) => {
                     {
                       props.changeFilterData(stateSort);
                     }
-                    {
-                      /* {props.dataval.map((val, i) => { */
-                    }
-
                     return (
                       <div className="col1 l-2-4 mg-4 c-12">
                         <button
@@ -714,11 +684,6 @@ function SearchProduct(props) {
                             </div>
                           </div>
                           <div className="home-product-item__action">
-                            {/* icon heart like */}
-                            {/* <span className="home-product-item__like home-product-item__like--liked">
-                                                        <i className="home-product-item__like-icon-empty far fa-heart"></i>
-                                                        <i className="home-product-item__like-icon-fill fas fa-heart"></i>
-                                                    </span> */}
                             <div className="home-product-item__rating">
                               <i className="home-product-item__star--rate far fa-star"></i>
                               <i className="home-product-item__star--rate far fa-star"></i>
@@ -730,20 +695,8 @@ function SearchProduct(props) {
                               Đã bán {val.countSold}
                             </div>
                           </div>
-                          {/* <div className="home-product-item__origin">
-                                                    <span className="home-product-item__brand">{val.productType}</span>
-                                                    <span className="home-product-item__origin-name">{val.createDate}</span>
-                                                </div> */}
-                          {/* vị trí đặt tape yêu thích góc card */}
-                          {/* <div className="home-product-item__favourite">
-                                                    <i className="fas fa-check"></i>
-                                                    <span>Yêu thích</span>
-                                                </div> */}
-
-                          {/* information details */}
                           <div className="home-product-item-information-detail-wrap">
                             <ul className="home-product-item-information-detail">
-                              {/* <li><span>{val.panel}</span></li> */}
                               <li>
                                 <span>{val.performanceProduct}</span>
                               </li>
@@ -756,12 +709,9 @@ function SearchProduct(props) {
                       </div>
                     );
                   })}
-
                   <div className="col1 l-2-4 m-4 c-6"></div>
                 </div>
               </div>
-
-              {/* <!-- thanh đánh trang --> */}
               <ul className="pagination home-product-pagination">
                 <li className="pagination-item">
                   <a className="pagination-item__link">
@@ -799,7 +749,6 @@ function SearchProduct(props) {
           </div>
         </div>
       </div>
-
       <Footer></Footer>
     </div>
   );

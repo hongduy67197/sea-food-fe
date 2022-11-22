@@ -17,7 +17,6 @@ function ForgotPassword(){
       document.querySelector('.forgot_test_email').innerHTML=' Email không đúng định dạng'
    }else{
      const res = await getApi('/user/CheckMail/checkCode',{email:email})
-     console.log(20,res,email)
    }
    }
 function resetText(){

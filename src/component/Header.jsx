@@ -105,12 +105,7 @@ function header() {
             </li>
           </ul>
         </nav>
-
-
-        {/* // Header with search */}
-
         <div class="header-with-search">
-          {/* // appline cho mobile scare */}
           <label for="mobile-search-checkbox" class="header__mobile-search">
             <i class="header-mobile-search-icon fas fa-search"></i>
           </label>
@@ -136,7 +131,6 @@ function header() {
             <div class="header__search-input-wrap">
               <input type="text" class="header__search-input" placeholder="Nhập để tìm sản phẩm" />
 
-              {/* // search history */}
               <div class="header__search-history">
                 <h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
 

@@ -191,7 +191,6 @@ function Comment1() {
       }
     });
     SetComment(newData);
-    console.log(newData);
   }
   ////========================
   function rateComment() {

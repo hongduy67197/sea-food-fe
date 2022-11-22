@@ -15,7 +15,6 @@ for(let a = 0; a < allOrder.length; a++){
   sumOrder=[...sumOrder,...list]
 }
 
-console.log(14, sumOrder);
   return (
     <div>
       <div className="order_seach">
@@ -39,7 +38,6 @@ console.log(14, sumOrder);
        </thead>
        <tbody>
         {sumOrder.map(function(value, index){
-          console.log(38, value)
             if(value.idProduct !== null){
           return (
             <tr key={index}>

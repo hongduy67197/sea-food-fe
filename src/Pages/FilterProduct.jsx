@@ -6,7 +6,6 @@ import "../asset/css/grid.css";
 import "../asset/css/responsive.css";
 
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { ConsoleSqlOutlined } from "@ant-design/icons";
 import Header from "../compunentes/header/Header";
 import Footer from "../compunentes/footer/Footer";
 
@@ -20,7 +19,6 @@ let commonButton;
 let newstButton;
 let salestButton;
 function FilterProduct(props) {
-  console.log(20, props.dataval.length);
   const [resetPage, setResetPage] = useState(props.dataval);
   useEffect(() => {
     setResetPage([...props.dataval]);
@@ -88,9 +86,7 @@ function FilterProduct(props) {
   }
   let navigate = useNavigate();
   function movePage(i, val) {
-    console.log(79, val);
     navigate(`/product/filter/${i}`);
-    // navigate(`/product/filter?id=${val._id}`)
   }
   function filterPages(i, key, e) {
     e.target.classList.toggle("myStyle");
@@ -141,7 +137,6 @@ function FilterProduct(props) {
     }
     navigate(link);
   }
-  //---------------------------------------------------------phân tích và lọc  diomain để tạo ra trường lọc object với các giá trị được choose
   let a1 = window.location.href.replace(
     "http://localhost:3000/product/filter?",
     ""
@@ -177,9 +172,7 @@ function FilterProduct(props) {
 
       return a5;
     });
-    console.log(180, a3)
   }
-  //----------------------------------------------------function xử lí lọc qua chỉ mục truyền vào các chỉ mục lọc và lọc trong data những dữ liệu thỏa mãn dk
   function handleDataFollowFiler(data, ref) {
     let containerFilter = [];
     for (var item of ref) {
@@ -209,11 +202,9 @@ function FilterProduct(props) {
     commonButton.classList.add("btn--primary");
   }, []);
   // ---------------------------------------------------xử lí sau khi lọc xong thì  sort lại. trình tự là lọc xong các chỉ mục và đối chiếu sang sort
-  // var myJSON = JSON.parse(JSON.stringify(handleDataFollowFiler(props.dataval, a3))); //sao chép
   var myJSON = JSON.parse(JSON.stringify(handleDataFollowFiler(resetPage, a3))); //sao chép
-  console.log(168, myJSON);
   myJSON.sort((a, b) => {
-    return a.storage - b.storage; // tạm thời sort theo storage vì chưa có trường PHỔ BIẾN
+    return a.storage - b.storage;
   });
   //-----------------------------------------------------check xem nút ở bên sort có đc on hay không để thay đổi dữ liệu render theo đúng tính chất
   useEffect(() => {
@@ -235,9 +226,7 @@ function FilterProduct(props) {
   useEffect(() => {
     setStateSort([...myJSON]);
   }, [window.location.href, myJSON.length]);
-  // if(props.dataval.length>4 ){
-  //     console.log(1234)
-  // }
+
   function removeClass(arr) {
     for (let i = 0; i < arr.length; i++) {
       if (arr[i].classList.contains("btn--primary")) {
@@ -287,8 +276,8 @@ function FilterProduct(props) {
       .querySelector(".select-input__label")
       .classList.add("select-input__label-change-color");
     myJSON.sort((a, b) => {
-      let saleNumbera = (1 - a.Sale.replace('%', '') * 0.01)
-      let saleNumberb = (1 - b.Sale.replace('%', '') * 0.01)
+      let saleNumbera = 1 - a.Sale.replace("%", "") * 0.01;
+      let saleNumberb = 1 - b.Sale.replace("%", "") * 0.01;
       return a.price * saleNumbera - b.price * saleNumberb;
     });
     setStateSort([...myJSON]);
@@ -302,8 +291,8 @@ function FilterProduct(props) {
       .querySelector(".select-input__label")
       .classList.add("select-input__label-change-color");
     myJSON.sort((a, b) => {
-      let saleNumberav = (1 - a.Sale.replace('%', '') * 0.01)
-      let saleNumberbv = (1 - b.Sale.replace('%', '') * 0.01)
+      let saleNumberav = 1 - a.Sale.replace("%", "") * 0.01;
+      let saleNumberbv = 1 - b.Sale.replace("%", "") * 0.01;
 
       return b.price * saleNumberav - a.price * saleNumberbv;
     });
@@ -350,7 +339,10 @@ function FilterProduct(props) {
                     </div>
                   </li>
                   <li className="category-item ">
-                    <div style={{ display: "none" }} className="category-item_link">
+                    <div
+                      style={{ display: "none" }}
+                      className="category-item_link"
+                    >
                       <div className="title-filter">GIÁ</div>
                       <div className="category-item-detail-wrap">
                         {props.filter.price.map((val, i) => {
@@ -631,20 +623,12 @@ function FilterProduct(props) {
                   </div>
                 </div>
               </div>
-
-              {/* <!-- home product --> */}
               <div className="home-product">
                 <div className="row sm-gutter">
-                  {/* <!-- product item --> */}
-
                   {stateSort.map((val, i) => {
                     {
                       props.changeFilterData(stateSort);
                     }
-                    {
-                      /* {props.dataval.map((val, i) => { */
-                    }
-
                     return (
                       <div className="col1 l-2-4 mg-4 c-12">
                         <button
@@ -692,11 +676,6 @@ function FilterProduct(props) {
                             </div>
                           </div>
                           <div className="home-product-item__action">
-                            {/* icon heart like */}
-                            {/* <span className="home-product-item__like home-product-item__like--liked">
-                                                        <i className="home-product-item__like-icon-empty far fa-heart"></i>
-                                                        <i className="home-product-item__like-icon-fill fas fa-heart"></i>
-                                                    </span> */}
                             <div className="home-product-item__rating">
                               <i className="home-product-item__star--rate far fa-star"></i>
                               <i className="home-product-item__star--rate far fa-star"></i>
@@ -708,20 +687,8 @@ function FilterProduct(props) {
                               Đã bán {val.countSold}
                             </div>
                           </div>
-                          {/* <div className="home-product-item__origin">
-                                                    <span className="home-product-item__brand">{val.productType}</span>
-                                                    <span className="home-product-item__origin-name">{val.createDate}</span>
-                                                </div> */}
-                          {/* vị trí đặt tape yêu thích góc card */}
-                          {/* <div className="home-product-item__favourite">
-                                                    <i className="fas fa-check"></i>
-                                                    <span>Yêu thích</span>
-                                                </div> */}
-
-                          {/* information details */}
                           <div className="home-product-item-information-detail-wrap">
                             <ul className="home-product-item-information-detail">
-                              {/* <li><span>{val.panel}</span></li> */}
                               <li>
                                 <span>{val.performanceProduct}</span>
                               </li>
@@ -734,12 +701,9 @@ function FilterProduct(props) {
                       </div>
                     );
                   })}
-
                   <div className="col1 l-2-4 m-4 c-6"></div>
                 </div>
               </div>
-
-              {/* <!-- thanh đánh trang --> */}
               <ul className="pagination home-product-pagination">
                 <li className="pagination-item">
                   <a className="pagination-item__link">

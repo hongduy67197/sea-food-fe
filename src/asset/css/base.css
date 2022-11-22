@@ -15,18 +15,13 @@
   --header-sort-bar-height: 46px;
 }
 * {
-  box-sizing: inherit; /*  inherits : mang ý nghĩa kế thừa từ box chứa nó có thuộc tính box-sizing; */
+  box-sizing: inherit; 
 }
-/* html {
-    font-size: 62.5%;
-    line-height: 1.6rem;
-    font-family: 'Roboto', sans-serif;
-    box-sizing: border-box;
-} */
+
 /* responsive */
 .grid__row {
-  display: flex; /* Nhũng thẻ nằm trong cái class này sẽ cùng nằm trên 1 hàng ngang */
-  flex-wrap: wrap; /* Tổng độ dài những thằng con vượt quá cái grid row thì nó sẽ rơi xuống dòng */
+  display: flex; 
+  flex-wrap: wrap; 
   margin-left: -5px;
   margin-right: -5px;
 }
@@ -87,7 +82,7 @@
   --growth-to: 1;
   margin: auto;
   position: relative;
-  z-index: 1; /* thuộc tính z-index quyết định xem lớp nào là lớp đứng trước để người dùng có thể nhìn thấy trước */
+  z-index: 1; 
   animation: growth linear 0.3s;
 }
 /* buttom style  */
@@ -121,12 +116,6 @@
   color: white;
   opacity: 0.8;
 }
-/* .btn.btn--disabled {
-    cursor: default;
-    background-color: #ccc;
-    color: #dbdbdb;
-
-} */
 .btn.btn--size-s {
   height: 30px;
   font-size: 12px;
@@ -213,6 +202,6 @@
   text-align: center;
   line-height: var(
     --height
-  ); /* để căn giữa chữ thì align và cho chiều cao chữ line-height bằng chiều cao box chứa */
+  );
   border-radius: 2px;
 }

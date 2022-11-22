@@ -1,16 +1,13 @@
 import React from "react";
 import "../css/product.css";
-import Logo from "./logo.jpg";
 import { useState, useEffect } from "react";
 import { Modal, Button } from "antd";
 import "antd/dist/antd.css";
 import { notification, Space } from "antd";
-import { ConsoleSqlOutlined, WarningOutlined } from "@ant-design/icons";
+import {  WarningOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { getApi, postApi } from "../api/config";
 import { patchApi } from "../api/config";
-import Header from "../compunentes/header/Header";
 import Footer from "../compunentes/footer/Footer";
 function Cart(props) {
   const [productData, setProductData] = useState([]);
@@ -96,7 +93,6 @@ function Cart(props) {
       quantity: 0,
     })
       .then((data) => {
-        console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -108,8 +104,6 @@ function Cart(props) {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    console.log(productData[getIndex].idProduct._id);
-
     setQuantity(Quantity + 1);
     setProduct(...productData);
   };
@@ -124,7 +118,6 @@ function Cart(props) {
       .then((data) => {
         setQuantity(Quantity + 1);
         setProduct(...productData);
-        console.log(data);
       })
       .catch((err) => {
         console.log(err);
@@ -176,10 +169,8 @@ function Cart(props) {
   const [quantitys, setQuantitys] = useState(1);
   const domain = process.env.REACT_APP_SEA_FOOD_URL;
 
-  console.log(productDatas);
   return (
     <>
-      {/* <Header></Header> */}
       <div className="main-giohang">
         <div className="Gio_hang">
           <div className="title">
@@ -267,22 +258,8 @@ function Cart(props) {
                             onOk={handleOk}
                             onCancel={handleCancel}
                           >
-                            <p>
-                              {/* {
-                                productData[getIndex].idProduct.idProductCode
-                                  .productName
-                              } */}
-                              {/* ({productData[getIndex].idProduct.color}) */}
-                            </p>
-                            <div className="img-list">
-                              {/* <img
-                                className="Img_product"
-                                src={`http://localhost:3150${productData[getIndex].idProduct.productPic[0]}`}
-                              /> */}
-                            </div>
                           </Modal>
                         </>
-
                         <div className="quantity-result">{value.quantity}</div>
                         <button
                           onClick={() => upQuantity(index, value.idProduct._id)}
@@ -311,14 +288,6 @@ function Cart(props) {
                   );
                 })}
                 <div className="gird-item1">
-                  {/* {productDatas.map((value, index) => {
-					console.log(value);
-					return (
-						<div key={index}>
-							<p>{value.quantity}</p>
-						</div>
-					)
-				  })} */}
                 </div>
 
                 <div className="info_payment">
