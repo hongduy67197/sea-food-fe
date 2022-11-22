@@ -121,7 +121,6 @@ function CreateOrder(props) {
 
     const postOrder = async () => {
         try {
-            console.log(130, userInfo)
             const data = await postApi('/user/order',{ 
                     phone: userInfo.phone,
                     address: userInfo.address,
