@@ -15,8 +15,8 @@ function Menu(props) {
     });
     const userName = userInfo.username ? userInfo.username : 'hello';
     const imager = userInfo.avatar
-    ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar
-    : userlogo;
+        ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar
+        : userlogo;
 
     function onof_mypage() {
         // navigate()
@@ -50,21 +50,7 @@ function Menu(props) {
     }
     // THÔNG BÁO
     function menu_capNhat() {
-    // navigate('/User/UserPage/Comment/CapNhat');
-
         props.onof_capNhat();
-    }
-    function menu_khuyenMai() {
-        props.onof_khuyenMai();
-    }
-    function menu_vi() {
-        props.onof_vi();
-    }
-    function menu_hoatDong() {
-        props.onof_hoatDong();
-    }
-    function menu_danhGia() {
-        props.onof_danhGia();
     }
     // TÀI KHOẢN CỦA TÔI
     function menu_mypage() {
@@ -82,7 +68,7 @@ function Menu(props) {
     return (
         <div className="menu_">
             <div className="menu_header">
-                <img src={imager}alt="img" />
+                <img src={imager} alt="img" />
                 <span>{userName}</span>
                 <button onClick={onof_mypage}>
                     <i className="fa-solid fa-pen"></i>Sửa Hồ Sơ
@@ -107,16 +93,8 @@ function Menu(props) {
                 <img src={comment} alt="" />
                 <button onClick={onof_comment}>Thông Báo</button>
                 <div className="menu_comment_list">
-                    <p onClick={menu_capNhat}>Cập Nhật Đơn Hàng</p>                   
-                    <p onClick={menu_khuyenMai}>Khuyến Mãi</p>
-                    <p onClick={menu_vi}>Cập Nhật Ví</p>
-                    <p onClick={menu_hoatDong}>Hoạt Động</p>
-                    <p onClick={menu_danhGia}>Cập Nhật Đánh Giá</p>
+                    <p onClick={menu_capNhat}>Cập Nhật Đơn Hàng</p>
                 </div>
-            </div>
-            <div className="menu_voucher">
-                <img src={voucher} alt="" />
-                <button onClick={onof_voucher}>Kho Voucher</button>
             </div>
         </div>
     );
