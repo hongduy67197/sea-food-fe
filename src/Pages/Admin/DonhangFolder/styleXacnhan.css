@@ -15,8 +15,8 @@
 }
 .ant-table-tbody > tr > td {
   border-bottom: 1px solid #f0f0f0;
-  transition: background 0.3s;
   text-align: unset;
+  padding: 30px;
 }
 .ant-table-tbody {
   display: 1;
@@ -24,6 +24,8 @@
 .ant-table-row {
   display: table;
   width: 100%;
+  padding: 10px;
+  padding-left: 20px;
 }
 .ant-table-thead {
   width: 100%;
@@ -31,13 +33,9 @@
 }
 .ant-table-tbody > tr > td {
   border-bottom: 1px dashed #aea8a8;
-  transition: background 0.3s;
   text-align: unset;
-  padding: 0;
+  padding: 10px;
 }
 .ant-table-thead > tr > th {
   padding: 2px 15px;
 }
-/* .anticon  {
-  font-size:  23px;
-} */

@@ -14,13 +14,10 @@ function Nhanvien(props) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isindex, setIsIndex] = useState(0);
   const [isin, setIsin] = useState(1);
-
   const data = [];
-
   function count() {
     setIsin(isin + 1);
   }
-
   const showModal = (id) => {
     setIsIndex(id);
     setIsModalVisible(true);
@@ -31,7 +28,6 @@ function Nhanvien(props) {
     });
     count();
   };
-
   const handleOk = () => {
     let role = document.querySelector(".role").value;
     if (role !== "") {
@@ -50,11 +46,9 @@ function Nhanvien(props) {
       document.querySelector(".Not").innerHTML = "Vui lòng không được để trống";
     }
   };
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
-
   const columns = [
     {
       title: "STT",
@@ -73,6 +67,7 @@ function Nhanvien(props) {
               : process.env.REACT_APP_SEA_FOOD_URL + avatar
           }
           alt="anh"
+          className="img__nhanvien"
         />
       ),
     },

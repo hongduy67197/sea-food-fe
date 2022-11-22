@@ -69,7 +69,7 @@ function Xacnhan() {
             key: index + 1,
             stt: index + 1,
             total: val.total ? val.total : 0,
-            date: val.updatedAt, //.toLocaleString('en-GB', { timeZone: 'UTC' }) ,
+            date: val.updatedAt, 
             name: val.idUser
               ? val.idUser.username == "" || val.idUser.username == undefined
                 ? "---------"
@@ -305,10 +305,8 @@ function Xacnhan() {
           dataSource={data2}
           pagination={{ defaultPageSize: 300 }}
         />
-        ;
       </div>
     </>
   );
 }
 export default Xacnhan;
-// --------------------------------------------------------------------------------------
