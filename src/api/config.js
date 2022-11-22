@@ -20,11 +20,9 @@ export const getApi = async (path, config = {}) => {
 
 export const postApi = async (path, data, config = {}) => {
     let token = getUserCookie('user')
-    console.log(23, token);
     config.headers = { Authorization: token }
     try {
         let res = await axios.post(path, data, config)
-        console.log(27, res);
         if (res.data.message === 'jwt expired') {
             await refreshToken()
             token = getUserCookie('user');
@@ -41,7 +39,6 @@ export const postApi = async (path, data, config = {}) => {
 export const putApi = async (path, data, config = {}) => {
     let token = getUserCookie('user')
     config.headers = { Authorization: token }
-    console.log(44, config);
     try {
         let res = await axios.put(path, data, config)
         if (res.data.message === 'jwt expired') {

@@ -18,7 +18,6 @@ return state.user
   const userName = userInfor.username?userInfor.username:'hello'
   const avatr = process.env.REACT_APP_CLIENT_URL + userInfor.avatar
  
-  console.log(userInfor)
   const navigate = useNavigate();
   var countproduct = 0;
   var countselect = 0;
@@ -79,7 +78,6 @@ return state.user
   // }
   function oninfor() {
     countinfor++;
-    console.log(countinfor);
     if (countinfor % 2 !== 0) {
       document.querySelector(".infor").style.display = "block";
     }

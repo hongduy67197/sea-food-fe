@@ -82,8 +82,6 @@ function Cart(props) {
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    console.log(productData[getIndex].idProduct._id);
-
   };
   //===================================================
   async function upQuantity(index, id) {

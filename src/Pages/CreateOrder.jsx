@@ -30,13 +30,11 @@ function CreateOrder(props) {
     })
     
     const [temp, setTemp] = useState([])
-    console.log(36,temp)
 
     useEffect(()=>{
         async function  temps (){
             try {
                 const orderList = await getApi('/user/order/' + orderid);
-                console.log(orderList);
                 setTemp(orderList.data.listProduct);
                 setAddress(orderList.data.address)
             } catch (error) {
@@ -87,17 +85,10 @@ function CreateOrder(props) {
     const getUserAddress = async () => {
         try {
             const { data } = await getApi('/user/me');
-            console.log(105, data);
             setUserInfo(data.user);
         } catch (error) {
             console.log(error);
         }
-    };
-
-    const handleCancel = (params) => {
-        setUserInfo(editInfoOld);
-
-        setOpen(false);
     };
 
     return (
@@ -142,11 +133,7 @@ function CreateOrder(props) {
                     </div>
 
                     <div className="product-list-items">
-                        {/* {console.log(311,temp.listProduct)} */}
-
-
                         {temp.length == 0 ? null: temp.map((dataItem, index) => {
-                            console.log(307, dataItem);
                             return (
                                 <div className="product-item" key={index}>
                                     <div className="product-image">

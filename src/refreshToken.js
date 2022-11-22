@@ -25,14 +25,12 @@ function setCookie(cname, cvalue, exdays) {
 export const getUserCookie = getCookie
 
 export async function refreshToken (){
-    // console.log(28,getCookie('user'));
     try {
         let res = await axios.post('/user/refreshToken', {}, {
             headers: {
                 Authorization: getCookie('user'),
             },
         }) 
-        // console.log(35, res.data);
         setCookie('user', res.data.token, 7)
     } catch (error) {
         console.log(37, error);
