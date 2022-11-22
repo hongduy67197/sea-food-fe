@@ -354,7 +354,7 @@ const App = (props) => {
             <Route path="/User/UserLogin" element={<UserLogin></UserLogin>} />
             <Route path="/User/UserSingIn" element={<UserSingIn></UserSingIn>} />
             <Route path="/User/UserPase" element={<UserPase></UserPase>} />
-            <Route path="/User/order" element={<CreateOrder />} />
+            <Route path="/User/order/:orderid" element={<CreateOrder />} />
             <Route
               path="User/UserPage/ForgotPassword/ForgotPassword"
               element={<ForgotPassword></ForgotPassword>}

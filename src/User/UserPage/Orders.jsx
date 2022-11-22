@@ -16,7 +16,6 @@ function Orders(props) {
 useEffect(() => {
   getApi('/user/carts')
   .then(function(data){
-    console.log(19, data);
     const newCart =data.data.cart.listProduct 
     setUserCart(newCart)
   })
@@ -83,6 +82,8 @@ useEffect(() => {
     document.querySelector(".orderDaHuy").style.display = "block";
     document.querySelector(".orderDangGiao").style.display = "none";
   }
+
+  console.log(87, userOder)
   return (
     <div>
       <div className="order_header">
@@ -91,13 +92,13 @@ useEffect(() => {
         {/* <button onClick={onofWaiting}>Chờ lấy hàng</button> */}
         <button onClick={onofDangGiao}>Đang giao</button>
         <button onClick={onofDaGiao}>Đã giao</button>
-        <button onClick={onofDaHuy}>Đã hủy </button>
+        {/* <button onClick={onofDaHuy}>Đã hủy </button> */}
       </div>
       <div className="orderAll">
         <OrderAll userCart={userCart} userOder={userOder}></OrderAll>
       </div>
       <div className="orderCheck">
-        <OrderCheck setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='done'></OrderCheck>
+        <OrderCheck setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='pending'></OrderCheck>
       </div>
       <div className="orderDaGiao">
         <OrderDaGiao setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='done'></OrderDaGiao>

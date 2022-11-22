@@ -3,7 +3,7 @@ import '../css/CreateOrder.scss';
 // import swal from 'sweetalert';
 
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { toast } from 'react-toastify';
@@ -22,10 +22,9 @@ import { useSelector } from "react-redux";
 
 
 function CreateOrder(props) {
-
-     // Mảng dữ liệu userInfo
-     const [userInfo, setUserInfo] = useState({});
-    // dữ liệu user trả về theo phiên đăng nhập
+    let { orderid } = useParams();
+    const [userInfo, setUserInfo] = useState({});
+    const [address, setAddress] = useState('');
     const userPage =useSelector(function(state){
         return state.user
     })
@@ -36,12 +35,13 @@ function CreateOrder(props) {
     useEffect(()=>{
         async function  temps (){
             try {
-                const orderList = await getApi('/user/carts')
-                setTemp(orderList.data.cart.listProduct);
+                const orderList = await getApi('/user/order/' + orderid);
+                console.log(orderList);
+                setTemp(orderList.data.listProduct);
+                setAddress(orderList.data.address)
             } catch (error) {
                 console.log(error)
             }
-                // console.log(24,orderList)
         }
           temps();  
         }
@@ -114,26 +114,6 @@ function CreateOrder(props) {
         }
     };
 
-    // Method Post Payment:
-    // function postOrder() {
-    //     postPayment(productCart, userInfo);
-    // }
-
-    const postOrder = async () => {
-        try {
-            console.log(130, userInfo)
-            const data = await postApi('/user/order',{ 
-                    phone: userInfo.phone,
-                    address: userInfo.address,
-                });
-            console.log(134, data);
-        } catch (error) {
-            console.log(136, error);
-        }
-    };
-
-    //=======================================================
-    // CÁC HÀM HANDLE:
     const handleClickOpen = () => {
         setEditInfoOld(JSON.parse(JSON.stringify(userInfo))); // làm mất tham chiếu.
 
@@ -208,7 +188,7 @@ function CreateOrder(props) {
                     </div>
                     <div className="address-inner">
                         <div className="address-user">
-                            {/* <div>{userInfo.name}</div> */}
+                            <div>{address}</div>
                         <div>{userPage.username}</div>
                             <div>{userPage.phone}</div>
                         </div>
@@ -353,16 +333,14 @@ function CreateOrder(props) {
                         <button
                             className="payment-send"
                             onClick={() => {
-                                postOrder();
-
                                 toast.info('Cảm ơn bạn đã mua hàng', {
                                     position: 'top-center',
                                     autoClose: 3000,
                                 });
 
-                                // setTimeout(() => {
-                                //     navigate('/');
-                                // }, 4000);
+                                setTimeout(() => {
+                                    navigate('/')
+                                }, 4000)
                             }}
                         >
                             PAYMENT

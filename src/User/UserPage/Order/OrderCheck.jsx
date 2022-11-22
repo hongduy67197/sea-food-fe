@@ -2,7 +2,6 @@ import React from "react";
 import order from "../../../assets/images/ordermenu.png";
 
 function OrderCheck(props) {
-  //  console.log(5,props)
   const allOrder = props.userOder
   let sumOrder = []
   let sumStatus=0
@@ -16,7 +15,6 @@ for(let a = 0; a < allOrder.length; a++){
   sumOrder=[...sumOrder,...list]
 }
 
-console.log(14, sumOrder);
   return (
     <div>
       <div className="order_seach">
