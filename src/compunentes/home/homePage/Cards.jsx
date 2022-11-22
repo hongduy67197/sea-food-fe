@@ -1,9 +1,5 @@
-import { PlusCircleOutlined } from "@ant-design/icons";
-import React, { useState, useEffect } from "react";
-import { ExceptionMap } from "antd/lib/result";
-import axios from "../../../axios";
+import React, { } from "react";
 import { useNavigate } from "react-router-dom";
-import Rate from "./Rate";
 import { Button } from "antd";
 
 const Cards = ({ item, keyId, sort }) => {
@@ -38,7 +34,6 @@ const Cards = ({ item, keyId, sort }) => {
     navigate(`/product/filter/${Name}`);
   }
 
-  console.log(53, process.env.REACT_APP_SEA_FOOD_URL);
   return (
     <div
       key={keyId}
@@ -64,7 +59,9 @@ const Cards = ({ item, keyId, sort }) => {
             <p>Loại: {item.idCategory.categoriesName}</p>
             <h1 className="price-product">Giá: {item.price}</h1>
             <p>Số lượng: {item.storage}</p>
-            <Button className="btn-detail">Xem chi tiết</Button>
+            <Button className="btn-detail" onClick={() => {
+              moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
+            }}>Xem chi tiết</Button>
           </div>
         </div>
       </div>
