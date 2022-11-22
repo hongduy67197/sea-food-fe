@@ -80,19 +80,10 @@ function CreateOrder(props) {
         },
     ]);
 
-    // tổng tiền hàng ???????????
-    const cartTotalPrice = 15002000;
-
-    //======================================================
-
     useEffect(() => {
         getUserAddress();
-        getProductCart();
     }, []);
 
-    //======================================================
-    // CÁC METHOD VỚI AXIOS:
-    // Method get User have address, phone, name.
     const getUserAddress = async () => {
         try {
             const { data } = await getApi('/user/me');
@@ -101,65 +92,6 @@ function CreateOrder(props) {
         } catch (error) {
             console.log(error);
         }
-    };
-
-    // Method get listProduct from Cart.
-    const getProductCart = async () => {
-        try {
-            const { data } = await getApi('/user/carts');
-            console.log(116, data);
-            setProductCart(data.cart.productCart);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const handleClickOpen = () => {
-        setEditInfoOld(JSON.parse(JSON.stringify(userInfo))); // làm mất tham chiếu.
-
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        // Dữ liệu bị thay đổi
-        if (JSON.stringify(userInfo) !== JSON.stringify(editInfoOld)) {
-            let res = window.confirm('Bạn có muốn đóng form không?');
-
-            if (res) {
-                handleCancel();
-            }
-        } else {
-            setOpen(false);
-        }
-    };
-
-    const handleEditInfo = (e, type) => {
-        switch (type) {
-            case 'name':
-                setUserInfo({
-                    ...userInfo,
-                    name: e.target.value,
-                });
-                break;
-            case 'phone':
-                setUserInfo({
-                    ...userInfo,
-                    phone: e.target.value,
-                });
-                break;
-            case 'address':
-                setUserInfo({
-                    ...userInfo,
-                    address: e.target.value,
-                });
-                break;
-            default:
-                setUserInfo({ ...userInfo });
-        }
-    };
-
-    const handleSubmit = (params) => {
-        setOpen(false);
     };
 
     const handleCancel = (params) => {
@@ -196,66 +128,10 @@ function CreateOrder(props) {
                         <div>{userPage.address}</div>
 
                         <span className="address-default">Mặc định</span>
-
-                        {/* Change infomation */}
-                        <div>
-                            <Button variant="outlined" onClick={handleClickOpen} style ={{display:'none'}}>
-                           
-                            </Button>
-                            <Dialog open={open} onClose={handleClose}>
-                                <DialogActions style={{ display: 'flex', justifyContent: 'space-between' }}>
-                                    <DialogTitle>Chỉnh sửa thông tin</DialogTitle>
-                                    <Button onClick={handleClose} style={{ color: 'red' }}>
-                                        ĐÓNG
-                                    </Button>
-                                </DialogActions>
-
-                                <DialogContent>
-                                    <TextField
-                                        classes={{ color: 'red' }}
-                                        margin="dense"
-                                        id="name"
-                                        label="Name"
-                                        type="text"
-                                        fullWidth
-                                        variant="outlined"
-                                        defaultValue={userPage.username}
-                                        onChange={(e) => handleEditInfo(e, 'name')}
-                                    />
-                                    <TextField
-                                        margin="dense"
-                                        id="phone"
-                                        label="Phone"
-                                        type="phone"
-                                        fullWidth
-                                        variant="outlined"
-                                        defaultValue={userPage.phone}
-                                        onChange={(e) => handleEditInfo(e, 'phone')}
-                                    />
-                                    <TextField
-                                        margin="dense"
-                                        id="address"
-                                        label="Address"
-                                        type="text"
-                                        fullWidth
-                                        variant="outlined"
-                                        defaultValue={userPage.address}
-                                        onChange={(e) => handleEditInfo(e, 'address')}
-                                    />
-                                </DialogContent>
-                                <DialogActions>
-                                    <Button onClick={handleCancel} style={{ color: 'gray' }}>
-                                        HỦY BỎ
-                                    </Button>
-                                    <Button onClick={handleSubmit}>ĐỒNG Ý</Button>
-                                </DialogActions>
-                            </Dialog>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Sản phẩm, số lượng, đơn giá */}
             <div className="container_">
                 <div className="section-product">
                     <div className="titles">

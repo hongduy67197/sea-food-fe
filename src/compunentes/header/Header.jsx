@@ -19,19 +19,12 @@ import {
 import axios from "../../axios";
 import { getApi } from "../../api/config";
 const Header = (props) => {
-  // console.log(22222222222, props.quatityCart)
-
   const { filter, changeFilter } = props;
-
-  console.log("filter_header", props);
-  console.log("filter_header", filter, changeFilter);
   const navigate = useNavigate();
   const userInfo = useSelector(function (state) {
     return state.user;
   });
-
   const imager = userInfo.avatar ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar : userlogo;
-
   function on_mypage() {
     navigate("/User/UserPase");
   }
@@ -55,8 +48,6 @@ const Header = (props) => {
     if (variableTemp == "0") {
       navigate(`/product/filter`);
     } else {
-      // navigate(`/user/fillter?productName=${variableTemp}`);
-
       axios
         .get("http://localhost:3150/user/fillter?productName=i")
         .then(function (res) {
@@ -66,10 +57,8 @@ const Header = (props) => {
           console.log(error);
         });
       navigate(`/product/filter/search?${variableTemp}`);
-      // navigate(`/product/filter`);
     }
 
-    // navigate('/product/filter')
   }
   function navigateToProduct2(e) {
     navigate(`/product/filter?brand=${e.target.innerHTML}`);
@@ -98,7 +87,6 @@ const Header = (props) => {
       .catch((err) => {
         console.log(err);
       });
-    // console.log(32,productData[0].idProductCode)
   }, [props.quatityCart]);
 
   return (
@@ -341,7 +329,6 @@ const Header = (props) => {
                 >
                   <ShoppingCartOutlined className="header_cart-icon" />
                   <div className="count-number-cart">{cartNumber}</div>
-                  {/* <h1>{props.quatityCart }</h1> */}
                 </div>
               </div>
             </div>
