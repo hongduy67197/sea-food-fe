@@ -1,20 +1,18 @@
 import { ShoppingCartOutlined } from "@ant-design/icons";
+import Search from "../header/Search";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
-import { getApi } from "../../api/config";
-import userlogo from "../../assets/images/userlogo.jpg";
-import axios from "../../axios";
-import Categories from "../categories/Categories";
-import "../header/header.css";
-import Search from "../header/Search";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { getApi } from "../../../../api/config";
+import Categories_sea from "../categories/Categories";
+import "./header.css";
 const Header = (props) => {
   const { filter, changeFilter, categories } = props;
   const navigate = useNavigate();
   const userInfo = useSelector(function (state) {
     return state.user;
   });
-  const imager = userInfo.avatar ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar : userlogo;
+  const imager = userInfo.avatar ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar : null;
   function on_mypage() {
     navigate("/User/UserPase");
   }
@@ -49,10 +47,6 @@ const Header = (props) => {
                 <li className="header_navbar-item header_navbar-item-noti-notification-display">
                   <div className="header_navbar-item-noti">
                     <header className="header_noti-notification">
-                      <img
-                        src="https://thumbs.dreamstime.com/b/cute-boy-cartoon-illustration-87282832.jpg"
-                        alt=""
-                      />
                       <p className="header_noti-notification-noti">Đăng nhập để xem Thông báo</p>
                       <div className="header_navbar-item-noti-from">
                         <Link to="/User/UserSingIn">
@@ -128,7 +122,13 @@ const Header = (props) => {
             </div>
           </div>
         </div>
-        <Categories categories={categories} />
+        <Categories_sea
+          filter={filter}
+          categories={categories}
+          changeFilter={(data) => {
+            changeFilter(data);
+          }}
+        />
       </header>
     </>
   );

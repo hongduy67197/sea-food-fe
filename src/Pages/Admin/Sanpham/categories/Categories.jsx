@@ -4,8 +4,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../categories/categories.css";
 
-const Categories = (props) => {
-  const { categories } = props;
+const Categories_sea = (props) => {
+  const { categories, filter, changeFilter } = props;
   const navigate = useNavigate();
 
   function movePage(param) {
@@ -19,7 +19,7 @@ const Categories = (props) => {
           <div
             style={{ display: "flex", margin: "auto" }}
             onClick={() => {
-              movePage(category);
+              changeFilter({ ...filter, filter: { ...filter.filter, idCategory: category._id } });
             }}
           >
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
@@ -55,4 +55,4 @@ const Categories = (props) => {
   );
 };
 
-export default Categories;
+export default Categories_sea;
