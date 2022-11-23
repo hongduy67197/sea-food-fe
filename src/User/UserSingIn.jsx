@@ -254,18 +254,6 @@ function UserSingIn(props) {
               ĐĂNG KÝ
             </button>
             <span className="singin_conter_modal_or">HOẶC</span>
-            <div className="singin_conter_modal_buttonGrup">
-              <button>
-                <img src={face} alt="" /> Facebook
-              </button>
-              <button>
-                <img src={google} alt="" /> Google
-              </button>
-            </div>
-            <div className="singin_conter_modal_text">
-              <a href="">Điều khoản dịch vụ</a>&
-              <a href="">Chính sách bảo mật </a>
-            </div>
             <div className="singin_modal_footer">
               <span>Bạn đã có tài khoản?</span>
               <Link to="/user/UserLogin">

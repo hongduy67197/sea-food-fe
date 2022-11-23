@@ -139,6 +139,11 @@ function UserLogin(props) {
         document.querySelector('.login_password_show3').style.display = 'none'
         document.querySelector('.login_password_show1').style.display = 'block'
     }
+    document.on("keypress", function (e) {
+        if (e.which == 13) {
+            UserLogin();
+        }
+    });
     return (
         <>
             <div className="login_">
@@ -184,24 +189,11 @@ function UserLogin(props) {
                         </button>
                         <div className="login_conter_modal_a">
                             <Link to='/User/UserPage/ForgotPassword/ForgotPassword'>Quên mật khẩu</Link>
-                            <a href="" className="login_conter_modal_a2">
-                                Đăng nhập với SMS
-                            </a>
                         </div>
                         <span className="login_or">HOẶC</span>
-                        <div className="login_conter_modal_buttonGrup">
-                            <button>
-                                <img src={face} alt="" /> Facebook
-                            </button>
-                            <button>
-                                <img src={google} alt="" /> Google
-                            </button>
-                            <button>
-                                <img src={apple} alt="" /> Apple
-                            </button>
-                        </div>
+
                         <div className="login_conter_modal_footer">
-                            <span>Bạn mới biết đến Shopee ?</span>
+                            <span>Bạn mới biết đến  ?</span>
                             <Link to="/User/UserSingIn">
                                 <button>Đăng ký</button>
                             </Link>
