@@ -24,7 +24,6 @@ const Categories = (props) => {
             <Box sx={{ display: "flex", gap: 1, alignItems: "center" }}>
               <Chip
                 label={category.categoriesName}
-                // className={}
                 avatar={
                   <Avatar>
                     <img
@@ -35,7 +34,6 @@ const Categories = (props) => {
                 }
                 clickable
                 color="primary"
-                // onDelete={}
               />
             </Box>
           </div>
