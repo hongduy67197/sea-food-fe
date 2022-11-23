@@ -190,12 +190,6 @@ function Home(props) {
                         </div>
                     </div>
                 </div>
-
-                <div className="productNew">
-                    <h2>New Products</h2>
-                    <Table columns={columns} dataSource={database} pagination={false} />
-                </div>
-
                 <div className="Note">
                     <div className="calendar">
                         <Calendar
