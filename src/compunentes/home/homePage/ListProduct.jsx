@@ -3,6 +3,7 @@ import '../homePage/ListProduct.css';
 import Cards from '../homePage/Cards';
 
 const ListProduct = (items) => {
+    console.log(items);
     return (
         <div className="Product-list">
             {items.productCode.slice(0, items.numberShow).map((item, index) => {

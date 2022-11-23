@@ -37,7 +37,7 @@ function ProductChild(props) {
     }
     pathCard();
   }
-
+  console.log(getDataShow);
   return (
     <>
       <Header></Header>
@@ -61,6 +61,7 @@ function ProductChild(props) {
               <p className="detail__storage">
                 <span>Hàng còn trong kho : </span>
                 {getDataShow.storage}
+                <span>{' '}{getDataShow.unit}</span>
               </p>
               <p className="detail__createDate">
                 <span>Ngày đóng gói : </span>
