@@ -25,7 +25,6 @@ function Nhanvien(props) {
   }
 
   const showModal = (id) => {
-    console.log(25, id)
     setIsIndex(id);
     setIsModalVisible(true);
     data.map(function (val) {
@@ -41,7 +40,6 @@ function Nhanvien(props) {
     if (role !== "") {
       async function getAllorder() {
         let token = getUserCookie("user");
-        console.log(147, token);
         try {
           const res = await putApi(`/admin/user/${isindex}`, {
             role: role,
@@ -104,7 +102,6 @@ function Nhanvien(props) {
         <>
           <EditOutlined
             onClick={() => {
-              console.log(115, record)
               showModal(record._id);
             }}
             hidden={userInfor.role !== 'admin'}
@@ -114,7 +111,7 @@ function Nhanvien(props) {
       ),
     },
   ];
-  console.log(117, userInfor);
+
   for (let i = 0; i < state.length; i++) {
     data.push({
       index: i + 1,
@@ -131,10 +128,8 @@ function Nhanvien(props) {
   useEffect(() => {
     async function getAllUser() {
       let token = getUserCookie("user");
-      console.log(147, token);
       try {
         const res = await getApi("/admin/user");
-        console.log(149, 'user',res)
         setstate(res.data);
       } catch (error) {
         console.log(168, error);
@@ -144,7 +139,6 @@ function Nhanvien(props) {
   }, [isin]);
 
   function onChange(pagination, filters, sorter, extra) {
-    console.log("params", pagination, filters, sorter, extra);
   }
 
   return (

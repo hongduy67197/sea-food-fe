@@ -399,7 +399,14 @@ return state.user
               - Kho hàng
             </p>
           </div>
-          <div onClick={oninfor} className="menu1"></div>
+          <div onClick={oninfor} className="menu1">
+            <div>
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <p className="opt" style={{ marginLeft: "18px" }}>
+                Đăng xuất
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div className="changecolor">
