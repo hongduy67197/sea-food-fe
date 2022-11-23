@@ -69,15 +69,6 @@ const Cards = ({ item, keyId, sort }) => {
             >
               Xem chi tiết
             </Button>
-            <p>Số lượng: {item.storage}</p>
-            <Button
-              className="btn-detail"
-              onClick={() => {
-                moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
-              }}
-            >
-              Xem chi tiết
-            </Button>
           </div>
         </div>
       </div>
