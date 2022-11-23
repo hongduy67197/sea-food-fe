@@ -402,29 +402,6 @@ return state.user
           <div onClick={oninfor} className="menu1"></div>
         </div>
       </div>
-      <div className="headervinh">
-        <div className="left">
-          <div className="left1">
-            <MailOutlined className="iconmail" />
-            <BellOutlined className="iconbell" />
-            <div className="tb1">1</div>
-            <div className="tb2">7</div>
-          </div>
-        </div>
-        <div className="mid">
-          <i className="fa-solid fa-magnifying-glass searchvinh"></i>
-          <input placeholder="Search..." type="search" />
-        </div>
-        <div className="right">
-          <div className="right1">
-            <BgColorsOutlined onClick={onchangecolor} className="iconcolor" />
-            {avatr?
-            <img src={avatr} alt="img"  className="user_avatar"/>
-            :<i className="fa-solid fa-circle-user iconuser"></i>}
-          </div>
-          <p className="tenuser">{userName}</p>
-        </div>
-      </div>
       <div className="changecolor">
         <div className="topco">
           <h2 className="gd">Giao dien</h2>

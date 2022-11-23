@@ -5,6 +5,7 @@ import './khohangchinhsua.css';
 import { useState, useEffect } from 'react';
 import './product.css';
 import { getApi, postApi } from '../../../api/config';
+import { toast } from 'react-toastify';
 
 function Spmoi(props) {
     const [count, setcount] = useState(1);
@@ -22,24 +23,13 @@ function Spmoi(props) {
     }, [count]);
 
     function clearallcode() {
-        document.querySelector('.productName').value = '';
-        document.querySelector('.productType').value = '';
-        document.querySelector('.performanceProduct').value = '';
-        document.querySelector('.cameraProduct').value = '';
-        document.querySelector('.specialFeatures').value = '';
-        document.querySelector('.design').value = '';
-        document.querySelector('.panel').value = '';
-        document.querySelector('.Sale').value = '';
+        const form = document.querySelector('.category-add-form');
+        form.reset();
+        document.querySelector('.category-name-add-input').value = '';
     }
     function clearlist() {
-        document.querySelector('.pricevinh').value = '';
-        document.querySelector('.priceRange').value = '';
-        document.querySelector('.storage').value = '';
-        document.querySelector('.color').value = '';
-        document.querySelector('.ram').value = '';
-        document.querySelector('.rom').value = '';
-        document.querySelector('.productPic').value = '';
-        document.querySelector('.countSold').value = '';
+        const form = document.querySelector('.formlist');
+        form.reset();
     }
     function addnewcode() {
         const form = document.querySelector('form');
@@ -47,14 +37,28 @@ function Spmoi(props) {
 
         postApi('/admin/categories', formData)
             .then(function (response) {
-                console.log(response);
                 setcount(count + 1);
+                if(response.name === "AxiosError"){
+                    return toast.error('Thêm phân loại thất bại', {
+                        position: 'top-center',
+                        autoClose: 3000,
+                    });
+                }
+                console.log(52, response)
+                toast.info('Đã thêm phân loại', {
+                    position: 'top-center',
+                    autoClose: 3000,
+                });
+                clearallcode();
             })
             .catch(function (error) {
+                console.log(60, error)
+                toast.error('Thêm phân loại thất bại', {
+                    position: 'top-center',
+                    autoClose: 3000,
+                });
                 console.log(error);
             });
-
-        clearallcode();
     }
     function newcodeon() {
         document.querySelector('.addnewproductcode').style.display = 'block';
@@ -94,15 +98,27 @@ function Spmoi(props) {
         setcount(1);
         const form12 = document.querySelector('.formlist');
         const formData12 = new FormData(form12);
-        console.log(11, formData12);
         postApi('/admin/product', formData12)
             .then(function (response) {
-                console.log(121, response);
+                if(response.name === "AxiosError"){
+                    return toast.error('Thêm sản phẩm thất bại', {
+                        position: 'top-center',
+                        autoClose: 3000,
+                    });
+                }
+                toast.info('Đã thêm sản phẩm', {
+                    position: 'top-center',
+                    autoClose: 3000,
+                });
+                clearlist()
             })
             .catch(function (error) {
+                toast.error('Thêm sản phẩm thất bại', {
+                    position: 'top-center',
+                    autoClose: 3000,
+                });
                 console.log(error);
             });
-        clearlist();
     }
 
     return (
@@ -118,14 +134,14 @@ function Spmoi(props) {
                     </button>
                 </div>
                 <div className="addnewproductcode">
-                    <form className="form" action="" encType="multipart/form-data">
+                    <form className="form category-add-form" action="" encType="multipart/form-data">
                         <span>
                             Tên Phân loại:
-                            <input className="productName" placeholder="Tên phân loại" name="categoriesName" type="text" />
+                            <input className="productName category-name-add-input" placeholder="Tên phân loại" name="categoriesName" type="text" />
                         </span>
                         <span>
                             Hình ảnh:
-                            <input type="file" name="thumpNail" id="" />
+                            <input type="file" name="thumpNail" id="" className='category-add-thumb'/>
                         </span>
                     </form>
                     <div className="addbut">
@@ -158,6 +174,10 @@ function Spmoi(props) {
                         <span>
                             Số lượng:
                             <input className="storage" name="storage" placeholder="Số lượng" type="number" />
+                        </span>
+                        <span>
+                            Đơn vị tính:
+                            <input className="storage unit" name="unit" placeholder="Đơn vị" type="text" />
                         </span>
                         <span>
                             Hình ảnh:
