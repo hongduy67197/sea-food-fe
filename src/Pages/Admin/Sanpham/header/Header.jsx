@@ -12,6 +12,8 @@ const Header = (props) => {
   const userInfo = useSelector(function (state) {
     return state.user;
   });
+
+  console.log(16, userInfo)
   const imager = userInfo.avatar ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar : null;
   function on_mypage() {
     navigate("/User/UserPase");

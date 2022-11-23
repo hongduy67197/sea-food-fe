@@ -5,7 +5,7 @@ import Orders from './UserPage/Orders';
 import Promotion from './UserPage/Promotion';
 import Voucher from './UserPage/Voucher';
 import Menu from './UserPage/Menu';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // import Comment from './UserPage/'
 // COMMENT
@@ -52,6 +52,7 @@ function setCookie(cname, cvalue, exdays) {
     document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
 }
 function UserPase(props) {
+    const nav = useNavigate();
     const dispatch = useDispatch()
     const [color,setColor]= useState(0)
     function newColor(){
@@ -61,7 +62,11 @@ function UserPase(props) {
     const userInfo = useSelector(function (state) {
         return state.user;
     });
-
+    if(!userInfo.email){
+        window.location.href = '/'
+    }
+    
+    console.log(64, !userInfo.email);
     const [user, setUser] = useState([]);
     useEffect(() => {
         async function getUserInfo() {
