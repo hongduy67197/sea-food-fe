@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { getUserCookie, refreshToken } from "../../../refreshToken";
 import { getApi, putApi, deleteApi } from '../../../api/config'
+import { toast } from 'react-toastify';
 
 var vitriup;
 var masoup;
@@ -40,10 +41,10 @@ function Trenke(props) {
     document.querySelector(".boxfix").style.display = "block";
     getApi(`/admin/product/${id}`)
       .then(function (response) {
-        console.log(43, response)
         document.querySelector(".productName").value = response.data.productName;
         document.querySelector(".pricevinh").value = response.data.price;
         document.querySelector(".storage").value = response.data.storage;
+        document.querySelector(".product-update-unit").value = response.data.unit;
         document.querySelector(".form-product-list-category").value = response.data.idCategory._id;
         document.querySelector("#isActive").checked = response.data.isActive;
       })
@@ -62,7 +63,16 @@ function Trenke(props) {
     formData.set('isActive', isActive);
     try {
       let response = await putApi(`/admin/product/${masoup}`, formData)
-      console.log(response);
+      if(response.name === "AxiosError"){
+        return toast.error('Update thất bại', {
+            position: 'top-center',
+            autoClose: 3000,
+        });
+      }
+      toast.info('Update thành công', {
+        position: 'top-center',
+        autoClose: 3000,
+      });
       closeupdate();
       setsign(sign + 1);
     } catch (error) {
@@ -74,7 +84,6 @@ function Trenke(props) {
     <div>
       <Header></Header>
       <div className="newproduct">
-        <h1 className="sptk">Sản phẩm trên kệ</h1>
 
         <div className="boxtable">
           <table>
@@ -129,6 +138,9 @@ function Trenke(props) {
             </div>
             <div className="inboxfix">
               <span>storage:</span> <input className="storage" type="text" name='storage'/>
+            </div>
+            <div className="inboxfix">
+              <span>unit:</span> <input className="storage product-update-unit" type="text" name='unit'/>
             </div>
             <div className="inboxfix">
               <span>active:</span> 
