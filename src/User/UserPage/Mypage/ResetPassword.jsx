@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { patchApi } from '../../../api/config';
 import axios from '../../../axios';
 
 import { refreshToken } from '../../../refreshToken';
@@ -37,34 +38,11 @@ function ResetPassword() {
             document.querySelector('.right_password_newagain_text').innerHTML='password mới không khớp'
         }else{
             try {
-                let a = await axios.patch("http://localhost:3150/user/changePassword", {
-                    password, newPassword, 
-                }, {
-                    headers: {
-                        Authorization: getCookie('user')
-                    }
-                })
-                console.log(a.data);
+                let a = await patchApi("/user/changePassword", { password, newPassword })
+                console.log(a);
                 if(a.data === 'change password success'){
                     navigate('/user/userlogin')
                 }
-                if(a.data.message === 'jwt expired'){
-                    await refreshToken()
-                    a = await axios.patch("http://localhost:3150/user/changePassword", {
-                    password, newPassword, 
-                    }, {
-                        headers: {
-                            Authorization: getCookie('user')
-                        }
-                    })
-                    console.log(a.data);
-                    if(a.data === 'change password success'){
-                    
-                        navigate('/user/userlogin')
-                    }
-    
-                }
-                
             } catch (error) {
                 console.log(error);
                 alert(error.request.status+':'+'password không đúng')
