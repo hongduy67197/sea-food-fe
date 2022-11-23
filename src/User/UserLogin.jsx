@@ -139,11 +139,6 @@ function UserLogin(props) {
         document.querySelector('.login_password_show3').style.display = 'none'
         document.querySelector('.login_password_show1').style.display = 'block'
     }
-    document.on("keypress", function (e) {
-        if (e.which == 13) {
-            UserLogin();
-        }
-    });
     return (
         <>
             <div className="login_">
@@ -189,6 +184,7 @@ function UserLogin(props) {
                         </button>
                         <div className="login_conter_modal_a">
                             <Link to='/User/UserPage/ForgotPassword/ForgotPassword'>Quên mật khẩu</Link>
+
                         </div>
                         <span className="login_or">HOẶC</span>
 
