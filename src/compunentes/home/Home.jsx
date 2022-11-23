@@ -1,20 +1,12 @@
-import "../home/Home.css";
-import { React, useEffect, useState } from "react";
-import axios from "../../axios";
-import SeeMore from "../home/homePage/SeeMore";
-import ListProduct from "./homePage/ListProduct";
-
-import { WechatOutlined, ThunderboltFilled } from "@ant-design/icons";
-import Header from "../header/Header";
-import Footer from "../footer/Footer";
-import Categories from "../categories/Categories";
-import Chat from "./homePage/Chat";
-import HomeFilter from "./homeFillter/HomeFilter";
-import { getApi } from "../../api/config";
-import { Alert, Spin } from "antd";
-import { CircularProgress, Pagination } from "@mui/material";
-import Loading from "../../component/Loading/Loading";
+import { Pagination } from "@mui/material";
 import { Stack } from "@mui/system";
+import { React, useEffect, useState } from "react";
+import { getApi } from "../../api/config";
+import Loading from "../../component/Loading/Loading";
+import Footer from "../footer/Footer";
+import Header from "../header/Header";
+import "../home/Home.css";
+import ListProduct from "./homePage/ListProduct";
 
 const Home = () => {
   const [productCode, setProductCode] = useState([]);
@@ -24,11 +16,6 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [NewIcon, setNewIcon] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  function seeMore() {
-    setNumberShow(numberShow + 20);
-  }
-
   const initFilter = {
     filter: {
       productName: "",
@@ -45,7 +32,6 @@ const Home = () => {
   function changeFilter(data) {
     setFilterProduct({ ...data });
   }
-  // Product Code
   useEffect(() => {
     async function getData() {
       setLoading(true);
@@ -69,12 +55,6 @@ const Home = () => {
     }
     getData();
   }, [filter]);
-
-  console.log(43, product);
-  console.log(43, categories);
-
-  // dùng useState và useEffect để lắng nghe thay đổi phía đường dẫn rồi từ đó render lại theo trường đc sort
-  // useState --- tạo giá trị ban đầu là 0 để làm trung gian của sort
   const [sort, setSort] = useState(0);
 
   useEffect(() => {
@@ -99,31 +79,11 @@ const Home = () => {
         changeFilter={(data) => {
           changeFilter(data);
         }}
-      ></Header>
+        categories={categories}
+      />
       {loading && <Loading />}
-
       <div className="home">
         <div className="home-container">
-          <div>
-            {/* <img
-              src="https://photo-cms-baonghean.zadn.vn/w1000/Uploaded/2022/nkdkswkqoc/201704/original/resize_images1869171_tom_hum_binh_ba.jpg"
-              alt=""
-              className="home-banner"
-            /> */}
-          </div>
-          <Categories categories={categories} />
-          <div className=" box-checkbox">
-            <p className="total-product">{product.length} Điện Thoại</p>
-            <span className="product-item-flash">
-              <ThunderboltFilled className="item-flash-icon" />
-              GIAO SIÊU NHANH
-            </span>
-            {/* truyền productCode và setSort vào để lấy giá trị render  */}
-            <span className="HomeFilter">
-              <HomeFilter productCode={product} setSort={setSort} />
-            </span>
-          </div>
-          <Chat />
           <div className="home-container-filter">
             <div className="home-page-product">
               <ListProduct
@@ -135,7 +95,7 @@ const Home = () => {
               />
             </div>
           </div>
-          {/* <SeeMore seeMore={seeMore} /> */}
+          {/* Pagination */}
           <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
             <Pagination
               count={20}
@@ -147,6 +107,7 @@ const Home = () => {
           </Stack>
         </div>
       </div>
+
       <Footer />
     </>
   );
