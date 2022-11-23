@@ -99,7 +99,7 @@ function UserLogin(props) {
         } else {
             let res = await axios.post('/user/login', { email, password });
             console.log(res.data);
-            if (res.data.status === 'undifind password') {
+            if (res.data.status === 'undefined password') {
                 alert(res.data.status);
             } else {
                 setCookie('user', res.data.data.token, 30);

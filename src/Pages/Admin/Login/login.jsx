@@ -55,7 +55,7 @@ function Login(props) {
                     return;
                 }
 
-                if (res.response.data.status === 'undifind password') {
+                if (res.response.data.status === 'undefined password') {
                     document.querySelector(".notte").innerHTML = "undefind password";
                 } else if (res.response.data.status === 'email is not available') {
                     document.querySelector(".notte").innerHTML ="email is not available";

@@ -78,6 +78,7 @@ return state.user
   // }
   function oninfor() {
     countinfor++;
+    console.log(countinfor);
     if (countinfor % 2 !== 0) {
       document.querySelector(".infor").style.display = "block";
     }
