@@ -58,7 +58,7 @@ const Cards = ({ item, keyId, sort }) => {
             <h2 className="ProductName">{item.productName}</h2>
             <p>Loại: {item.idCategory.categoriesName}</p>
             <h1 className="price-product">Giá: {item.price}</h1>
-            <p>Số lượng: {item.storage}</p>
+            <p>Số lượng: {item.storage} {item.unit}</p>
             <Button className="btn-detail" onClick={() => {
               moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
             }}>Xem chi tiết</Button>
