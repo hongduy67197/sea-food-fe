@@ -10,6 +10,7 @@
 .Cuong__header {
   background-image: linear-gradient(135deg, white, lightgreen, darkblue);
   width: 100%;
+  padding: 0 0 10px 0;
 }
 
 .gird {
