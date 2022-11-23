@@ -31,6 +31,8 @@ function Home(props) {
     const [state1, setstate1] = useState([]);
     const [state2, setstate2] = useState([]);
 
+    console.log(34, state1);
+
     const [date, setdate] = useState(new Date());
     const onChange = (date) => {
         setdate(date);
@@ -79,7 +81,6 @@ function Home(props) {
         },
     ];
     const database = [];
-    console.log(state.length);
     console.log(86, state)
 
     // if (state.length > 0) {

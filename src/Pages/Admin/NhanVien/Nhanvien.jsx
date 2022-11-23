@@ -8,13 +8,16 @@ import { useEffect } from "react";
 import { getApi, putApi, deleteApi } from "../../../api/config";
 import "./style.css";
 import { getUserCookie, refreshToken } from "../../../refreshToken";
+import { useSelector } from "react-redux";
 
 function Nhanvien(props) {
   const [state, setstate] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isindex, setIsIndex] = useState(0);
   const [isin, setIsin] = useState(1);
-
+  const userInfor = useSelector(function(state){
+    return state.user
+  })
   const data = [];
 
   function count() {
@@ -104,19 +107,14 @@ function Nhanvien(props) {
               console.log(115, record)
               showModal(record._id);
             }}
+            hidden={userInfor.role !== 'admin'}
             style={{ fontSize: 20 }}
-          />
-          <DeleteOutlined
-            onClick={() => {
-              ondelete(record._id);
-            }}
-            style={{ color: "red", fontSize: 20, marginLeft: 20 }}
           />
         </>
       ),
     },
   ];
-
+  console.log(117, userInfor);
   for (let i = 0; i < state.length; i++) {
     data.push({
       index: i + 1,
@@ -149,27 +147,6 @@ function Nhanvien(props) {
     console.log("params", pagination, filters, sorter, extra);
   }
 
-  function ondelete(id) {
-    Modal.confirm({
-      title: "Bạn có chắc muốn xóa không",
-      okText: "Yes",
-      okType: "danger",
-      onOk: () => {
-        async function getAllorder() {
-          let token = getUserCookie("user");
-          console.log(147, token);
-          try {
-            const res = await deleteApi(`/admin/user/${id}`);
-          } catch (error) {
-            console.log(168, error);
-          }
-        }
-        getAllorder();
-        count();
-      },
-    });
-  }
-  console.log(182, data);
   return (
     <div>
       <Header tenname={props.name}></Header>
