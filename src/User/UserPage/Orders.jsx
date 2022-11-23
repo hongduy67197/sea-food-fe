@@ -11,17 +11,17 @@ import { getApi } from "../../api/config";
 function Orders(props) {
   const [userCart, setUserCart] = useState([]);
 
-  const [userOder, setUserOder] = useState([]);
-  useEffect(() => {
-    getApi("/user/carts")
-      .then(function (data) {
-        const newCart = data.data.cart.listProduct;
-        setUserCart(newCart);
-      })
-      .catch(function (orr) {
-        console.log(34, orr);
-      });
-  }, []);
+ const [userOder, setUserOder]=useState([])
+useEffect(() => {
+  getApi('/user/carts')
+  .then(function(data){
+    const newCart =data.data.cart.listProduct 
+    setUserCart(newCart)
+  })
+ .catch(function(orr){
+  console.log(34,orr)
+  })
+}, [])
 
   useEffect(() => {
     getApi("/user/orders")
@@ -81,6 +81,8 @@ function Orders(props) {
     document.querySelector(".orderDaHuy").style.display = "block";
     document.querySelector(".orderDangGiao").style.display = "none";
   }
+
+  console.log(87, userOder)
   return (
     <div>
       <div className="order_header">
@@ -89,18 +91,22 @@ function Orders(props) {
         {/* <button onClick={onofWaiting}>Chờ lấy hàng</button> */}
         <button onClick={onofDangGiao}>Đang giao</button>
         <button onClick={onofDaGiao}>Đã giao</button>
-        <button onClick={onofDaHuy}>Đã hủy </button>
+        {/* <button onClick={onofDaHuy}>Đã hủy </button> */}
       </div>
       <div className="orderAll">
         <OrderAll userCart={userCart} userOder={userOder}></OrderAll>
       </div>
       <div className="orderCheck">
+<<<<<<< HEAD
         <OrderCheck
           setUserCart={setUserCart}
           userOder={userOder}
           userCart={userCart}
           status="done"
         ></OrderCheck>
+=======
+        <OrderCheck setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='pending'></OrderCheck>
+>>>>>>> 6d2933465500357b1faf91e9289b7436011fb98d
       </div>
       <div className="orderDaGiao">
         <OrderDaGiao

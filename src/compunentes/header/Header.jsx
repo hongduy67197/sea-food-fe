@@ -1,25 +1,15 @@
+import { ShoppingCartOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
-import "../header/header.css";
-import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import userlogo from "../../assets/images/userlogo.jpg";
-import Search from "../header/Search";
-import SearchEnglish from "./SearchEnglish";
-import {
-  QuestionCircleOutlined,
-  BellOutlined,
-  GlobalOutlined,
-  DownOutlined,
-  InstagramFilled,
-  FacebookFilled,
-  ShoppingCartOutlined,
-  SearchOutlined,
-  ConsoleSqlOutlined,
-} from "@ant-design/icons";
-import axios from "../../axios";
+import { Link, useNavigate } from "react-router-dom";
 import { getApi } from "../../api/config";
+import userlogo from "../../assets/images/userlogo.jpg";
+import axios from "../../axios";
+import Categories from "../categories/Categories";
+import "../header/header.css";
+import Search from "../header/Search";
 const Header = (props) => {
-  const { filter, changeFilter } = props;
+  const { filter, changeFilter, categories } = props;
   const navigate = useNavigate();
   const userInfo = useSelector(function (state) {
     return state.user;
@@ -35,6 +25,7 @@ const Header = (props) => {
     window.location.reload(true);
     navigate("/");
   }
+<<<<<<< HEAD
   let variableTemp = 0;
   function getValue(value) {
     variableTemp = value;
@@ -59,21 +50,11 @@ const Header = (props) => {
   function navigateToProduct2(e) {
     navigate(`/product/filter?brand=${e.target.innerHTML}`);
   }
+=======
+>>>>>>> 6d2933465500357b1faf91e9289b7436011fb98d
   function moveToCart() {
     navigate("/Cart");
   }
-
-  function English() {
-    document.querySelector(".HeaderVietnamese").style.display = "none";
-    document.querySelector(".HeaderEnglish").style.display = "inline-block";
-  }
-
-  function Vietnamese() {
-    document.querySelector(".HeaderVietnamese").style.display = "inline-block";
-    document.querySelector(".HeaderEnglish").style.display = "none";
-  }
-
-  //duongthetao
   const [cartNumber, setCartNumber] = useState(0);
   useEffect(() => {
     getApi("/user/carts")
@@ -92,76 +73,7 @@ const Header = (props) => {
           <div className="gird">
             <nav className="header_navbar">
               <ul className="header_navbar-list">
-                <li className="header_navbar-item  ">
-                  <a className="header_navbar-item-link  ">Kênh Người Bán</a>
-                </li>
-                <li className="header_navbar-item header_navbar-item--pillar2 ">
-                  <a className="header_navbar-item-link  ">Trở thành Người bán</a>
-                </li>
-                <li className="header_navbar-item header_navbar-item--pillar1  header_navbar-item-link--has-qr">
-                  <a className="header_navbar-item-link ">Tải ứng dụng</a>
-
-                  <div className="header_qr">
-                    <img
-                      src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg//assets/d91264e165ed6facc6178994d5afae79.png"
-                      alt="QR code"
-                      className="header_qr-img"
-                    />
-                    <div className="header_qr-apps">
-                      <div className="header_qr_display-flex">
-                        <a className="header_qr-link">
-                          <img
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Google_Play_Store_badge_EN.svg/1024px-Google_Play_Store_badge_EN.svg.png"
-                            alt="Google Play"
-                            className="header_qr-dowload-img"
-                          />
-                        </a>
-                        <a className="header_qr-link">
-                          <img
-                            src="https://cics.com.vn/wp-content/uploads/2020/12/AppStore..png"
-                            alt="App Store"
-                            className="header_qr-dowload-img"
-                          />
-                        </a>
-                      </div>
-                      <a className="header_qr-link App-Gallery">
-                        <img
-                          src="https://gofitify.com/img/appgallery.png"
-                          alt="App Gallery"
-                          className="header_qr-dowload-img"
-                        />
-                      </a>
-                    </div>
-                  </div>
-                </li>
-                <li className="header_navbar-item header_navbar-item--pillar2 ">
-                  Kết Nối
-                  <span className="header_navbar-item-icon-fb-ig">
-                    <a
-                      href="https://www.facebook.com/MrCuong1996/"
-                      className="header_navbar-item-icon"
-                    >
-                      <FacebookFilled
-                        className=" header_navbar-icon "
-                        style={{ borderRadius: "20px" }}
-                      />
-                    </a>
-                    <a
-                      href="https://www.instagram.com/cuongdang1996/"
-                      className="header_navbar-item-icon"
-                    >
-                      <InstagramFilled className=" header_navbar-icon header_navbar-icon-instagram" />
-                    </a>
-                  </span>
-                </li>
-              </ul>
-
-              <ul className="header_navbar-list">
                 <li className="header_navbar-item header_navbar-item-noti-notification-display">
-                  <a className="header_navbar-item-link ">
-                    <BellOutlined className="header_navbar-icon" />
-                    Thông Báo
-                  </a>
                   <div className="header_navbar-item-noti">
                     <header className="header_noti-notification">
                       <img
@@ -178,26 +90,6 @@ const Header = (props) => {
                         </Link>
                       </div>
                     </header>
-                  </div>
-                </li>
-                <li className="header_navbar-item">
-                  <a
-                    href="https://www.facebook.com/messages/t/100052709747902"
-                    className="header_navbar-item-link"
-                  >
-                    <QuestionCircleOutlined className="header_navbar-icon" />
-                    Hỗ trợ
-                  </a>
-                </li>
-                <li className="header_navbar-item ">
-                  <GlobalOutlined className="header_navbar-icon header_navbar-icon-support" />
-                  <span className="header_navbar-item-vietnamese">Tiếng Việt</span>
-                  <DownOutlined />
-                  <div className="header_navbar-item-language">
-                    <p className="header_navbar-item-language-V">Tiếng Việt</p>
-                    <p className="header_navbar-item-language-E" onClick={English}>
-                      English
-                    </p>
                   </div>
                 </li>
                 {userInfo.role ? (
@@ -248,73 +140,6 @@ const Header = (props) => {
                     }}
                   />
                 </div>
-                <div className="header-with-search-product">
-                  <ul className="header-with-search-product-ul">
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Iphone
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Samsung
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Oppo
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Vivo
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Xiaomi
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Realmi
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Nokia
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Itel
-                    </li>
-                    <li
-                      onClick={(e) => {
-                        navigateToProduct2(e);
-                      }}
-                    >
-                      Masstel
-                    </li>
-                  </ul>
-                </div>
               </div>
               <div className="header_cart">
                 <div
@@ -330,6 +155,7 @@ const Header = (props) => {
             </div>
           </div>
         </div>
+<<<<<<< HEAD
         <div className="HeaderEnglish">
           <div className="gird">
             <nav className="header_navbar">
@@ -585,6 +411,9 @@ const Header = (props) => {
             </div>
           </div>
         </div>
+=======
+        <Categories categories={categories} />
+>>>>>>> 6d2933465500357b1faf91e9289b7436011fb98d
       </header>
     </>
   );

@@ -1,5 +1,7 @@
 .order_header {
   width: 100%;
+  display: flex;
+  justify-content: space-between;
   background-color: #fff;
   height: fit-content;
   padding: 0 8px;

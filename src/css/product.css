@@ -102,7 +102,7 @@ input[type="checkbox"]:checked {
   flex-direction: column;
 }
 .nameProduct {
-  width: 27%;
+  width: 37%;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -234,6 +234,7 @@ input[type="checkbox"]:checked {
 }
 .text-xoa {
   color: #ee4d2d;
+  cursor: pointer;
 }
 .info-phanloai {
   padding: 27px 25px;
@@ -488,4 +489,10 @@ input #check :checked {
   height: 20px;
   width: 100%;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.06));
+}
+.order-form{
+  margin: 12px 0;
+  width: 100%;
+  padding: 4px 8px;
+  border-radius: 4px;
 }

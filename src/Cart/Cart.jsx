@@ -12,161 +12,109 @@ import Footer from "../compunentes/footer/Footer";
 function Cart(props) {
   const [productData, setProductData] = useState([]);
   const [productDatas, setProductDatas] = useState([]);
-
+  const [sumTotal, setSumTotal] = useState(0);
+  const [count, setCount] = useState(0);
+   
   useEffect(() => {
     async function getData() {
       try {
         const data = await getApi("/user/carts");
         setProductDatas(data.data.cart.listProduct);
+        const sumCart = data.data.cart.listProduct.reduce((sum, ele) => {
+          return sum + ele.idProduct.price * ele.quantity
+        }, 0)
+
+        setSumTotal(sumCart);
       } catch (error) {
         console.log(39, error);
       }
     }
     getData();
-  }, []);
+  }, [count]);
 
   const idProduct = 1;
   const Navigate = useNavigate();
-  const [product, setProduct] = useState(productData);
-  const [Quantity, setQuantity] = useState(0);
   //================================================
   var newArr = [];
-  const [dataNew, setDataNew] = useState([]);
 
-  const openNotification = async (placement) => {
-    if (total === 0) {
-      notification.info({
-        message: `Thông báo !!!`,
-        description: "Bạn chưa chọn đơn hàng nào !!!",
-        icon: <WarningOutlined style={{ color: "#108ee9" }} />,
-        placement,
-        duration: 3,
-      });
-    } else {
-      for (let i = 0; i < productData.length; i++) {
-        if (productData[i].isChecked === true) {
-          newArr.push(productData[i]);
-        }
-      }
-      await postApi("http://localhost:3150/user/order", {
-        address: "Thanh Xuân - Hà Nội",
-        total: 14000000,
-        phone: "0936666666",
-      });
-      Navigate("/user/order");
-      setDataNew(newArr);
-      var filterObj = productData.filter((item) => item.isChecked !== true);
-      setProductData(filterObj);
-    }
+  const openNotification = async () => {
+    setIsModalVisible(true);
   };
   //================================================
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [getIndex, setGetIndex] = useState(0);
 
-  let showModal = (index, id) => {
-    setGetIndex(index);
-    productData[index].quantity = productData[index].quantity - 1;
-    let quantity = productData[index].quantity;
-
-    if (productData[index].quantity > 0) {
-      patchApi(`http://localhost:3150/user/carts`, {
-        idProduct: id,
-        quantity: -1,
-      })
-        .then((data) => {
-          setQuantity(Quantity + 1);
-          setProduct(...productData);
+  let showModal = async (index, id) => {
+    try {
+      setGetIndex(index);
+      const newQuantity = productDatas[index].quantity - 1;
+      if (productDatas[index].quantity > 0) {
+        await patchApi(`/user/carts`, {
+          idProduct: id,
+          quantity: newQuantity,
         })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else {
-      productData[index].quantity = 1;
-      setIsModalVisible(true);
+
+        setCount(count + 1);
+      } else {
+        productDatas[index].quantity = 1;
+        setIsModalVisible(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-    patchApi(`http://localhost:3150/user/carts`, {
-      idProduct: productData[getIndex].idProduct._id,
-      quantity: 0,
-    })
-      .then((data) => {
+  const handleOk = async () => {
+    try {
+      setIsModalVisible(false);
+      const order = await postApi(`user/order`, {
+        address: document.querySelector('.order-form-address').value,
+        address: document.querySelector('.order-form-phone').value,
       })
-      .catch((err) => {
-        console.log(err);
-      });
-    productData.splice(getIndex, 1);
-    setQuantity(Quantity + 1);
-    setProduct(...productData);
+      Navigate('/user/order/'+order.data._id)
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
-    setQuantity(Quantity + 1);
-    setProduct(...productData);
   };
   //===================================================
-  function upQuantity(index, id) {
-    productData[index].quantity = productData[index].quantity + 1;
-    // cartsQuantity = productData[index].quantity + 1;
-    patchApi(`http://localhost:3150/user/carts`, {
-      idProduct: id,
-      quantity: 1,
-    })
-      .then((data) => {
-        setQuantity(Quantity + 1);
-        setProduct(...productData);
+  async function upQuantity(index, id) {
+    try {
+      const newQuantity = productDatas[index].quantity + 1;
+      const checkProduct = await getApi('user/product/get-one-product/'+id)
+      if(checkProduct.data.product.storage < newQuantity) return alert('khong du ton kho');
+
+      await patchApi(`/user/carts`, {
+        idProduct: id,
+        quantity: newQuantity,
       })
-      .catch((err) => {
-        console.log(err);
-      });
+
+      setCount(count + 1);
+    } catch (error) {
+      console.log(error);
+    }
   }
   //===============================================
   async function deleteProduct(index, id) {
     try {
-      let a = await patchApi(`http://localhost:3150/user/carts`, {
+      await patchApi(`/user/carts`, {
         idProduct: id,
-        // quantity: ,
+        quantity: 0,
       });
-      setQuantity(Quantity + 1);
-      setProduct(...productData);
+
+      setCount(count + 1);
     } catch (error) {
       console.log(error);
     }
-    productData.splice(index, 1);
   }
-  //=============================================================
-  function handleChange(e) {
-    const { name, checked } = e.target;
-    if (name === "allSelect") {
-      var tempUser = productData.map((val) => {
-        return { ...val, isChecked: checked };
-      });
-      setProductData(tempUser);
-    } else {
-      var tempUser = productData.map((val) =>
-        val._id == name ? { ...val, isChecked: checked } : val
-      );
-      setProductData(tempUser);
-    }
-  }
-  //============================================
-  var count1 = 0;
   var total = 0;
-  for (let i = 0; i < productData.length; i++) {
-    if (productData[i].isChecked === true) {
-      total +=
-        Number(productData[i].idProduct.price) *
-        Number(productData[i].quantity);
-      count1++;
-    }
-  }
+
   function Home() {
     Navigate("/");
   }
-  const [quantitys, setQuantitys] = useState(1);
   const domain = process.env.REACT_APP_SEA_FOOD_URL;
 
   return (
@@ -194,20 +142,9 @@ function Cart(props) {
               <div className="tab-wapper">
                 <div className="div-gohome"></div>
                 <div className="cart_info">
-                  Bạn đang có {2} sản phẩm trong giỏ hàng
+                  Bạn đang có {productDatas.length} sản phẩm trong giỏ hàng
                 </div>
                 <div className="title-table">
-                  <div className="inp-checkall">
-                    <input
-                      id="check"
-                      type="checkbox"
-                      name="allSelect"
-                      checked={
-                        !productData.some((val) => val?.isChecked !== true)
-                      }
-                      onChange={handleChange}
-                    />
-                  </div>
                   <div className="info-sanpham">Sản Phẩm</div>
                   <div className="info-dongia">Đơn Giá</div>
                   <div className="info-soluong">Số Lượng</div>
@@ -217,15 +154,6 @@ function Cart(props) {
                 {productDatas.map((value, index) => {
                   return (
                     <div className="list-sanpham" key={index}>
-                      <div className="inp-checkall">
-                        <input
-                          id="check"
-                          type="checkbox"
-                          name={value._id}
-                          onChange={handleChange}
-                          checked={value?.isChecked || false}
-                        />
-                      </div>
                       <div className="img-list">
                         <img
                           className="Img_product"
@@ -250,15 +178,7 @@ function Cart(props) {
                           >
                             -
                           </Button>
-                          <Modal
-                            title="Bạn chắc chắn muốn bỏ sản phẩm này"
-                            visible={isModalVisible}
-                            okText="Xác nhận"
-                            cancelText="Hủy bỏ"
-                            onOk={handleOk}
-                            onCancel={handleCancel}
-                          >
-                          </Modal>
+                          
                         </>
                         <div className="quantity-result">{value.quantity}</div>
                         <button
@@ -289,24 +209,11 @@ function Cart(props) {
                 })}
                 <div className="gird-item1">
                 </div>
-
                 <div className="info_payment">
-                  <div className=" inp-payment">
-                    <input
-                      id="check"
-                      type="checkbox"
-                      name="allSelect"
-                      checked={
-                        !productData.some((val) => val?.isChecked !== true)
-                      }
-                      onChange={handleChange}
-                    />
-                    <div className="text-all">Chọn tất cả</div>
-                  </div>
                   <div className="return-payment">
                     <div className="title-payment price-total">
-                      Tổng thanh toán ({count1} sản phẩm) :{" "}
-                      {total.toLocaleString()} <sup>đ</sup>
+                      Tổng thanh toán ({productDatas.length} sản phẩm) :{" "}
+                      {sumTotal.toLocaleString()} <sup>đ</sup>
                     </div>
                     <>
                       <Space>
@@ -345,6 +252,18 @@ function Cart(props) {
           )}
         </div>
       </div>
+      <Modal
+        title="Thông tin nhận hàng"
+        visible={isModalVisible}
+        okText="Xác nhận"
+        cancelText="Hủy bỏ"
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <input type="text" placeholder="address" className="order-form order-form-address"/>
+        <input type="text" placeholder="phone" className="order-form order-form-phone"/>
+        
+      </Modal>
       <Footer></Footer>
     </>
   );

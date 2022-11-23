@@ -403,7 +403,7 @@ const App = (props) => {
               element={<UserSingIn></UserSingIn>}
             />
             <Route path="/User/UserPase" element={<UserPase></UserPase>} />
-            <Route path="/User/order" element={<CreateOrder />} />
+            <Route path="/User/order/:orderid" element={<CreateOrder />} />
             <Route
               path="User/UserPage/ForgotPassword/ForgotPassword"
               element={<ForgotPassword></ForgotPassword>}

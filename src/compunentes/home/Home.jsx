@@ -1,20 +1,12 @@
-import "../home/Home.css";
-import { React, useEffect, useState } from "react";
-import axios from "../../axios";
-import SeeMore from "../home/homePage/SeeMore";
-import ListProduct from "./homePage/ListProduct";
-
-import { WechatOutlined, ThunderboltFilled } from "@ant-design/icons";
-import Header from "../header/Header";
-import Footer from "../footer/Footer";
-import Categories from "../categories/Categories";
-import Chat from "./homePage/Chat";
-import HomeFilter from "./homeFillter/HomeFilter";
-import { getApi } from "../../api/config";
-import { Alert, Spin } from "antd";
-import { CircularProgress, Pagination } from "@mui/material";
-import Loading from "../../component/Loading/Loading";
+import { Pagination } from "@mui/material";
 import { Stack } from "@mui/system";
+import { React, useEffect, useState } from "react";
+import { getApi } from "../../api/config";
+import Loading from "../../component/Loading/Loading";
+import Footer from "../footer/Footer";
+import Header from "../header/Header";
+import "../home/Home.css";
+import ListProduct from "./homePage/ListProduct";
 
 const Home = () => {
   const [productCode, setProductCode] = useState([]);
@@ -24,11 +16,6 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [NewIcon, setNewIcon] = useState([]);
   const [loading, setLoading] = useState(false);
-
-  function seeMore() {
-    setNumberShow(numberShow + 20);
-  }
-
   const initFilter = {
     filter: {
       productName: "",
@@ -45,7 +32,6 @@ const Home = () => {
   function changeFilter(data) {
     setFilterProduct({ ...data });
   }
-  // Product Code
   useEffect(() => {
     async function getData() {
       setLoading(true);
@@ -91,11 +77,12 @@ const Home = () => {
         changeFilter={(data) => {
           changeFilter(data);
         }}
-      ></Header>
+        categories={categories}
+      />
       {loading && <Loading />}
-
       <div className="home">
         <div className="home-container">
+<<<<<<< HEAD
           <div>
           </div>
           <Categories categories={categories} />
@@ -110,6 +97,8 @@ const Home = () => {
             </span>
           </div>
           <Chat />
+=======
+>>>>>>> 6d2933465500357b1faf91e9289b7436011fb98d
           <div className="home-container-filter">
             <div className="home-page-product">
               <ListProduct
@@ -121,6 +110,10 @@ const Home = () => {
               />
             </div>
           </div>
+<<<<<<< HEAD
+=======
+          {/* Pagination */}
+>>>>>>> 6d2933465500357b1faf91e9289b7436011fb98d
           <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
             <Pagination
               count={20}
@@ -132,6 +125,7 @@ const Home = () => {
           </Stack>
         </div>
       </div>
+
       <Footer />
     </>
   );
