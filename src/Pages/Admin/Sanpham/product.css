@@ -45,6 +45,7 @@ table td {
 table {
     width: 100%;
     border-radius: 10px;
+    margin-bottom: 10px;
 }
 table th {
     padding: 19px 15px;

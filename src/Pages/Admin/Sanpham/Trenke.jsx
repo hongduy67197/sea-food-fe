@@ -13,27 +13,47 @@ var vitriup;
 var masoup;
 
 function Trenke(props) {
-  // Bat dau
+  const initFilter = {
+    filter: {
+      productName: "",
+      idCategory: "",
+      high: 1000000,
+      low: 0,
+    },
+    pagination: {
+      page: 1,
+      pageSize: 5,
+    },
+  };
+  const [filter, setFilterProduct] = useState(initFilter);
   const [data, setdata] = useState([]);
   const [category, setCategory] = useState([]);
   const [sign, setsign] = useState(1);
+  const [pageNumber, setPageNumber] = useState(0)
+  function changeFilter(data) {
+    setFilterProduct({ ...data });
+  }
   useEffect(() => {
     async function getAllUser() {
+      const page = (filter && filter?.pagination?.page) || "";
+      const pageSize = (filter && filter?.pagination?.pageSize) || "";
       let token = getUserCookie("user");
       try {
         const res = await getApi("/admin/product/list");
-        setdata(res.data);
+        const res1 = await getApi(`/admin/product/filter?page=${page}&pageSize=${pageSize}`);
+        const newPageNumber = Math.ceil(res1.data.total/pageSize);
+        setPageNumber(newPageNumber);
+        setdata(res1.data.filter);
         const categories = await getApi("admin/categories");
         setCategory(categories.data);
       } catch (error) {
-        console.log(168, error);
+        console.log(error);
       }
     }
     getAllUser();
-  }, [sign]);
+  }, [sign, filter]);
   // ket thuc
 
-  console.log(33, data);
 
   function onupdate(id, index) {
     vitriup = index;
@@ -82,22 +102,7 @@ function Trenke(props) {
       console.log(error);
     }
   }
-  const initFilter = {
-    filter: {
-      productName: "",
-      idCategory: "",
-      high: 1000000,
-      low: 0,
-    },
-    pagination: {
-      page: 1,
-      pageSize: 20,
-    },
-  };
-  const [filter, setFilterProduct] = useState(initFilter);
-  function changeFilter(data) {
-    setFilterProduct({ ...data });
-  }
+
   return (
     <div>
       <Header></Header>
@@ -144,6 +149,23 @@ function Trenke(props) {
               })}
             </tbody>
           </table>
+          <Stack
+            direction="row-reverse"
+            justifyContent="center"
+            alignItems="center"
+            spacing={2}
+          >
+            <Pagination
+              count={pageNumber}
+              color="primary"
+              onChange={(e, page) => {
+                changeFilter({
+                  ...filter,
+                  pagination: { ...filter.pagination, page: page },
+                });
+              }}
+            />
+          </Stack>
         </div>
         <div className="boxfix">
           <h3>Bảng thông tin chỉnh sửa</h3>
@@ -203,23 +225,6 @@ function Trenke(props) {
             <button onClick={closeupdate}>Close</button>
           </div>
         </div>
-        <Stack
-          direction="row-reverse"
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-        >
-          <Pagination
-            count={Math.round(data.length/6)}
-            color="primary"
-            onChange={(e, page) => {
-              changeFilter({
-                ...filter,
-                pagination: { ...filter.pagination, page: page },
-              });
-            }}
-          />
-        </Stack>
       </div>
     </div>
   );
