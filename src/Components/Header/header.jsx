@@ -76,16 +76,14 @@ return state.user
   //     document.querySelector(".staff").style.display = "none";
   //   }
   // }
-  function oninfor() {
-    countinfor++;
-    console.log(countinfor);
-    if (countinfor % 2 !== 0) {
-      document.querySelector(".infor").style.display = "block";
-    }
-    if (countinfor % 2 == 0) {
-      document.querySelector(".infor").style.display = "none";
-    }
+
+  async function logout() {
+    window.localStorage.removeItem("user");
+    window.localStorage.removeItem("userCart");
+    window.location.href = '/'
   }
+
+
   function onchangecolor() {
     document.querySelector(".changecolor").style.display = "block";
   }
@@ -399,7 +397,15 @@ return state.user
               - Kho hàng
             </p>
           </div>
-          <div onClick={oninfor} className="menu1"></div>
+          <div onClick={logout} className="menu1">
+            <div>
+              <i class="fa-solid fa-right-from-bracket"></i>
+              <p className="opt" style={{ marginLeft: "18px" }}>
+                Đăng xuất
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
       <div className="changecolor">

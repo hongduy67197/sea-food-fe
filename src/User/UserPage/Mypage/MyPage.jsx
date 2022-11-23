@@ -10,9 +10,8 @@ function MyPage(props) {
   const userInfo = useSelector(function (state) {
     return state.user;
   });
-
+  console.log(13, userInfo)
   const [image, setImage] = useState("");
-  console.log(15, userInfo)
   // ảnh đại diện
   const avatr = userInfo.avatar.startsWith('http')
     ? userInfo.avatar: process.env.REACT_APP_SEA_FOOD_URL + userInfo.avatar;

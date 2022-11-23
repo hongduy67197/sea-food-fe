@@ -8,13 +8,16 @@ import { useEffect } from "react";
 import { getApi, putApi, deleteApi } from "../../../api/config";
 import "./style.css";
 import { getUserCookie, refreshToken } from "../../../refreshToken";
+import { useSelector } from "react-redux";
 
 function Nhanvien(props) {
   const [state, setstate] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isindex, setIsIndex] = useState(0);
   const [isin, setIsin] = useState(1);
-
+  const userInfor = useSelector(function(state){
+    return state.user
+  })
   const data = [];
 
   function count() {
@@ -22,7 +25,6 @@ function Nhanvien(props) {
   }
 
   const showModal = (id) => {
-    console.log(25, id)
     setIsIndex(id);
     setIsModalVisible(true);
     data.map(function (val) {
@@ -38,7 +40,6 @@ function Nhanvien(props) {
     if (role !== "") {
       async function getAllorder() {
         let token = getUserCookie("user");
-        console.log(147, token);
         try {
           const res = await putApi(`/admin/user/${isindex}`, {
             role: role,
@@ -101,16 +102,10 @@ function Nhanvien(props) {
         <>
           <EditOutlined
             onClick={() => {
-              console.log(115, record)
               showModal(record._id);
             }}
+            hidden={userInfor.role !== 'admin'}
             style={{ fontSize: 20 }}
-          />
-          <DeleteOutlined
-            onClick={() => {
-              ondelete(record._id);
-            }}
-            style={{ color: "red", fontSize: 20, marginLeft: 20 }}
           />
         </>
       ),
@@ -133,10 +128,8 @@ function Nhanvien(props) {
   useEffect(() => {
     async function getAllUser() {
       let token = getUserCookie("user");
-      console.log(147, token);
       try {
         const res = await getApi("/admin/user");
-        console.log(149, 'user',res)
         setstate(res.data);
       } catch (error) {
         console.log(168, error);
@@ -146,30 +139,8 @@ function Nhanvien(props) {
   }, [isin]);
 
   function onChange(pagination, filters, sorter, extra) {
-    console.log("params", pagination, filters, sorter, extra);
   }
 
-  function ondelete(id) {
-    Modal.confirm({
-      title: "Bạn có chắc muốn xóa không",
-      okText: "Yes",
-      okType: "danger",
-      onOk: () => {
-        async function getAllorder() {
-          let token = getUserCookie("user");
-          console.log(147, token);
-          try {
-            const res = await deleteApi(`/admin/user/${id}`);
-          } catch (error) {
-            console.log(168, error);
-          }
-        }
-        getAllorder();
-        count();
-      },
-    });
-  }
-  console.log(182, data);
   return (
     <div>
       <Header tenname={props.name}></Header>
