@@ -13,8 +13,7 @@ const Categories = (props) => {
   }
   return (
     <div className="categories">
-      {categories.map((category) => {
-        console.log("category", category);
+      {categories?.map((category) => {
         return (
           <div
             style={{ display: "flex", margin: "auto" }}
@@ -40,15 +39,6 @@ const Categories = (props) => {
               />
             </Box>
           </div>
-          // <Tooltip title={categories.categoriesName} style={{ border: "none" }}>
-          //   <div>
-          //     <img
-          //     className="categories-img"
-          //     src={process.env.REACT_APP_SEA_FOOD_URL + category.thumpNail}
-          //   />
-          //   </div>
-
-          // </Tooltip>
         );
       })}
     </div>
