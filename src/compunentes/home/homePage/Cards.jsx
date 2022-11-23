@@ -1,4 +1,4 @@
-import React, { } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "antd";
 
@@ -35,18 +35,16 @@ const Cards = ({ item, keyId, sort }) => {
   }
 
   return (
-    <div
-      key={keyId}
-      className="home_cards-itm"
-    >
+    <div key={keyId} className="home_cards-itm">
       <div className="cards-container">
         <div className="cards">
-          <div className="item_image-box"
+          <div
+            className="item_image-box"
             onClick={() => {
               moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
             }}
           >
-            <div className="image_box">
+            <div className="image_box" style={{ height: "150px" }}>
               <img
                 className="image_box-image"
                 src={process.env.REACT_APP_SEA_FOOD_URL + item.productPic[0]}
@@ -55,13 +53,31 @@ const Cards = ({ item, keyId, sort }) => {
             </div>
           </div>
           <div>
-            <h2 className="ProductName">{item.productName}</h2>
+            <h2 style={{ minHeight: "56px" }} className="ProductName">
+              {item.productName}
+            </h2>
             <p>Loại: {item.idCategory.categoriesName}</p>
             <h1 className="price-product">Giá: {item.price}</h1>
-            <p>Số lượng: {item.storage} {item.unit}</p>
-            <Button className="btn-detail" onClick={() => {
-              moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
-            }}>Xem chi tiết</Button>
+            <p>
+              Số lượng: {item.storage} {item.unit}
+            </p>
+            <Button
+              className="btn-detail"
+              onClick={() => {
+                moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
+              }}
+            >
+              Xem chi tiết
+            </Button>
+            <p>Số lượng: {item.storage}</p>
+            <Button
+              className="btn-detail"
+              onClick={() => {
+                moveToProduct(RemoveAccents(item.productName).split(" ").join(""));
+              }}
+            >
+              Xem chi tiết
+            </Button>
           </div>
         </div>
       </div>

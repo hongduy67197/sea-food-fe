@@ -20,8 +20,8 @@ const Home = () => {
     filter: {
       productName: "",
       idCategory: "",
-      high: 1000000,
-      low: 0,
+      high: "",
+      low: "",
     },
     pagination: {
       page: 1,
@@ -96,15 +96,18 @@ const Home = () => {
             </div>
           </div>
           {/* Pagination */}
-          <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
-            <Pagination
-              count={20}
-              color="primary"
-              onChange={(e, page) => {
-                changeFilter({ ...filter, pagination: { ...filter.pagination, page: page } });
-              }}
-            />
-          </Stack>
+
+          <div style={{ marginTop: "30px" }}>
+            <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
+              <Pagination
+                count={20}
+                color="primary"
+                onChange={(e, page) => {
+                  changeFilter({ ...filter, pagination: { ...filter.pagination, page: page } });
+                }}
+              />
+            </Stack>
+          </div>
         </div>
       </div>
 

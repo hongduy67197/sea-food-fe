@@ -1,0 +1,17 @@
+.categories {
+  max-width: 1200px;
+  min-height: 32px;
+  display: flex;
+}
+
+.categories_icon {
+  border: 1px solid rgb(201, 201, 201);
+  border-radius: 20px;
+  margin-right: 5px;
+  cursor: pointer;
+  width: 30px;
+}
+
+.categories-img:hover {
+  border: 1px solid #2f80ed;
+}
