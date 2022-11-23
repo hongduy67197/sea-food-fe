@@ -97,16 +97,7 @@ useEffect(() => {
         <OrderAll userCart={userCart} userOder={userOder}></OrderAll>
       </div>
       <div className="orderCheck">
-<<<<<<< HEAD
-        <OrderCheck
-          setUserCart={setUserCart}
-          userOder={userOder}
-          userCart={userCart}
-          status="done"
-        ></OrderCheck>
-=======
         <OrderCheck setUserCart={setUserCart} userOder={userOder} userCart={userCart} status='pending'></OrderCheck>
->>>>>>> 6d2933465500357b1faf91e9289b7436011fb98d
       </div>
       <div className="orderDaGiao">
         <OrderDaGiao

@@ -82,23 +82,6 @@ const Home = () => {
       {loading && <Loading />}
       <div className="home">
         <div className="home-container">
-<<<<<<< HEAD
-          <div>
-          </div>
-          <Categories categories={categories} />
-          <div className=" box-checkbox">
-            <p className="total-product">{product.length} Điện Thoại</p>
-            <span className="product-item-flash">
-              <ThunderboltFilled className="item-flash-icon" />
-              GIAO SIÊU NHANH
-            </span>
-            <span className="HomeFilter">
-              <HomeFilter productCode={product} setSort={setSort} />
-            </span>
-          </div>
-          <Chat />
-=======
->>>>>>> 6d2933465500357b1faf91e9289b7436011fb98d
           <div className="home-container-filter">
             <div className="home-page-product">
               <ListProduct
@@ -110,10 +93,7 @@ const Home = () => {
               />
             </div>
           </div>
-<<<<<<< HEAD
-=======
           {/* Pagination */}
->>>>>>> 6d2933465500357b1faf91e9289b7436011fb98d
           <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
             <Pagination
               count={20}
