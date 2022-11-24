@@ -76,8 +76,13 @@ return state.user
   //     document.querySelector(".staff").style.display = "none";
   //   }
   // }
+  function delete_cookie(name) {
+    document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  }
+  
 
   async function logout() {
+    delete_cookie('user')
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("userCart");
     window.location.href = '/'

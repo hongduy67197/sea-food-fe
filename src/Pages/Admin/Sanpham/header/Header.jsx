@@ -6,6 +6,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { getApi } from "../../../../api/config";
 import Categories_sea from "../categories/Categories";
 import "./header.css";
+
+function delete_cookie(name) {
+  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}
+
 const Header = (props) => {
   const { filter, changeFilter, categories } = props;
   const navigate = useNavigate();
@@ -20,6 +25,7 @@ const Header = (props) => {
   }
   async function logout() {
     // await axios.post("/user/logOut");
+    delete_cookie('user');
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("userCart");
     window.location.reload(true);

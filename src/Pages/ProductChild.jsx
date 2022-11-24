@@ -37,6 +37,38 @@ function ProductChild(props) {
     }
     pathCard();
   }
+
+  function getCookie(cname) {
+    let name = cname + '=';
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return '';
+  }
+
+  function onClickAddToCart(idProduct, quantity){
+    const cookie = getCookie('user');
+    if(!cookie || cookie == 'undefined') {
+      return toast.error("chưa login", {
+        position: "top-center",
+        autoClose: 3000,
+      });
+    }
+    addCard(idProduct, quantity);
+    toast.info("Sản phẩm đã được thêm vào giỏ hàng", {
+      position: "top-center",
+      autoClose: 3000,
+    });
+  }
+
   return (
     <>
       <Header></Header>
@@ -88,11 +120,7 @@ function ProductChild(props) {
               <button
                 className="detail__addButton"
                 onClick={() => {
-                  addCard(idProduct, quantity);
-                  toast.info("Sản phẩm đã được thêm vào giỏ hàng", {
-                    position: "top-center",
-                    autoClose: 3000,
-                  });
+                  onClickAddToCart(idProduct, quantity)
                 }}
               >
                 Thêm vào giỏ hàng

@@ -8,6 +8,11 @@ import axios from "../../axios";
 import Categories from "../categories/Categories";
 import "../header/header.css";
 import Search from "../header/Search";
+
+function delete_cookie(name) {
+  document.cookie = name + "=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+}
+
 const Header = (props) => {
   const { filter, changeFilter, categories } = props;
   const navigate = useNavigate();
@@ -19,6 +24,7 @@ const Header = (props) => {
     navigate("/User/UserPase");
   }
   async function logout() {
+    delete_cookie('user')
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("userCart");
     window.location.reload(true);
