@@ -124,13 +124,6 @@ const Header = (props) => {
             </div>
           </div>
         </div>
-        <Categories_sea
-          filter={filter}
-          categories={categories}
-          changeFilter={(data) => {
-            changeFilter(data);
-          }}
-        />
       </header>
     </>
   );

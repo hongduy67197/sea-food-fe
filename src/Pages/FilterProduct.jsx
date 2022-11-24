@@ -1,17 +1,33 @@
-import { Pagination } from "@mui/material";
+import { Button, Pagination } from "@mui/material";
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Paper from "@mui/material/Paper";
+import { styled } from "@mui/material/styles";
 import { Stack } from "@mui/system";
-import React, { useEffect, useState } from "react";
-import Loading from "../component/Loading/Loading";
+import React, { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { getApi } from "../api/config";
 import "../App.css";
 import "../asset/css/base.css";
 import "../asset/css/grid.css";
 import "../asset/css/main.css";
 import "../asset/css/responsive.css";
+import Loading from "../component/Loading/Loading";
 import Footer from "../compunentes/footer/Footer";
 import ListProduct from "../compunentes/home/homePage/ListProduct";
+import RangeSlider from "../compunentes/home/homePage/RangerSlider";
+import Categories_sea from "./Admin/Sanpham/header/categories/Categories";
 import Header from "./Admin/Sanpham/header/Header";
-import { useLocation } from "react-router-dom";
+import TabPanel from "../compunentes/SideBar";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: "center",
+  color: theme.palette.text.secondary,
+}));
+
 function FilterProduct(props) {
   const location = useLocation();
   const { state } = location;
@@ -22,12 +38,13 @@ function FilterProduct(props) {
   const [categories, setCategories] = useState([]);
   const [NewIcon, setNewIcon] = useState([]);
   const [loading, setLoading] = useState(false);
+
   const initFilter = {
     filter: {
       productName: "",
       idCategory: state?.category?._id || "",
-      high: 1000000,
-      low: 0,
+      high: "",
+      low: "",
     },
     pagination: {
       page: 1,
@@ -93,25 +110,57 @@ function FilterProduct(props) {
         <div className="home-container">
           <div className="home-container-filter">
             <div className="home-page-product">
-              <ListProduct
-                sort={sort}
-                productCode={product}
-                categories={categories}
-                numberShow={numberShow}
-                NewIcon={NewIcon}
-              />
+              <Box sx={{ flexGrow: 1 }}>
+                <Grid container spacing={2}>
+                  <Grid item xs={6} md={3}>
+                    {/* <TabPanel
+                      filter={filter}
+                      categories={categories}
+                      changeFilter={(data) => {
+                        changeFilter(data);
+                      }}
+                    /> */}
+                    <Categories_sea
+                      filter={filter}
+                      categories={categories}
+                      changeFilter={(data) => {
+                        changeFilter(data);
+                      }}
+                    />
+                    <div style={{ marginTop: "30px" }}>
+                      <RangeSlider
+                        filter={filter}
+                        changeFilter={(data) => {
+                          changeFilter(data);
+                        }}
+                      />
+                    </div>
+                  </Grid>
+                  <Grid item xs={6} md={9}>
+                    <ListProduct
+                      sort={sort}
+                      productCode={product}
+                      categories={categories}
+                      numberShow={numberShow}
+                      NewIcon={NewIcon}
+                    />
+                  </Grid>
+                </Grid>
+              </Box>
             </div>
           </div>
           {/* Pagination */}
-          <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
-            <Pagination
-              count={20}
-              color="primary"
-              onChange={(e, page) => {
-                changeFilter({ ...filter, pagination: { ...filter.pagination, page: page } });
-              }}
-            />
-          </Stack>
+          <div style={{ marginTop: "30px" }}>
+            <Stack direction="row-reverse" justifyContent="center" alignItems="center" spacing={2}>
+              <Pagination
+                count={20}
+                color="primary"
+                onChange={(e, page) => {
+                  changeFilter({ ...filter, pagination: { ...filter.pagination, page: page } });
+                }}
+              />
+            </Stack>
+          </div>
         </div>
       </div>
 
