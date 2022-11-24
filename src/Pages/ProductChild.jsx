@@ -37,7 +37,6 @@ function ProductChild(props) {
     }
     pathCard();
   }
-  console.log(getDataShow);
   return (
     <>
       <Header></Header>
