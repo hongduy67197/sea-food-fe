@@ -17,8 +17,8 @@ import Footer from "../compunentes/footer/Footer";
 import ListProduct from "../compunentes/home/homePage/ListProduct";
 import RangeSlider from "../compunentes/home/homePage/RangerSlider";
 import Categories_sea from "./Admin/Sanpham/header/categories/Categories";
-import Header from "./Admin/Sanpham/header/Header";
 import TabPanel from "../compunentes/SideBar";
+import Header from "../compunentes/header/Header";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -96,6 +96,20 @@ function FilterProduct(props) {
   }, [sort]); // truyền sort để lắng nghe thay đổi
   console.log("localtion ", location);
 
+  const [mountCart, setMountCart] = useState(0);
+  useEffect(() => {
+    console.log("_inAPIcart");
+    async function getData() {
+      try {
+        const data = await getApi(`/user/carts`);
+        setMountCart(data.data.cart.listProduct.length);
+      } catch (error) {
+        console.log(39, error);
+      }
+    }
+    getData();
+  }, []);
+
   return (
     <div>
       <Header
@@ -104,7 +118,9 @@ function FilterProduct(props) {
           changeFilter(data);
         }}
         categories={categories}
+        mountCart={mountCart}
       />
+
       {loading && <Loading />}
       <div className="home">
         <div className="home-container">
