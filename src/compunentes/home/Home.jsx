@@ -45,7 +45,7 @@ const Home = () => {
         const data = await getApi(
           `/user/product/filter?productName=${productName}&idCategory=${idCategory}&page=${page}&pageSize=${pageSize}&high=${high}&low=${low}`
         );
-        setProduct(data.data.filter);
+        setProduct(data?.data?.filter);
         const categoryRes = await getApi("/user/get-all-category");
         setCategories(categoryRes.data.categories);
         setLoading(false);
@@ -72,6 +72,20 @@ const Home = () => {
     setProductCode(cloneProductCode); //set lại productCode khi có đáp ứng đủ điều kiện ( đk được truyền bên select HomeFilter)
   }, [sort]); // truyền sort để lắng nghe thay đổi
 
+  const [mountCart, setMountCart] = useState(0);
+  useEffect(() => {
+    console.log("_inAPIcart");
+    async function getData() {
+      try {
+        const data = await getApi(`/user/carts`);
+        setMountCart(data.data.cart.listProduct.length);
+      } catch (error) {
+        console.log(39, error);
+      }
+    }
+    getData();
+  }, []);
+
   return (
     <>
       <Header
@@ -80,6 +94,7 @@ const Home = () => {
           changeFilter(data);
         }}
         categories={categories}
+        mountCart={mountCart}
       />
       {loading && <Loading />}
       <div className="home">

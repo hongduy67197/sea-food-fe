@@ -10,7 +10,10 @@ function ProductChild(props) {
   const { idProduct } = props;
   const [getDataShow, setGetDataShow] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [quantityProduct, setQuantityProduct] = useState("");
   const domain = process.env.REACT_APP_SEA_FOOD_URL;
+  const [triggerCart, setTriggerCart] = useState(0);
+  const [mountCart, setMountCart] = useState(0);
 
   useEffect(() => {
     async function getData() {
@@ -24,12 +27,31 @@ function ProductChild(props) {
     getData();
   }, [props]);
 
+  useEffect(() => {
+    console.log("_inAPIcart");
+    async function getData() {
+      try {
+        const data = await getApi(`/user/carts`);
+        setMountCart(data.data.cart.listProduct.length);
+      } catch (error) {
+        console.log(39, error);
+      }
+    }
+    getData();
+  }, [triggerCart]);
+
   function addCard(idProduct, quantity) {
     async function pathCard() {
       try {
-        await patchApi(`/user/carts/add-to-cart`, {
+        const data = await patchApi(`/user/carts/add-to-cart`, {
           idProduct,
           quantity,
+        });
+        console.log("numberCart", data.data.cart.listProduct.length);
+        setMountCart(data.data.cart.listProduct.length);
+        toast.success("Đã thêm sản phẩm vào giỏ hàng", {
+          position: "top-left",
+          autoClose: 1000,
         });
       } catch (error) {
         console.log(39, error);
@@ -39,39 +61,35 @@ function ProductChild(props) {
   }
 
   function getCookie(cname) {
-    let name = cname + '=';
+    let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
-    let ca = decodedCookie.split(';');
+    let ca = decodedCookie.split(";");
     for (let i = 0; i < ca.length; i++) {
-        let c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
+      let c = ca[i];
+      while (c.charAt(0) == " ") {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
     }
-    return '';
+    return "";
   }
 
-  function onClickAddToCart(idProduct, quantity){
-    const cookie = getCookie('user');
-    if(!cookie || cookie == 'undefined') {
+  function onClickAddToCart(idProduct, quantity) {
+    const cookie = getCookie("user");
+    if (!cookie || cookie == "undefined") {
       return toast.error("chưa login", {
         position: "top-center",
         autoClose: 3000,
       });
     }
     addCard(idProduct, quantity);
-    toast.info("Sản phẩm đã được thêm vào giỏ hàng", {
-      position: "top-center",
-      autoClose: 3000,
-    });
   }
 
   return (
     <>
-      <Header></Header>
+      <Header mountCart={mountCart} setMountCart={setMountCart}></Header>
       <div className="detail__container">
         {getDataShow && (
           <div className="detail__container1">
@@ -92,7 +110,7 @@ function ProductChild(props) {
               <p className="detail__storage">
                 <span>Hàng còn trong kho : </span>
                 {getDataShow.storage}
-                <span>{' '}{getDataShow.unit}</span>
+                <span> {getDataShow.unit}</span>
               </p>
               <p className="detail__createDate">
                 <span>Ngày đóng gói : </span>
@@ -105,14 +123,8 @@ function ProductChild(props) {
                 max={getDataShow.storage}
                 min={0}
                 onChange={(e) => {
-                  if (
-                    e.target.value > getDataShow.storage ||
-                    e.target.value <= 0
-                  ) {
-                    alert(
-                      "Số lượng phải nằm trong khoảng 0 đến " +
-                        getDataShow.storage
-                    );
+                  if (e.target.value > getDataShow.storage || e.target.value <= 0) {
+                    alert("Số lượng phải nằm trong khoảng 0 đến " + getDataShow.storage);
                   }
                   setQuantity(e.target.value);
                 }}
@@ -120,7 +132,8 @@ function ProductChild(props) {
               <button
                 className="detail__addButton"
                 onClick={() => {
-                  onClickAddToCart(idProduct, quantity)
+                  onClickAddToCart(idProduct, quantity);
+                  setTriggerCart(Math.floor(Math.random() * 100) + 1);
                 }}
               >
                 Thêm vào giỏ hàng

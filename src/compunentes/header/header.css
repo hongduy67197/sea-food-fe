@@ -6,16 +6,8 @@
 .HeaderVietnamese {
   width: 100%;
 }
-
-.Cuong__header {
-  background-image: linear-gradient(135deg, white, lightgreen, darkblue);
-  width: 100%;
-  padding: 0 0 10px 0;
-}
-
-.gird {
-  margin: 0 auto;
-  width: 84%;
+.header_app {
+  background-image: linear-gradient(45deg, #003cff8a, #0004ff);
 }
 
 .header_navbar {
@@ -77,10 +69,11 @@
 }
 
 .header_navbar_iteam_mypage_selec-item:hover {
-  color: red;
+  color: black;
 }
 
 .header_navbar_iteam_mypage_selec-item {
+  color: black;
   padding-bottom: 5px;
 }
 
@@ -437,6 +430,9 @@
 .header_cart {
   cursor: pointer;
   text-align: center;
+  display: "flex";
+
+  flex-direction: row;
 }
 
 .header_cart:hover .header_cart-list {
@@ -504,14 +500,7 @@
   color: rgb(186, 186, 186);
 }
 
-.header_search {
-  width: 95%;
-  display: flex;
-  justify-content: space-between;
-}
-
 .header_search-input-wrap {
-  flex: 1;
   height: 100%;
   position: relative;
 }
@@ -595,7 +584,7 @@
 }
 
 .header_search-section {
-  width: 74%;
+  width: 60%;
   flex-direction: column;
   justify-content: flex-start;
 }
@@ -629,7 +618,7 @@
 }
 /* --------------- */
 .header_logo_my {
-  color: black;
+  color: white;
   font-size: 30px;
   font-weight: bold;
 }
