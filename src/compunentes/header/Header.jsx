@@ -33,7 +33,7 @@ const Header = (props) => {
   });
   const imager = userInfo.avatar ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar : userlogo;
   function on_mypage() {
-    navigate("/User/UserPase");
+    navigate("/User/UserPage");
   }
   async function logout() {
     delete_cookie("user");
