@@ -73,14 +73,12 @@ const App = (props) => {
       } else {
       }
     });
-
   }, []);
   useEffect(() => {
     async function getData() {
       try {
         const data = await getApi("/user/productlist");
         setDataFilter(data.data.listProductList);
-
       } catch (error) {
         console.log(39, error);
       }
@@ -162,10 +160,7 @@ const App = (props) => {
                 <Route
                   path={`/product/filter/${RemoveAccents(val.productName).split(" ").join("")}`}
                   element={
-                    <ProductChild
-                      idProduct={val._id}
-                      changeStateProduct={changeStateProduct}
-                    />
+                    <ProductChild idProduct={val._id} changeStateProduct={changeStateProduct} />
                   }
                 />
               );
@@ -353,7 +348,7 @@ const App = (props) => {
             />
             <Route path="/User/UserLogin" element={<UserLogin></UserLogin>} />
             <Route path="/User/UserSingIn" element={<UserSingIn></UserSingIn>} />
-            <Route path="/User/UserPase" element={<UserPase></UserPase>} />
+            <Route path="/User/UserPage" element={<UserPase></UserPase>} />
             <Route path="/User/order/:orderid" element={<CreateOrder />} />
             <Route
               path="User/UserPage/ForgotPassword/ForgotPassword"
