@@ -7,8 +7,8 @@ body {
   background-color: rgb(245, 245, 245, 5) !important;
 }
 .container_body {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 15%;
+  margin-right: 15%;
   min-width: 1000px;
   /* display: none; */
 }
@@ -36,11 +36,11 @@ body {
   margin-bottom: 15px;
   height: 150px;
   padding: 0 155px;
-  background-image: linear-gradient(0, #f4ea2a, #f5a001);
+  background-image: linear-gradient(45deg, #003cff8a, #0004ff);
 }
 .border-title {
   height: 100px;
-  border: 1px solid #ee4d2d;
+  border: 1px solid white;
   margin: 0 15px;
 }
 .letf-title {
@@ -75,7 +75,8 @@ input[type="checkbox"]:checked {
 }
 .name-title {
   font-size: 32px;
-  color: red;
+  color: white;
+  cursor: pointer;
 }
 .Img_product {
   width: 95px;
@@ -315,6 +316,7 @@ input[type="checkbox"]:checked {
 }
 .tab-wapper {
   position: relative;
+  padding: "0 335px";
 }
 .info_payment {
   background-color: #fff;
@@ -490,7 +492,7 @@ input #check :checked {
   width: 100%;
   background: linear-gradient(transparent, rgba(0, 0, 0, 0.06));
 }
-.order-form{
+.order-form {
   margin: 12px 0;
   width: 100%;
   padding: 4px 8px;
