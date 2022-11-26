@@ -17,15 +17,15 @@ function Cart(props) {
   const [productDatas, setProductDatas] = useState([]);
   const [sumTotal, setSumTotal] = useState(0);
   const [count, setCount] = useState(0);
-   
+
   useEffect(() => {
     async function getData() {
       try {
         const data = await getApi("/user/carts");
         setProductDatas(data.data.cart.listProduct);
         const sumCart = data.data.cart.listProduct.reduce((sum, ele) => {
-          return sum + ele.idProduct.price * ele.quantity
-        }, 0)
+          return sum + ele.idProduct.price * ele.quantity;
+        }, 0);
 
         setSumTotal(sumCart);
       } catch (error) {
@@ -55,7 +55,7 @@ function Cart(props) {
         await patchApi(`/user/carts`, {
           idProduct: id,
           quantity: newQuantity,
-        })
+        });
 
         setCount(count + 1);
       } else {
@@ -71,10 +71,10 @@ function Cart(props) {
     try {
       setIsModalVisible(false);
       const order = await postApi(`user/order`, {
-        address: document.querySelector('.order-form-address').value,
-        address: document.querySelector('.order-form-phone').value,
-      })
-      Navigate('/user/order/'+order.data._id)
+        address: document.querySelector(".order-form-address").value,
+        address: document.querySelector(".order-form-phone").value,
+      });
+      Navigate("/user/order/" + order.data._id);
     } catch (error) {
       console.log(error);
     }
@@ -87,13 +87,13 @@ function Cart(props) {
   async function upQuantity(index, id) {
     try {
       const newQuantity = productDatas[index].quantity + 1;
-      const checkProduct = await getApi('user/product/get-one-product/'+id)
-      if(checkProduct.data.product.storage < newQuantity) return alert('khong du ton kho');
+      const checkProduct = await getApi("user/product/get-one-product/" + id);
+      if (checkProduct.data.product.storage < newQuantity) return alert("khong du ton kho");
 
       await patchApi(`/user/carts`, {
         idProduct: id,
         quantity: newQuantity,
-      })
+      });
 
       setCount(count + 1);
     } catch (error) {
@@ -129,15 +129,8 @@ function Cart(props) {
             <div className="title-chil">
               <div className="letf-title">
                 <div className="name-title" onClick={Home}>
-                  Giỏ Hàng
+                  Trang chủ
                 </div>
-              </div>
-              <div className="right-title">
-                <img
-                  src="//icms-image.slatic.net/images/ims-web/839b66fb-6c8e-4e46-8a80-06a5e08fb4d4.png"
-                  alt=""
-                  style={{ width: "250px" }}
-                />
               </div>
             </div>
           </div>
@@ -164,10 +157,8 @@ function Cart(props) {
                           src={domain + `${value.idProduct.productPic[0]}`}
                         />
                       </div>
-                      <div className="nameProduct">
-                        {value.idProduct.productName}
-                      </div>
-                 
+                      <div className="nameProduct">{value.idProduct.productName}</div>
+
                       <div className="info-dongia">
                         {value.idProduct.price.toLocaleString()}
                         <sup>đ</sup>
@@ -182,7 +173,6 @@ function Cart(props) {
                           >
                             -
                           </Button>
-                          
                         </>
 
                         <div className="quantity-result">{value.quantity}</div>
@@ -194,17 +184,13 @@ function Cart(props) {
                         </button>
                       </div>
                       <div className="info-list-thanhtien">
-                        {(
-                          Number(value.idProduct.price) * Number(value.quantity)
-                        ).toLocaleString()}
+                        {(Number(value.idProduct.price) * Number(value.quantity)).toLocaleString()}
                         <sup>đ</sup>
                       </div>
                       <div className="info-list-thaotac">
                         <p
                           className="text-xoa"
-                          onClick={() =>
-                            deleteProduct(index, value.idProduct._id)
-                          }
+                          onClick={() => deleteProduct(index, value.idProduct._id)}
                         >
                           Xóa
                         </p>
@@ -212,13 +198,12 @@ function Cart(props) {
                     </div>
                   );
                 })}
-                <div className="gird-item1">
-                </div>
+                <div className="gird-item1"></div>
                 <div className="info_payment">
                   <div className="return-payment">
                     <div className="title-payment price-total">
-                      Tổng thanh toán ({productDatas.length} sản phẩm) :{" "}
-                      {sumTotal.toLocaleString()} <sup>đ</sup>
+                      Tổng thanh toán ({productDatas.length} sản phẩm) : {sumTotal.toLocaleString()}{" "}
+                      <sup>đ</sup>
                     </div>
                     <>
                       <Space>
@@ -241,9 +226,7 @@ function Cart(props) {
                 <div className="icon-giohang">
                   <i class="fa-solid fa-cart-plus"></i>
                 </div>
-                <div className="text-conpoment">
-                  Không có sản phầm nào trong giỏ hàng.
-                </div>
+                <div className="text-conpoment">Không có sản phầm nào trong giỏ hàng.</div>
                 <button onClick={Home} className="btn-gohome">
                   Về Trang Chủ
                 </button>
@@ -265,9 +248,8 @@ function Cart(props) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <input type="text" placeholder="address" className="order-form order-form-address"/>
-        <input type="text" placeholder="phone" className="order-form order-form-phone"/>
-        
+        <input type="text" placeholder="address" className="order-form order-form-address" />
+        <input type="text" placeholder="phone" className="order-form order-form-phone" />
       </Modal>
       <Footer></Footer>
     </>

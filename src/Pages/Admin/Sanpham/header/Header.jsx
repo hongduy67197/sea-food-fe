@@ -18,14 +18,14 @@ const Header = (props) => {
     return state.user;
   });
 
-  console.log(16, userInfo)
+  console.log(16, userInfo);
   const imager = userInfo.avatar ? process.env.REACT_APP_CLIENT_URL + userInfo.avatar : null;
   function on_mypage() {
-    navigate("/User/UserPase");
+    navigate("/User/UserPage");
   }
   async function logout() {
     // await axios.post("/user/logOut");
-    delete_cookie('user');
+    delete_cookie("user");
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("userCart");
     window.location.reload(true);
